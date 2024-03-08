@@ -30,3 +30,17 @@ namespace GatherPressQueryLoop;
 		}
 	}
 );
+
+/**
+ * Re-Enable the GatherPress blocks to be used/inserted everywhere,
+ *
+ * which was disabled in https://github.com/GatherPress/gatherpress/pull/225
+ * and discussed in https://github.com/GatherPress/gatherpress/issues/207.
+ */
+\add_action(
+	'admin_enqueue_scripts',
+	function () {
+		\wp_dequeue_script( 'gatherpress-admin' );
+	},
+	11
+);
