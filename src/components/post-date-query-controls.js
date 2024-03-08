@@ -22,9 +22,9 @@ export const PostDateQueryControls = ( { attributes, setAttributes } ) => {
 
 	return (
 		<>
-			<h2>{ __( 'Post Date Query', 'advanced-query-loop' ) }</h2>
+			<h2>{ __( 'Post Date Query', 'gatherpress-query-loop' ) }</h2>
 			<SelectControl
-				label={ __( 'Date Relationship', 'advanced-query-loop' ) }
+				label={ __( 'Date Relationship', 'gatherpress-query-loop' ) }
 				value={ relationFromQuery }
 				options={ [
 					{ label: 'None', value: '' },
@@ -50,7 +50,7 @@ export const PostDateQueryControls = ( { attributes, setAttributes } ) => {
 			{ relationFromQuery !== '' && (
 				<>
 					{ relationFromQuery === 'between' && (
-						<h4>{ __( 'Start date', 'advanced-query-loop' ) }</h4>
+						<h4>{ __( 'Start date', 'gatherpress-query-loop' ) }</h4>
 					) }
 					<DatePicker
 						currentDate={ datePrimary }
@@ -69,7 +69,7 @@ export const PostDateQueryControls = ( { attributes, setAttributes } ) => {
 
 					{ relationFromQuery === 'between' && (
 						<>
-							<h4>{ __( 'End date', 'advanced-query-loop' ) }</h4>
+							<h4>{ __( 'End date', 'gatherpress-query-loop' ) }</h4>
 							<DatePicker
 								currentDate={ dateSecondary }
 								onChange={ ( newDate ) => {
@@ -91,11 +91,11 @@ export const PostDateQueryControls = ( { attributes, setAttributes } ) => {
 					<CheckboxControl
 						label={ __(
 							'Include selected date(s)',
-							'advanced-query-loop'
+							'gatherpress-query-loop'
 						) }
 						help={ __(
 							'Should the selected date(s) be included in your query?',
-							'advanced-query-loop'
+							'gatherpress-query-loop'
 						) }
 						checked={ isInclusive }
 						onChange={ ( newIsInclusive ) => {

@@ -10,7 +10,7 @@ export const PostOffsetControls = ( { attributes, setAttributes } ) => {
 	const { query: { offset = 0 } = {} } = attributes;
 	return (
 		<NumberControl
-			label={ __( 'Post Offset', 'advanced-query-loop' ) }
+			label={ __( 'Post Offset', 'gatherpress-query-loop' ) }
 			value={ offset }
 			min={ 0 }
 			onChange={ ( newOffset ) => {

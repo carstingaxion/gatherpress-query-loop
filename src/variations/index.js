@@ -7,21 +7,21 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import './controls';
-import AQLIcon from '../components/icons';
-import AQLControls from '../slots/aql-controls';
-import AQLControlsInheritedQuery from '../slots/aql-controls-inherited-query';
-const AQL = 'advanced-query-loop';
+import GPQLIcon from '../components/icons';
+import GPQLControls from '../slots/gpql-controls';
+import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
+const GPQL = 'gatherpress-query-loop';
 
 registerBlockVariation( 'core/query', {
-	name: AQL,
-	title: __( 'Advanced Query Loop', 'advanced-query-loop' ),
-	description: __( 'Create advanced queries', 'advanced-query-loop' ),
-	icon: AQLIcon,
+	name: GPQL,
+	title: __( 'GatherPress Query Loop', 'gatherpress-query-loop' ),
+	description: __( 'Create gatherpress queries', 'gatherpress-query-loop' ),
+	icon: GPQLIcon,
 	isActive: [ 'namespace' ],
 	attributes: {
-		namespace: AQL,
+		namespace: GPQL,
 	},
 	scope: [ 'inserter', 'transform' ],
 } );
 
-export { AQL, AQLControls, AQLControlsInheritedQuery };
+export { GPQL, GPQLControls, GPQLControlsInheritedQuery };

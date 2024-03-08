@@ -6,11 +6,11 @@ import { createSlotFill } from '@wordpress/components';
 /**
  * Create our Slot and Fill components
  */
-const { Fill, Slot } = createSlotFill( 'AQLControls' );
+const { Fill, Slot } = createSlotFill( 'GPQLControls' );
 
-const AQLControls = ( { children } ) => <Fill>{ children }</Fill>;
+const GPQLControls = ( { children } ) => <Fill>{ children }</Fill>;
 
-AQLControls.Slot = ( { fillProps } ) => (
+GPQLControls.Slot = ( { fillProps } ) => (
 	<Slot fillProps={ fillProps }>
 		{ ( fills ) => {
 			return fills.length ? fills : null;
@@ -18,4 +18,4 @@ AQLControls.Slot = ( { fillProps } ) => (
 	</Slot>
 );
 
-export default AQLControls;
+export default GPQLControls;

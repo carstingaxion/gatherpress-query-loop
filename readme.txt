@@ -1,4 +1,4 @@
-=== Advanced Query Loop ===
+=== GatherPress Query Loop ===
 Contributors: welcher
 Tags: Query Loop, Custom Queries
 Requires at least: 6.2
@@ -14,7 +14,7 @@ A Query Loop block variation that provides controls to build more complicated qu
 This plugin introduces a Query Loop block variation that will empower users to be able to do much more complicated queries with the Query Loop block, such number of posts to display and post meta
 
 === Support/Issues ===
-Please use the either the [support](https://wordpress.org/support/plugin/advanced-query-loop/) forum or the [official repository](https://github.com/ryanwelcher/advanced-query-loop) for any questions or to log issues.
+Please use the either the [support](https://wordpress.org/support/plugin/gatherpress-query-loop/) forum or the [official repository](https://github.com/ryanwelcher/gatherpress-query-loop) for any questions or to log issues.
 
 === Available Controls ===
 
@@ -59,7 +59,7 @@ Sort in ascending or descending order by:
 * ACF custom fields now show in the auto-complete dropdown list for Post Meta Queries ( props to @jvanja  )
 * Adds sort by Post ID ( props to @markhowellsmead )
 * Fixes a typo in the Order By label.
-* Fixes a bug where a second AQL instances was getting post meta query values from the first.
+* Fixes a bug where a second GPQL instances was getting post meta query values from the first.
 
 = 2.0.0 =
 * Due to a change in core, Post Count can no longer be overridden when the block is set to inherit the query.
@@ -71,7 +71,7 @@ Sort in ascending or descending order by:
 * Adds EXISTS as a compare option for Post Meta Queries.
 
 = 1.5 =
-* Moves all controls into a single panel titled "Advanced Query Settings".
+* Moves all controls into a single panel titled "GatherPress Query Settings".
 * Exposes SlotFills and filters to allow extension of plugin to add any featured you want.
 * Minor PHP warning fixes.
 
@@ -91,7 +91,7 @@ Sort in ascending or descending order by:
 
 = 1.3.0 =
 * Adds support for sorting by Meta Value, Meta Value Num, and Random.
-* Adds transform to convert existing Query Loop instances into Advanced Query Loop blocks.
+* Adds transform to convert existing Query Loop instances into GatherPress Query Loop blocks.
 * Adds a release command.
 * Adds support for querying multiple post types.
 

@@ -15,54 +15,54 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 	return (
 		<>
 			<SelectControl
-				label={ __( 'Post Order By', 'advanced-query-loop' ) }
+				label={ __( 'Post Order By', 'gatherpress-query-loop' ) }
 				value={ orderBy }
 				help={
 					orderBy === 'meta_value' || orderBy === 'meta_value_num'
 						? __(
 								'Meta Value and Meta Value Num require that Meta Key is set in the Meta Query section.',
-								'advanced-query-loop'
+								'gatherpress-query-loop'
 						  )
 						: ''
 				}
 				options={ [
 					{
-						label: __( 'Author', 'advanced-query-loop' ),
+						label: __( 'Author', 'gatherpress-query-loop' ),
 						value: 'author',
 					},
 					{
-						label: __( 'Date', 'advanced-query-loop' ),
+						label: __( 'Date', 'gatherpress-query-loop' ),
 						value: 'date',
 					},
 					{
 						label: __(
 							'Last Modified Date',
-							'advanced-query-loop'
+							'gatherpress-query-loop'
 						),
 						value: 'modified',
 					},
 					{
-						label: __( 'Title', 'advanced-query-loop' ),
+						label: __( 'Title', 'gatherpress-query-loop' ),
 						value: 'title',
 					},
 					{
-						label: __( 'Meta Value', 'advanced-query-loop' ),
+						label: __( 'Meta Value', 'gatherpress-query-loop' ),
 						value: 'meta_value',
 					},
 					{
-						label: __( 'Meta Value Num', 'advanced-query-loop' ),
+						label: __( 'Meta Value Num', 'gatherpress-query-loop' ),
 						value: 'meta_value_num',
 					},
 					{
-						label: __( 'Random', 'advanced-query-loop' ),
+						label: __( 'Random', 'gatherpress-query-loop' ),
 						value: 'rand',
 					},
 					{
-						label: __( 'Menu Order', 'advanced-query-loop' ),
+						label: __( 'Menu Order', 'gatherpress-query-loop' ),
 						value: 'menu_order',
 					},
 					{
-						label: __( 'Post ID', 'advanced-query-loop' ),
+						label: __( 'Post ID', 'gatherpress-query-loop' ),
 						value: 'id',
 					},
 				] }
@@ -76,7 +76,7 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 				} }
 			/>
 			<ToggleControl
-				label={ __( 'Ascending Order', 'advanced-query-loop' ) }
+				label={ __( 'Ascending Order', 'gatherpress-query-loop' ) }
 				checked={ order === 'asc' }
 				onChange={ () => {
 					setAttributes( {

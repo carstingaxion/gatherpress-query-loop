@@ -65,11 +65,11 @@ export const PostMetaControl = ( {
 			<BaseControl
 				help={ __(
 					'Start typing to search for a meta key or manually enter one.',
-					'advanced-query-loop'
+					'gatherpress-query-loop'
 				) }
 			>
 				<FormTokenField
-					label={ __( 'Meta Key', 'advanced-query-loop' ) }
+					label={ __( 'Meta Key', 'gatherpress-query-loop' ) }
 					value={
 						activeQuery?.meta_key?.length
 							? [ activeQuery.meta_key ]
@@ -97,7 +97,7 @@ export const PostMetaControl = ( {
 				/>
 			</BaseControl>
 			<TextControl
-				label={ __( 'Meta Value', 'advanced-query-loop' ) }
+				label={ __( 'Meta Value', 'gatherpress-query-loop' ) }
 				value={ activeQuery.meta_value }
 				onChange={ ( newValue ) => {
 					setAttributes( {
@@ -117,7 +117,7 @@ export const PostMetaControl = ( {
 				} }
 			/>
 			<SelectControl
-				label={ __( 'Meta Compare', 'advanced-query-loop' ) }
+				label={ __( 'Meta Compare', 'gatherpress-query-loop' ) }
 				value={ activeQuery.meta_compare }
 				options={ [
 					...compareMetaOptions.map( ( operator ) => {
@@ -161,7 +161,7 @@ export const PostMetaControl = ( {
 					} );
 				} }
 			>
-				{ __( 'Remove meta query', 'advanced-query-loop' ) }
+				{ __( 'Remove meta query', 'gatherpress-query-loop' ) }
 			</Button>
 		</>
 	);

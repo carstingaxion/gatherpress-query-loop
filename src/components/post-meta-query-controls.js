@@ -60,13 +60,13 @@ export const PostMetaQueryControls = ( { attributes, setAttributes } ) => {
 
 	return (
 		<>
-			<h2>{ __( 'Post Meta Query', 'advanced-query-loop' ) }</h2>
+			<h2>{ __( 'Post Meta Query', 'gatherpress-query-loop' ) }</h2>
 			<>
 				{ queries.length > 1 && (
 					<SelectControl
 						label={ __(
 							'Query Relationship',
-							'advanced-query-loop'
+							'gatherpress-query-loop'
 						) }
 						value={ relationFromQuery }
 						options={ [
@@ -92,7 +92,7 @@ export const PostMetaQueryControls = ( { attributes, setAttributes } ) => {
 					<p>
 						{ __(
 							'Add a meta query to select post meta to query',
-							'advanced-query-loop'
+							'gatherpress-query-loop'
 						) }
 					</p>
 				) }
@@ -146,7 +146,7 @@ export const PostMetaQueryControls = ( { attributes, setAttributes } ) => {
 						} );
 					} }
 				>
-					{ __( 'Add meta query', 'advanced-query-loop' ) }
+					{ __( 'Add meta query', 'gatherpress-query-loop' ) }
 				</Button>
 			</>
 		</>
