@@ -23,7 +23,7 @@
 	"license": "GPLv2 or later",
 	"devDependencies": {
 		"@wordpress/env": "^5.7.0",
-		"@wordpress/scripts": "^24.6.0"
+		"@wordpress/scripts": "^27.4.0"
 	},
 	"dependencies": {
 		"uuid": "^9.0.0"
