@@ -54,7 +54,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 								'gatherpress-query-loop'
 							) }
 						>
-							<MultiplePostSelect { ...props } />
+							{/* <MultiplePostSelect { ...props } /> */}
 							<PostCountControls { ...props } />
 							<PostOffsetControls { ...props } />
 							<PostOrderControls { ...props } />

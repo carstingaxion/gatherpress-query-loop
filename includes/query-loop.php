@@ -109,9 +109,10 @@ function get_exclude_ids( $attributes ) {
 						}
 
 						// Post Related.
-						if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
-							$query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
-						}
+						//if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
+						//	$query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
+						//}
+						$query_args['post_type'] = 'gp_event';
 
 						// Exclude Posts.
 						$exclude_ids = get_exclude_ids( $block_query );
@@ -247,10 +248,10 @@ function add_custom_query_params( $args, $request ) {
 	$custom_args = array();
 
 	// Post Related.
-	$multiple_post_types = $request->get_param( 'multiple_posts' );
-	if ( $multiple_post_types ) {
-		$custom_args['post_type'] = array_merge( array( $args['post_type'] ), $multiple_post_types );
-	}
+	//$multiple_post_types = $request->get_param( 'multiple_posts' );
+	//if ( $multiple_post_types ) {
+	//	$custom_args['post_type'] = array_merge( array( $args['post_type'] ), $multiple_post_types );
+	//}
 
 	// Exclusion Related.
 	$exclude_current = $request->get_param( 'exclude_current' );

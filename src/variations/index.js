@@ -12,6 +12,10 @@ import GPQLControls from '../slots/gpql-controls';
 import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
 const GPQL = 'gatherpress-query-loop';
 
+/**
+ * @see https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/#extending-the-query
+ * 
+ */
 registerBlockVariation( 'core/query', {
 	name: GPQL,
 	title: __( 'GatherPress Query Loop', 'gatherpress-query-loop' ),
@@ -19,8 +23,12 @@ registerBlockVariation( 'core/query', {
 	icon: GPQLIcon,
 	isActive: [ 'namespace' ],
 	attributes: {
-		namespace: GPQL,
+		namespace: GPQL,    
+		query: {
+			postType: 'gp_event',
+		  },
 	},
+	allowedControls: [ 'inherit', 'taxQuery' ],
 	scope: [ 'inserter', 'transform' ],
 } );
 
