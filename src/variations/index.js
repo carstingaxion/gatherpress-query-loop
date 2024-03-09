@@ -30,6 +30,7 @@ registerBlockVariation( 'core/query', {
 		namespace: GPQL,    
 		query: {
 			postType: 'gp_event',
+			gp_events_query: 'upcoming'
 		  },
 	},
 	allowedControls: [ 'inherit', 'taxQuery' ],
