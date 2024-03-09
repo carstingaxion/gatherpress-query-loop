@@ -112,7 +112,15 @@ function get_exclude_ids( $attributes ) {
 						//if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
 						//	$query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
 						//}
-						$query_args['post_type'] = 'gp_event';
+						$query_args['post_type'] = ['gp_event'];
+
+						
+						// Type of event list: 'upcoming' or 'past'.
+						// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
+						// $query_args['gp_events_query'] = 'upcoming';
+						$query_args['gp_events_query'] = $block_query['gp_events_query'];
+
+
 
 						// Exclude Posts.
 						$exclude_ids = get_exclude_ids( $block_query );
@@ -252,6 +260,13 @@ function add_custom_query_params( $args, $request ) {
 	//if ( $multiple_post_types ) {
 	//	$custom_args['post_type'] = array_merge( array( $args['post_type'] ), $multiple_post_types );
 	//}
+
+	// Type of event list: 'upcoming' or 'past'.
+	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
+	// $custom_args['gp_events_query'] = 'upcoming';
+	$custom_args['gp_events_query'] = $request->get_param( 'gp_events_query' );
+
+
 
 	// Exclusion Related.
 	$exclude_current = $request->get_param( 'exclude_current' );

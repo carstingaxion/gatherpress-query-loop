@@ -19,6 +19,8 @@ import { MultiplePostSelect } from '../components/multiple-post-select';
 import { PostOrderControls } from '../components/post-order-controls';
 import { PostExcludeControls } from '../components/post-exclude-controls';
 
+import { EventListTypeControls } from '../components/event-list-type-controls';
+
 /**
  * Determines if the active variation is this one
  *
@@ -55,6 +57,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 							) }
 						>
 							{/* <MultiplePostSelect { ...props } /> */}
+							<EventListTypeControls { ...props } />
 							<PostCountControls { ...props } />
 							<PostOffsetControls { ...props } />
 							<PostOrderControls { ...props } />
