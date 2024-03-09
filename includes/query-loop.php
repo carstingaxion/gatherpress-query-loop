@@ -7,6 +7,26 @@
 
 namespace GatherPressQueryLoop;
 
+// use GatherPress\Core\Venue;
+
+/**
+ * Show "Venues" as "Venues" inside the taxonomy-filter of the query block,
+ * and do not show "Tags" instead, because there were (for understandable reasons) no lables set.
+ */
+\add_filter(
+	// 'register_' . Venue::TAXONOMY . '_taxonomy_args',
+	'register_' . '_gp_venue' . '_taxonomy_args',
+	function ( $args ) {
+
+		$args['labels'] = array(
+			'name' => _x( 'Venues', 'taxonomy general name', 'gatherpress' ),
+		);
+
+		return $args;
+	}
+);
+
+
 /**
  * Adds the custom query attributes to the Query Loop block.
  *
@@ -47,7 +67,7 @@ function get_exclude_ids( $attributes ) {
 
 	// Exclude Current Post.
 	if ( isset( $attributes['exclude_current'] ) && boolval( $attributes['exclude_current'] ) ) {
-		array_push( $exclude_ids, $attributes['exclude_current']);
+		array_push( $exclude_ids, $attributes['exclude_current'] );
 	}
 
 	return $exclude_ids;
@@ -60,7 +80,7 @@ function get_exclude_ids( $attributes ) {
  */
 \add_filter(
 	'pre_render_block',
-	function( $pre_render, $parsed_block ) {
+	function ( $pre_render, $parsed_block ) {
 		if ( isset( $parsed_block['attrs']['namespace'] ) && 'gatherpress-query-loop' === $parsed_block['attrs']['namespace'] ) {
 
 			// Hijack the global query. It's a hack, but it works.
@@ -99,22 +119,22 @@ function get_exclude_ids( $attributes ) {
 			} else {
 				\add_filter(
 					'query_loop_block_query_vars',
-					function( $default_query ) use ( $parsed_block ) {
+					function ( $default_query ) use ( $parsed_block ) {
 						$block_query = $parsed_block['attrs']['query'];
 						// Generate a new custom query will all potential query vars.
 						$query_args = array();
 
-						if ( count( $query_args ) )  {
-							die( var_dump( $parsed_block['attrs']['query'] , $query_args)  );
+						if ( count( $query_args ) ) {
+							die( var_dump( $parsed_block['attrs']['query'], $query_args ) );
 						}
 
 						// Post Related.
-						//if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
-						//	$query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
-						//}
-						$query_args['post_type'] = ['gp_event'];
+						// if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
+						// $query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
+						// }
+						$query_args['post_type'] = [ 'gp_event' ];
 
-						
+
 						// Type of event list: 'upcoming' or 'past'.
 						// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
 						// $query_args['gp_events_query'] = 'upcoming';
@@ -124,7 +144,7 @@ function get_exclude_ids( $attributes ) {
 
 						// Exclude Posts.
 						$exclude_ids = get_exclude_ids( $block_query );
-						if (  ! empty( $exclude_ids ) ) {
+						if ( ! empty( $exclude_ids ) ) {
 							$query_args['post__not_in'] = $exclude_ids;
 						}
 
@@ -193,7 +213,6 @@ function get_exclude_ids( $attributes ) {
 							$default_query,
 							$filtered_query_args
 						);
-
 					},
 					10,
 					2
@@ -213,7 +232,7 @@ function get_exclude_ids( $attributes ) {
 // Add a filter to each rest endpoint to add our custom query params.
 \add_action(
 	'init',
-	function() {
+	function () {
 		$registered_post_types = \get_post_types( array( 'public' => true ) );
 		foreach ( $registered_post_types as $registered_post_type ) {
 			\add_filter( 'rest_' . $registered_post_type . '_query', __NAMESPACE__ . '\add_custom_query_params', 10, 2 );
@@ -221,7 +240,6 @@ function get_exclude_ids( $attributes ) {
 			// We need more sortBy options.
 			\add_filter( 'rest_' . $registered_post_type . '_collection_params', __NAMESPACE__ . '\add_more_sort_by', 10, 2 );
 		}
-
 	},
 	PHP_INT_MAX
 );
@@ -256,10 +274,10 @@ function add_custom_query_params( $args, $request ) {
 	$custom_args = array();
 
 	// Post Related.
-	//$multiple_post_types = $request->get_param( 'multiple_posts' );
-	//if ( $multiple_post_types ) {
-	//	$custom_args['post_type'] = array_merge( array( $args['post_type'] ), $multiple_post_types );
-	//}
+	// $multiple_post_types = $request->get_param( 'multiple_posts' );
+	// if ( $multiple_post_types ) {
+	// $custom_args['post_type'] = array_merge( array( $args['post_type'] ), $multiple_post_types );
+	// }
 
 	// Type of event list: 'upcoming' or 'past'.
 	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
