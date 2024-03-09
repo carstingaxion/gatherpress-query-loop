@@ -23,7 +23,8 @@ registerBlockVariation( 'core/query', {
 	name: GPQL,
 	title: __( 'GatherPress Query Loop', 'gatherpress-query-loop' ),
 	description: __( 'Create gatherpress queries', 'gatherpress-query-loop' ),
-	icon: GPQLIcon,
+	// icon: GPQLIcon,
+	icon: 'nametag',
 	isActive: [ 'namespace' ],
 	attributes: {
 		namespace: GPQL,    
