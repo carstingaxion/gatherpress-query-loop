@@ -26,10 +26,11 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 						: ''
 				}
 				options={ [
-					{
-						label: __( 'Author', 'gatherpress-query-loop' ),
-						value: 'author',
-					},
+					// The 'gp_event' post_type does not support 'author'.
+					// {
+					// 	label: __( 'Author', 'gatherpress-query-loop' ),
+					// 	value: 'author',
+					// },
 					{
 						label: __( 'Date', 'gatherpress-query-loop' ),
 						value: 'date',
@@ -57,10 +58,11 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 						label: __( 'Random', 'gatherpress-query-loop' ),
 						value: 'rand',
 					},
-					{
-						label: __( 'Menu Order', 'gatherpress-query-loop' ),
-						value: 'menu_order',
-					},
+					// The 'gp_event' post_type does not support 'page_attributes'.
+					// {
+					// 	label: __( 'Menu Order', 'gatherpress-query-loop' ),
+					// 	value: 'menu_order',
+					// },
 					{
 						label: __( 'Post ID', 'gatherpress-query-loop' ),
 						value: 'id',

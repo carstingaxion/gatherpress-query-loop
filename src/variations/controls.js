@@ -15,7 +15,7 @@ import { PostCountControls } from '../components/post-count-controls';
 import { PostOffsetControls } from '../components/post-offset-controls';
 import { PostMetaQueryControls } from '../components/post-meta-query-controls';
 import { PostDateQueryControls } from '../components/post-date-query-controls';
-import { MultiplePostSelect } from '../components/multiple-post-select';
+// import { MultiplePostSelect } from '../components/multiple-post-select';
 import { PostOrderControls } from '../components/post-order-controls';
 import { PostExcludeControls } from '../components/post-exclude-controls';
 
@@ -56,8 +56,12 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 								'gatherpress-query-loop'
 							) }
 						>
+							{/* We only want our GatherPress events to be used. */}
 							{/* <MultiplePostSelect { ...props } /> */}
+
+							{/* Toggle between 'upcoming' & 'past' events. */}
 							<EventListTypeControls { ...props } />
+							
 							<PostCountControls { ...props } />
 							<PostOffsetControls { ...props } />
 							<PostOrderControls { ...props } />
