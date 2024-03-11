@@ -1,4 +1,4 @@
-build
+# build # Added to version control, to allow for easier testing / using this experimental plugin.
 node_modules
 package-lock.json
 .DS_Store
