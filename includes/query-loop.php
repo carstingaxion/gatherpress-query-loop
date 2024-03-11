@@ -141,7 +141,6 @@ function get_exclude_ids( $attributes ) {
 						$query_args['gp_events_query'] = $block_query['gp_events_query'];
 
 
-
 						// Exclude Posts.
 						$exclude_ids = get_exclude_ids( $block_query );
 						if ( ! empty( $exclude_ids ) ) {
