@@ -2,6 +2,18 @@
 
 ## Description
 
+This plugin should help shape the idea, that it should be relatively simple to convert the existing GatherPress **Event List** block into a tailored block-variation of the core **Query** block.
+
+### Read THE issue about this repo:
+
+- [BLOCK Convert Event-List block into query block-variation](https://github.com/GatherPress/gatherpress/issues/599)
+
+---
+
+**Credits to @ryanwelcher** for everything below and 97% of the code within this project.
+
+---
+
 This plugin introduces a Query Loop block variation that will empower users to be able to do much more complicated queries with the Query Loop block, such number of posts to display and post meta
 
 ### Support/Issues
