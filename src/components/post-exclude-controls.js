@@ -23,9 +23,9 @@ export const PostExcludeControls = ( { attributes, setAttributes } ) => {
 
 	return (
 		<>
-			<h2> { __( 'Exclude Posts', 'gatherpress-query-loop' ) }</h2>
+			{/* <h2> { __( 'Exclude Posts', 'gatherpress-query-loop' ) }</h2> */}
 			<ToggleControl
-				label={ __( 'Exclude Current Post', 'gatherpress-query-loop' ) }
+				label={ __( 'Exclude Current Event', 'gatherpress-query-loop' ) }
 				checked={ !! excludeCurrent }
 				onChange={ ( value ) => {
 					setAttributes( {
