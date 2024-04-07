@@ -121,7 +121,7 @@ function get_exclude_ids( $attributes ) {
 					'query_loop_block_query_vars',
 					function ( $default_query ) use ( $parsed_block ) {
 						$block_query = $parsed_block['attrs']['query'];
-						// Generate a new custom query will all potential query vars.
+						// Generate a new custom query with all potential query vars.
 						$query_args = array();
 
 						if ( count( $query_args ) ) {
@@ -149,10 +149,10 @@ function get_exclude_ids( $attributes ) {
 
 						// Check for meta queries.
 						// Ensure any old meta is removed @see https://github.com/ryanwelcher/gatherpress-query-loop/issues/29
-						$query_args['meta_query'] = array();
-						if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
-							$query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-						}
+						// $query_args['meta_query'] = array();
+						// if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
+						// 	$query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						// }
 
 						// Date queries.
 						if ( ! empty( $block_query['date_query'] ) ) {
@@ -296,10 +296,10 @@ function add_custom_query_params( $args, $request ) {
 	}
 
 	// Meta related.
-	$meta_query = $request->get_param( 'meta_query' );
-	if ( $meta_query ) {
-		$custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-	}
+	// $meta_query = $request->get_param( 'meta_query' );
+	// if ( $meta_query ) {
+	// 	$custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+	// }
 
 	// Date related.
 	$date_query = $request->get_param( 'date_query' );
