@@ -23,7 +23,7 @@ export const EventListTypeControls = ( { attributes, setAttributes } ) => {
 
 	return (
 		<>
-			<h2> { __( 'Type of event list', 'gatherpress-query-loop' ) }</h2>
+			{/* <h2> { __( 'Type of event list', 'gatherpress-query-loop' ) }</h2> */}
 			<ToggleControl
 				label={ __( "Upcoming or past events.", 'gatherpress-query-loop' ) }
 				help={ sprintf(

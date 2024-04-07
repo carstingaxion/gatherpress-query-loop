@@ -5,17 +5,17 @@ import { RangeControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
- * PostCountControls component
+ * EventCountControls component
  *
  * @param {*} param0
- * @return {Element} PostCountControls
+ * @return {Element} EventCountControls
  */
-export const PostCountControls = ( { attributes, setAttributes } ) => {
+export const EventCountControls = ( { attributes, setAttributes } ) => {
 	const { query: { perPage, offset = 0 } = {} } = attributes;
 
 	return (
 		<RangeControl
-			label={ __( 'Posts Per Page', 'gatherpress-query-loop' ) }
+			label={ __( 'Events Per Page', 'gatherpress-query-loop' ) }
 			min={ 1 }
 			max={ 50 }
 			onChange={ ( newCount ) => {

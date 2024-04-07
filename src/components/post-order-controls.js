@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
  * PostOrderControls component
  *
  * @param {*} param0
- * @return {Element} PostCountControls
+ * @return {Element} EventCountControls
  */
 export const PostOrderControls = ( { attributes, setAttributes } ) => {
 	const { query: { order, orderBy } = {} } = attributes;

@@ -11,13 +11,11 @@ import { __ } from '@wordpress/i18n';
 import { GPQL } from '.';
 import GPQLControls from '../slots/gpql-controls';
 import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
-import { PostCountControls } from '../components/post-count-controls';
-import { PostOffsetControls } from '../components/post-offset-controls';
-// import { PostMetaQueryControls } from '../components/post-meta-query-controls';
+import { EventCountControls } from '../components/event-count-controls';
+import { EventOffsetControls } from '../components/event-offset-controls';
 import { PostDateQueryControls } from '../components/post-date-query-controls';
-// import { MultiplePostSelect } from '../components/multiple-post-select';
 import { PostOrderControls } from '../components/post-order-controls';
-import { PostExcludeControls } from '../components/post-exclude-controls';
+import { EventExcludeControls } from '../components/event-exclude-controls';
 
 
 
@@ -64,20 +62,16 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 							'gatherpress-query-loop'
 						) }
 					>
-						{/* We only want our GatherPress events to be used. */}
-						{/* <MultiplePostSelect { ...props } /> */}
 
 						{/* Toggle between 'upcoming' & 'past' events. */}
 						<EventListTypeControls { ...props } />
-						
-						<PostCountControls { ...props } />
-						<PostOffsetControls { ...props } />
-						<PostOrderControls { ...props } />
 						{ isEventContext && (
-							<PostExcludeControls { ...props } />
-						)}
-						{/* Nobody should be allowed to query by meta, never. */}
-						{/* <PostMetaQueryControls { ...props } /> */}
+							<EventExcludeControls { ...props } />
+						)}						
+						<EventCountControls { ...props } />
+						<EventOffsetControls { ...props } />
+						<PostOrderControls { ...props } />
+
 						<PostDateQueryControls { ...props } />
 						<GPQLControls.Slot fillProps={ { ...props } } />
 					</PanelBody>

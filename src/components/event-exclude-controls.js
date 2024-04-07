@@ -6,11 +6,11 @@ import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
- * A component that lets you pick posts to be excluded from the query
+ * A component that lets you exclude the current event from the query
  *
- * @return {Element} PostExcludeControls
+ * @return {Element} EventExcludeControls
  */
-export const PostExcludeControls = ( { attributes, setAttributes } ) => {
+export const EventExcludeControls = ( { attributes, setAttributes } ) => {
 	const { query: { exclude_current: excludeCurrent } = {} } = attributes;
 
 	const currentPost = useSelect( ( select ) => {
@@ -23,7 +23,6 @@ export const PostExcludeControls = ( { attributes, setAttributes } ) => {
 
 	return (
 		<>
-			{/* <h2> { __( 'Exclude Posts', 'gatherpress-query-loop' ) }</h2> */}
 			<ToggleControl
 				label={ __( 'Exclude Current Event', 'gatherpress-query-loop' ) }
 				checked={ !! excludeCurrent }
