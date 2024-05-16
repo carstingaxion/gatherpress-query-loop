@@ -16,16 +16,16 @@ const GPQL = 'gatherpress-query-loop';
 const GPQL_DEFAULT_ATTRIBUTES = {
 	namespace: GPQL,
 	query: {
-	  perPage: 3,
-	  pages: 0,
-	  offset: 0,
-	  postType: 'gp_event',
-	  gp_events_query: 'upcoming',
-	  order: 'desc',
-	  orderBy: 'date',
-	  inherit: false
+		perPage: 3,
+		pages: 0,
+		offset: 0,
+		postType: 'gatherpress_event',
+		gp_events_query: 'upcoming',
+		order: 'desc',
+		orderBy: 'date',
+		inherit: false
 	}
-  };
+};
 
 /**
  * @see https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/#extending-the-query

@@ -15,7 +15,7 @@ namespace GatherPressQueryLoop;
  */
 \add_filter(
 	// 'register_' . Venue::TAXONOMY . '_taxonomy_args',
-	'register_' . '_gp_venue' . '_taxonomy_args',
+	'register_' . '_gatherpress_venue' . '_taxonomy_args',
 	function ( $args ) {
 
 		$args['labels'] = array(
@@ -128,11 +128,11 @@ function get_exclude_ids( $attributes ) {
 							die( var_dump( $parsed_block['attrs']['query'], $query_args ) );
 						}
 
-						// Post Related.
-						// if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
-						// $query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
-						// }
-						$query_args['post_type'] = [ 'gp_event' ];
+	// Post Related.
+	// if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
+	// $query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
+	// }
+	$query_args['post_type'] = [ 'gatherpress_event' ];
 
 
 						// Type of event list: 'upcoming' or 'past'.
