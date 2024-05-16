@@ -12,14 +12,15 @@ import { GPQL } from '.';
 import GPQLControls from '../slots/gpql-controls';
 import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
 import { EventCountControls } from '../components/event-count-controls';
-import { EventOffsetControls } from '../components/event-offset-controls';
-import { PostDateQueryControls } from '../components/post-date-query-controls';
-import { EventOrderControls } from '../components/event-order-controls';
 import { EventExcludeControls } from '../components/event-exclude-controls';
-
-
-
 import { EventListTypeControls } from '../components/event-list-type-controls';
+import { EventOffsetControls } from '../components/event-offset-controls';
+import { EventOrderControls } from '../components/event-order-controls';
+
+// import { PostDateQueryControls } from '../components/post-date-query-controls';
+
+
+
 import { isEventPostType } from '../helpers/event';
 
 /**
@@ -72,7 +73,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 						<EventOffsetControls { ...props } />
 						<EventOrderControls { ...props } />
 
-						<PostDateQueryControls { ...props } />
+						{/* <PostDateQueryControls { ...props } /> */}
 						<GPQLControls.Slot fillProps={ { ...props } } />
 					</PanelBody>
 				</InspectorControls>
