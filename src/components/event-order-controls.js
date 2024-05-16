@@ -5,13 +5,14 @@ import { SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
- * PostOrderControls component
+ * EventOrderControls component
  *
  * @param {*} param0
  * @return {Element} EventCountControls
  */
-export const PostOrderControls = ( { attributes, setAttributes } ) => {
+export const EventOrderControls = ( { attributes, setAttributes } ) => {
 	const { query: { order, orderBy } = {} } = attributes;
+	const label = order === 'asc' ? __( 'Ascending Order', 'gatherpress-query-loop' ) : __( 'Descending Order', 'gatherpress-query-loop' );
 	return (
 		<>
 			<SelectControl
@@ -26,7 +27,7 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 						: ''
 				}
 				options={ [
-					// The 'gp_event' post_type does not support 'author'.
+					// The 'gatherpress_event' post_type does not support 'author'.
 					// {
 					// 	label: __( 'Author', 'gatherpress-query-loop' ),
 					// 	value: 'author',
@@ -46,19 +47,19 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 						label: __( 'Title', 'gatherpress-query-loop' ),
 						value: 'title',
 					},
-					{
-						label: __( 'Meta Value', 'gatherpress-query-loop' ),
-						value: 'meta_value',
-					},
-					{
-						label: __( 'Meta Value Num', 'gatherpress-query-loop' ),
-						value: 'meta_value_num',
-					},
+					// {
+					// 	label: __( 'Meta Value', 'gatherpress-query-loop' ),
+					// 	value: 'meta_value',
+					// },
+					// {
+					// 	label: __( 'Meta Value Num', 'gatherpress-query-loop' ),
+					// 	value: 'meta_value_num',
+					// },
 					{
 						label: __( 'Random', 'gatherpress-query-loop' ),
 						value: 'rand',
 					},
-					// The 'gp_event' post_type does not support 'page_attributes'.
+					// The 'gatherpress_event' post_type does not support 'page_attributes'.
 					// {
 					// 	label: __( 'Menu Order', 'gatherpress-query-loop' ),
 					// 	value: 'menu_order',
@@ -78,7 +79,7 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 				} }
 			/>
 			<ToggleControl
-				label={ __( 'Ascending Order', 'gatherpress-query-loop' ) }
+				label={ label }
 				checked={ order === 'asc' }
 				onChange={ () => {
 					setAttributes( {

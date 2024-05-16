@@ -41,19 +41,19 @@ const GPQL_DEFAULT_ATTRIBUTES = {
  * 
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-variations/
  */
-registerBlockVariation( 'core/query', {
+registerBlockVariation('core/query', {
 	name: GPQL,
-	title: __( 'GatherPress Query Loop', 'gatherpress-query-loop' ),
-	description: __( 'Create gatherpress queries', 'gatherpress-query-loop' ),
+	title: __('GatherPress Query Loop', 'gatherpress-query-loop'),
+	description: __('Create gatherpress queries', 'gatherpress-query-loop'),
 	category: 'gatherpress',
 	// icon: GPQLIcon,
 	icon: 'nametag',
-	isActive: [ 'namespace', 'scope' ],
+	isActive: ['namespace', 'scope'],
 	attributes: {
 		...GPQL_DEFAULT_ATTRIBUTES
 	},
-	allowedControls: [ 'inherit', 'taxQuery' ],
-	scope: [ 'inserter', 'transform' ],
+	allowedControls: ['inherit', 'taxQuery'],
+	scope: ['inserter', 'transform'],
 	/*
 	 * Having innerBlocks in THIS (visible) variation, essentially 
 	 * skips the setup phase of the Query Loop block with suggested patterns 
@@ -102,93 +102,93 @@ registerBlockVariation( 'core/query', {
 			},
 		],
 	},
-} );
+});
 
 
 
 /**
  * One of the 'Start blank' patterns for the gatherpress query loop variation.
  */
-registerBlockVariation( 'core/query', {
+registerBlockVariation('core/query', {
 	name: 'gatherpress-query-loop-map-date',
-	title: __( 'Map & Event-Date', 'gatherpress-query-loop' ),
-	description: __( 'Create gatherpress queries with Map & Date', 'gatherpress-query-loop' ),
+	title: __('Map & Event-Date', 'gatherpress-query-loop'),
+	description: __('Create gatherpress queries with Map & Date', 'gatherpress-query-loop'),
 	icon: 'nametag',
-	isActive: [ 'namespace', 'scope' ],
+	isActive: ['namespace', 'scope'],
 	attributes: {
 		...GPQL_DEFAULT_ATTRIBUTES
 	},
-	allowedControls: [ 'inherit', 'taxQuery' ],
-	scope: ['block' ],
+	allowedControls: ['inherit', 'taxQuery'],
+	scope: ['block'],
 	innerBlocks: [
 		[
 			'core/post-template',
 			{},
 			[
-				[ 'gatherpress/venue' ],
-				[ 'gatherpress/event-date' ],
+				['gatherpress/venue'],
+				['gatherpress/event-date'],
 			],
 		],
-		[ 'core/query-pagination' ],
-		[ 'core/query-no-results' ],
+		['core/query-pagination'],
+		['core/query-no-results'],
 	],
-} );
+});
 
 
 /*
   */
-registerBlockVariation( 'core/query', {
+registerBlockVariation('core/query', {
 	name: 'gatherpress-query-loop-date-title',
-	title: __( 'Event-Date & Title', 'gatherpress-query-loop' ),
-	description: __( 'Create gatherpress queries with Event-Date & Title', 'gatherpress-query-loop' ),
+	title: __('Event-Date & Title', 'gatherpress-query-loop'),
+	description: __('Create gatherpress queries with Event-Date & Title', 'gatherpress-query-loop'),
 	icon: 'nametag',
-	isActive: [ 'namespace', 'scope' ],
+	isActive: ['namespace', 'scope'],
 	attributes: {
 		...GPQL_DEFAULT_ATTRIBUTES
 	},
-	allowedControls: [ 'inherit', 'taxQuery' ],
-	scope: [ 'block' ],
+	allowedControls: ['inherit', 'taxQuery'],
+	scope: ['block'],
 	innerBlocks: [
 		[
 			'core/post-template',
 			{},
 			[
-				[ 'gatherpress/event-date' ],
-				[ 'core/post-title' ],
+				['gatherpress/event-date'],
+				['core/post-title'],
 			],
 		],
-		[ 'core/query-pagination' ],
-		[ 'core/query-no-results' ],
+		['core/query-pagination'],
+		['core/query-no-results'],
 	],
-} );
+});
 
 /*
   */
-registerBlockVariation( 'core/query', {
+registerBlockVariation('core/query', {
 	name: 'gatherpress-query-loop-date-address',
-	title: __( 'Event-Date & Address', 'gatherpress-query-loop' ),
-	description: __( 'Create gatherpress queries with Event-Date & Address', 'gatherpress-query-loop' ),
+	title: __('Event-Date & Address', 'gatherpress-query-loop'),
+	description: __('Create gatherpress queries with Event-Date & Address', 'gatherpress-query-loop'),
 	icon: 'nametag',
-	isActive: [ 'namespace', 'scope' ],
+	isActive: ['namespace', 'scope'],
 	attributes: {
 		...GPQL_DEFAULT_ATTRIBUTES
 	},
-	allowedControls: [ 'inherit', 'taxQuery' ],
-	scope: [ 'block' ],
+	allowedControls: ['inherit', 'taxQuery'],
+	scope: ['block'],
 	innerBlocks: [
 		[
 			'core/post-template',
 			{},
 			[
-				[ 'gatherpress/event-date' ],
-				[ 'gatherpress/venue', {
+				['gatherpress/event-date'],
+				['gatherpress/venue', {
 					mapShow: false
-				} ],
+				}],
 			],
 		],
-		[ 'core/query-pagination' ],
-		[ 'core/query-no-results' ],
+		['core/query-pagination'],
+		['core/query-no-results'],
 	],
-} );
+});
 
 export { GPQL, GPQLControls, GPQLControlsInheritedQuery };

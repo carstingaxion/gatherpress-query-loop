@@ -14,7 +14,7 @@ import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
 import { EventCountControls } from '../components/event-count-controls';
 import { EventOffsetControls } from '../components/event-offset-controls';
 import { PostDateQueryControls } from '../components/post-date-query-controls';
-import { PostOrderControls } from '../components/post-order-controls';
+import { EventOrderControls } from '../components/event-order-controls';
 import { EventExcludeControls } from '../components/event-exclude-controls';
 
 
@@ -70,7 +70,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 						)}						
 						<EventCountControls { ...props } />
 						<EventOffsetControls { ...props } />
-						<PostOrderControls { ...props } />
+						<EventOrderControls { ...props } />
 
 						<PostDateQueryControls { ...props } />
 						<GPQLControls.Slot fillProps={ { ...props } } />
@@ -90,7 +90,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 						'gatherpress-query-loop'
 					) }
 				>
-					<PostOrderControls { ...props } />
+					<EventOrderControls { ...props } />
 					<GPQLControlsInheritedQuery.Slot
 						fillProps={ { ...props } }
 					/>

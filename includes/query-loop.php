@@ -74,6 +74,111 @@ function get_exclude_ids( $attributes ) {
 }
 
 
+function query_loop_block_query_vars( $default_query, $block ) {
+	// Retrieve the query from the passed block context.
+	// $block_query = $parsed_block['attrs']['query'];
+	$block_query = $block->context['query'];
+
+	// Generate a new custom query with all potential query vars.
+	$query_args = array();
+
+	if ( count( $query_args ) ) {
+		die( var_dump( $block_query, $query_args ) );
+	}
+
+	// Post Related.
+	// if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
+	// $query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
+	// }
+	$query_args['post_type'] = [ 'gatherpress_event' ];
+
+
+	// Type of event list: 'upcoming' or 'past'.
+	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
+	// $query_args['gp_events_query'] = 'upcoming';
+	$query_args['gp_events_query'] = $block_query['gp_events_query'];
+
+
+	// Exclude Posts.
+	$exclude_ids = get_exclude_ids( $block_query );
+	if ( ! empty( $exclude_ids ) ) {
+		$query_args['post__not_in'] = $exclude_ids;
+	}
+
+	// Check for meta queries.
+	// Ensure any old meta is removed @see https://github.com/ryanwelcher/gatherpress-query-loop/issues/29
+	// $query_args['meta_query'] = array();
+	// if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
+	// $query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+	// }
+
+	// Date queries.
+	if ( ! empty( $block_query['date_query'] ) ) {
+		$date_query        = $block_query['date_query'];
+		$date_relationship = $date_query['relation'];
+		$date_is_inclusive = $date_query['inclusive'];
+		$date_primary      = $date_query['date_primary'];
+		$date_secondary    = ! empty( $date_query['date_secondary'] ) ? $date_query['date_secondary'] : '';
+
+		// Date format: 2022-12-27T11:14:21.
+		$primary_year    = substr( $date_primary, 0, 4 );
+		$primary_month   = substr( $date_primary, 5, 2 );
+		$primary_day     = substr( $date_primary, 8, 2 );
+		$secondary_year  = substr( $date_secondary, 0, 4 );
+		$secondary_month = substr( $date_secondary, 5, 2 );
+		$secondary_day   = substr( $date_secondary, 8, 2 );
+
+		if ( 'between' === $date_relationship ) {
+			$date_queries = array(
+				'after'  => array(
+					'year'  => $primary_year,
+					'month' => $primary_month,
+					'day'   => $primary_day,
+				),
+				'before' => array(
+					'year'  => $secondary_year,
+					'month' => $secondary_month,
+					'day'   => $secondary_day,
+				),
+			);
+		} else {
+			$date_queries = array(
+				$date_relationship => array(
+					'year'  => $primary_year,
+					'month' => $primary_month,
+					'day'   => $primary_day,
+				),
+			);
+		}
+
+		$date_queries['inclusive'] = $date_is_inclusive;
+
+		// Add the date queries to the custom query.
+		$query_args['date_query'] = array_filter( $date_queries );
+
+	}
+
+
+	// Event Order
+	// can be NULL, when ASC
+	// $query_args['order'] = \strtoupper( $block_query['order'] ?? 'ASC' );
+	// \error_log( '$block_query["order"]: ' . \var_export( [ $block_query['order'], $query_args['order'] ], true ) );
+
+
+	/** This filter is documented in includes/query-loop.php */
+	$filtered_query_args = \apply_filters(
+		'gpql_query_vars',
+		$query_args,
+		$block_query,
+		false
+	);
+
+	// Return the merged query.
+	return array_merge(
+		$default_query,
+		$filtered_query_args
+	);
+}
 
 /**
  * Updates the query on the front end based on custom query attributes.
@@ -119,100 +224,8 @@ function get_exclude_ids( $attributes ) {
 			} else {
 				\add_filter(
 					'query_loop_block_query_vars',
-					function ( $default_query ) use ( $parsed_block ) {
-						$block_query = $parsed_block['attrs']['query'];
-						// Generate a new custom query with all potential query vars.
-						$query_args = array();
-
-						if ( count( $query_args ) ) {
-							die( var_dump( $parsed_block['attrs']['query'], $query_args ) );
-						}
-
-	// Post Related.
-	// if ( isset( $block_query['multiple_posts'] ) && ! empty( $block_query['multiple_posts'] ) ) {
-	// $query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
-	// }
-	$query_args['post_type'] = [ 'gatherpress_event' ];
-
-
-						// Type of event list: 'upcoming' or 'past'.
-						// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
-						// $query_args['gp_events_query'] = 'upcoming';
-						$query_args['gp_events_query'] = $block_query['gp_events_query'];
-
-
-						// Exclude Posts.
-						$exclude_ids = get_exclude_ids( $block_query );
-						if ( ! empty( $exclude_ids ) ) {
-							$query_args['post__not_in'] = $exclude_ids;
-						}
-
-						// Check for meta queries.
-						// Ensure any old meta is removed @see https://github.com/ryanwelcher/gatherpress-query-loop/issues/29
-						// $query_args['meta_query'] = array();
-						// if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
-						// 	$query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-						// }
-
-						// Date queries.
-						if ( ! empty( $block_query['date_query'] ) ) {
-							$date_query        = $block_query['date_query'];
-							$date_relationship = $date_query['relation'];
-							$date_is_inclusive = $date_query['inclusive'];
-							$date_primary      = $date_query['date_primary'];
-							$date_secondary    = ! empty( $date_query['date_secondary'] ) ? $date_query['date_secondary'] : '';
-
-							// Date format: 2022-12-27T11:14:21.
-							$primary_year    = substr( $date_primary, 0, 4 );
-							$primary_month   = substr( $date_primary, 5, 2 );
-							$primary_day     = substr( $date_primary, 8, 2 );
-							$secondary_year  = substr( $date_secondary, 0, 4 );
-							$secondary_month = substr( $date_secondary, 5, 2 );
-							$secondary_day   = substr( $date_secondary, 8, 2 );
-
-							if ( 'between' === $date_relationship ) {
-								$date_queries = array(
-									'after'  => array(
-										'year'  => $primary_year,
-										'month' => $primary_month,
-										'day'   => $primary_day,
-									),
-									'before' => array(
-										'year'  => $secondary_year,
-										'month' => $secondary_month,
-										'day'   => $secondary_day,
-									),
-								);
-							} else {
-								$date_queries = array(
-									$date_relationship => array(
-										'year'  => $primary_year,
-										'month' => $primary_month,
-										'day'   => $primary_day,
-									),
-								);
-							}
-
-							$date_queries['inclusive'] = $date_is_inclusive;
-
-							// Add the date queries to the custom query.
-							$query_args['date_query'] = array_filter( $date_queries );
-
-						}
-						/** This filter is documented in includes/query-loop.php */
-						$filtered_query_args = \apply_filters(
-							'gpql_query_vars',
-							$query_args,
-							$block_query,
-							false
-						);
-
-						// Return the merged query.
-						return array_merge(
-							$default_query,
-							$filtered_query_args
-						);
-					},
+					__NAMESPACE__ . '\\query_loop_block_query_vars',
+					// function ( $default_query ) use ( $parsed_block ) {}
 					10,
 					2
 				);
@@ -255,9 +268,9 @@ function get_exclude_ids( $attributes ) {
  * @return array
  */
 function add_more_sort_by( $query_params, $post_type ) {
-	$query_params['orderby']['enum'][] = 'menu_order';
-	$query_params['orderby']['enum'][] = 'meta_value';
-	$query_params['orderby']['enum'][] = 'meta_value_num';
+	// $query_params['orderby']['enum'][] = 'menu_order';
+	// $query_params['orderby']['enum'][] = 'meta_value';
+	// $query_params['orderby']['enum'][] = 'meta_value_num';
 	$query_params['orderby']['enum'][] = 'rand';
 	return $query_params;
 }
@@ -281,69 +294,79 @@ function add_custom_query_params( $args, $request ) {
 	// Type of event list: 'upcoming' or 'past'.
 	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
 	// $custom_args['gp_events_query'] = 'upcoming';
-	$custom_args['gp_events_query'] = $request->get_param( 'gp_events_query' );
+	// $custom_args['gp_events_query'] = 'past';
+#	$custom_args['gp_events_query'] = $request->get_param( 'gp_events_query' );
 
 
 
 	// Exclusion Related.
-	$exclude_current = $request->get_param( 'exclude_current' );
-	if ( $exclude_current ) {
-		$attributes = array(
-			'exclude_current' => $exclude_current,
-		);
+#	$exclude_current = $request->get_param( 'exclude_current' );
+#	if ( $exclude_current ) {
+#		$attributes = array(
+#			'exclude_current' => $exclude_current,
+#		);
+#
+#		$custom_args['post__not_in'] = get_exclude_ids( $attributes );
+#	}
+#
+#	// Meta related.
+#	// $meta_query = $request->get_param( 'meta_query' );
+#	// if ( $meta_query ) {
+#	// $custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+#	// }
+#
+#	// Date related.
+#	$date_query = $request->get_param( 'date_query' );
+#
+#	if ( $date_query ) {
+#		$date_relationship = $date_query['relation'];
+#		$date_is_inclusive = ( 'true' === $date_query['inclusive'] ) ? true : false;
+#		$date_primary      = $date_query['date_primary'];
+#		$date_secondary    = ! empty( $date_query['date_secondary'] ) ? $date_query['date_secondary'] : '';
+#
+#		// Date format: 2022-12-27T11:14:21.
+#		$primary_year    = substr( $date_primary, 0, 4 );
+#		$primary_month   = substr( $date_primary, 5, 2 );
+#		$primary_day     = substr( $date_primary, 8, 2 );
+#		$secondary_year  = substr( $date_secondary, 0, 4 );
+#		$secondary_month = substr( $date_secondary, 5, 2 );
+#		$secondary_day   = substr( $date_secondary, 8, 2 );
+#
+#		if ( 'between' === $date_relationship ) {
+#			$date_queries = array(
+#				'after'  => array(
+#					'year'  => $primary_year,
+#					'month' => $primary_month,
+#					'day'   => $primary_day,
+#				),
+#				'before' => array(
+#					'year'  => $secondary_year,
+#					'month' => $secondary_month,
+#					'day'   => $secondary_day,
+#				),
+#			);
+#		} else {
+#			$date_queries = array(
+#				$date_relationship => array(
+#					'year'  => $primary_year,
+#					'month' => $primary_month,
+#					'day'   => $primary_day,
+#				),
+#			);
+#		}
+#		$date_queries['inclusive'] = $date_is_inclusive;
+#
+#		$custom_args['date_query'] = array_filter( $date_queries );
+#	}
 
-		$custom_args['post__not_in'] = get_exclude_ids( $attributes );
-	}
+unset( $args['post__in'] );
+unset( $args['post__not_in'] );
+unset( $args['date_query'] );
 
-	// Meta related.
-	// $meta_query = $request->get_param( 'meta_query' );
-	// if ( $meta_query ) {
-	// 	$custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-	// }
 
-	// Date related.
-	$date_query = $request->get_param( 'date_query' );
-
-	if ( $date_query ) {
-		$date_relationship = $date_query['relation'];
-		$date_is_inclusive = ( 'true' === $date_query['inclusive'] ) ? true : false;
-		$date_primary      = $date_query['date_primary'];
-		$date_secondary    = ! empty( $date_query['date_secondary'] ) ? $date_query['date_secondary'] : '';
-
-		// Date format: 2022-12-27T11:14:21.
-		$primary_year    = substr( $date_primary, 0, 4 );
-		$primary_month   = substr( $date_primary, 5, 2 );
-		$primary_day     = substr( $date_primary, 8, 2 );
-		$secondary_year  = substr( $date_secondary, 0, 4 );
-		$secondary_month = substr( $date_secondary, 5, 2 );
-		$secondary_day   = substr( $date_secondary, 8, 2 );
-
-		if ( 'between' === $date_relationship ) {
-			$date_queries = array(
-				'after'  => array(
-					'year'  => $primary_year,
-					'month' => $primary_month,
-					'day'   => $primary_day,
-				),
-				'before' => array(
-					'year'  => $secondary_year,
-					'month' => $secondary_month,
-					'day'   => $secondary_day,
-				),
-			);
-		} else {
-			$date_queries = array(
-				$date_relationship => array(
-					'year'  => $primary_year,
-					'month' => $primary_month,
-					'day'   => $primary_day,
-				),
-			);
-		}
-		$date_queries['inclusive'] = $date_is_inclusive;
-
-		$custom_args['date_query'] = array_filter( $date_queries );
-	}
+	\error_log( '$args: ' . \var_export( $args, true ) );
+	\error_log( '$request: ' . \var_export( $request->get_param( 'orderby' ), true ) );
+	\error_log( '$custom_args: ' . \var_export( $custom_args, true ) );
 
 	/** This filter is documented in includes/query-loop.php */
 	$filtered_query_args = \apply_filters(
@@ -356,6 +379,8 @@ function add_custom_query_params( $args, $request ) {
 	// Merge all queries.
 	return array_merge(
 		$args,
-		array_filter( $filtered_query_args )
+		$custom_args,
+		// []
+#		array_filter( $filtered_query_args )
 	);
 }
