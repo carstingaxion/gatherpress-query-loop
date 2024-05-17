@@ -156,13 +156,17 @@ function query_loop_block_query_vars( $default_query, $block ) {
 
 	}
 
+	$query_args['orderby'] = [ $block_query['orderBy'] ];
+	// $query_args['orderby'] = 'title';
 
 	// Event Order
 	// can be NULL, when ASC
-	// $query_args['order'] = \strtoupper( $block_query['order'] ?? 'ASC' );
-	// \error_log( '$block_query["order"]: ' . \var_export( [ $block_query['order'], $query_args['order'] ], true ) );
+	$query_args['order'] = \strtoupper( $block_query['order'] ?? 'ASC' );
 
 
+	// \error_log( '$block_query: ' . \var_export( [ $block_query, $query_args ], true ) );
+	
+	
 	/** This filter is documented in includes/query-loop.php */
 	$filtered_query_args = \apply_filters(
 		'gpql_query_vars',
@@ -170,6 +174,13 @@ function query_loop_block_query_vars( $default_query, $block ) {
 		$block_query,
 		false
 	);
+
+	// // \error_log( 'queries: ' . \var_export( [ $default_query, $filtered_query_args ], true ) );
+	// \error_log( 'queries: ' . \var_export( array_merge(
+	// 	$default_query,
+	// 	$filtered_query_args
+	// ), true ) );
+
 
 	// Return the merged query.
 	return array_merge(
@@ -372,8 +383,6 @@ function add_custom_query_params( $args, $request ) {
 	// Merge all queries.
 	return array_merge(
 		$args,
-		// $custom_args,
-		// []
 		array_filter( $filtered_query_args )
 	);
 }
