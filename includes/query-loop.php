@@ -95,8 +95,8 @@ function query_loop_block_query_vars( $default_query, $block ) {
 
 	// Type of event list: 'upcoming' or 'past'.
 	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
-	// $query_args['gp_events_query'] = 'upcoming';
-	$query_args['gp_events_query'] = $block_query['gp_events_query'];
+	// $query_args['gatherpress_events_query'] = 'upcoming';
+	$query_args['gatherpress_events_query'] = $block_query['gatherpress_events_query'];
 
 
 	// Exclude Posts.
@@ -293,75 +293,75 @@ function add_custom_query_params( $args, $request ) {
 
 	// Type of event list: 'upcoming' or 'past'.
 	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
-	// $custom_args['gp_events_query'] = 'upcoming';
-	// $custom_args['gp_events_query'] = 'past';
-#	$custom_args['gp_events_query'] = $request->get_param( 'gp_events_query' );
+	// $custom_args['gatherpress_events_query'] = 'upcoming';
+	// $custom_args['gatherpress_events_query'] = 'past';
+	$custom_args['gatherpress_events_query'] = $request->get_param( 'gatherpress_events_query' );
 
 
 
 	// Exclusion Related.
-#	$exclude_current = $request->get_param( 'exclude_current' );
-#	if ( $exclude_current ) {
-#		$attributes = array(
-#			'exclude_current' => $exclude_current,
-#		);
-#
-#		$custom_args['post__not_in'] = get_exclude_ids( $attributes );
-#	}
-#
-#	// Meta related.
-#	// $meta_query = $request->get_param( 'meta_query' );
-#	// if ( $meta_query ) {
-#	// $custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-#	// }
-#
-#	// Date related.
-#	$date_query = $request->get_param( 'date_query' );
-#
-#	if ( $date_query ) {
-#		$date_relationship = $date_query['relation'];
-#		$date_is_inclusive = ( 'true' === $date_query['inclusive'] ) ? true : false;
-#		$date_primary      = $date_query['date_primary'];
-#		$date_secondary    = ! empty( $date_query['date_secondary'] ) ? $date_query['date_secondary'] : '';
-#
-#		// Date format: 2022-12-27T11:14:21.
-#		$primary_year    = substr( $date_primary, 0, 4 );
-#		$primary_month   = substr( $date_primary, 5, 2 );
-#		$primary_day     = substr( $date_primary, 8, 2 );
-#		$secondary_year  = substr( $date_secondary, 0, 4 );
-#		$secondary_month = substr( $date_secondary, 5, 2 );
-#		$secondary_day   = substr( $date_secondary, 8, 2 );
-#
-#		if ( 'between' === $date_relationship ) {
-#			$date_queries = array(
-#				'after'  => array(
-#					'year'  => $primary_year,
-#					'month' => $primary_month,
-#					'day'   => $primary_day,
-#				),
-#				'before' => array(
-#					'year'  => $secondary_year,
-#					'month' => $secondary_month,
-#					'day'   => $secondary_day,
-#				),
-#			);
-#		} else {
-#			$date_queries = array(
-#				$date_relationship => array(
-#					'year'  => $primary_year,
-#					'month' => $primary_month,
-#					'day'   => $primary_day,
-#				),
-#			);
-#		}
-#		$date_queries['inclusive'] = $date_is_inclusive;
-#
-#		$custom_args['date_query'] = array_filter( $date_queries );
-#	}
+	// $exclude_current = $request->get_param( 'exclude_current' );
+	// if ( $exclude_current ) {
+	// $attributes = array(
+	// 'exclude_current' => $exclude_current,
+	// );
+	// 
+	// $custom_args['post__not_in'] = get_exclude_ids( $attributes );
+	// }
+	// 
+	// // Meta related.
+	// // $meta_query = $request->get_param( 'meta_query' );
+	// // if ( $meta_query ) {
+	// // $custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+	// // }
+	// 
+	// // Date related.
+	// $date_query = $request->get_param( 'date_query' );
+	// 
+	// if ( $date_query ) {
+	// $date_relationship = $date_query['relation'];
+	// $date_is_inclusive = ( 'true' === $date_query['inclusive'] ) ? true : false;
+	// $date_primary      = $date_query['date_primary'];
+	// $date_secondary    = ! empty( $date_query['date_secondary'] ) ? $date_query['date_secondary'] : '';
+	// 
+	// // Date format: 2022-12-27T11:14:21.
+	// $primary_year    = substr( $date_primary, 0, 4 );
+	// $primary_month   = substr( $date_primary, 5, 2 );
+	// $primary_day     = substr( $date_primary, 8, 2 );
+	// $secondary_year  = substr( $date_secondary, 0, 4 );
+	// $secondary_month = substr( $date_secondary, 5, 2 );
+	// $secondary_day   = substr( $date_secondary, 8, 2 );
+	// 
+	// if ( 'between' === $date_relationship ) {
+	// $date_queries = array(
+	// 'after'  => array(
+	// 'year'  => $primary_year,
+	// 'month' => $primary_month,
+	// 'day'   => $primary_day,
+	// ),
+	// 'before' => array(
+	// 'year'  => $secondary_year,
+	// 'month' => $secondary_month,
+	// 'day'   => $secondary_day,
+	// ),
+	// );
+	// } else {
+	// $date_queries = array(
+	// $date_relationship => array(
+	// 'year'  => $primary_year,
+	// 'month' => $primary_month,
+	// 'day'   => $primary_day,
+	// ),
+	// );
+	// }
+	// $date_queries['inclusive'] = $date_is_inclusive;
+	// 
+	// $custom_args['date_query'] = array_filter( $date_queries );
+	// }
 
-unset( $args['post__in'] );
-unset( $args['post__not_in'] );
-unset( $args['date_query'] );
+	unset( $args['post__in'] );
+	unset( $args['post__not_in'] );
+	unset( $args['date_query'] );
 
 
 	\error_log( '$args: ' . \var_export( $args, true ) );
@@ -379,8 +379,8 @@ unset( $args['date_query'] );
 	// Merge all queries.
 	return array_merge(
 		$args,
-		$custom_args,
+		// $custom_args,
 		// []
-#		array_filter( $filtered_query_args )
+		array_filter( $filtered_query_args )
 	);
 }

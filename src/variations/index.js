@@ -20,7 +20,7 @@ const GPQL_DEFAULT_ATTRIBUTES = {
 		pages: 0,
 		offset: 0,
 		postType: 'gatherpress_event',
-		gp_events_query: 'upcoming',
+		gatherpress_events_query: 'upcoming',
 		order: 'desc',
 		orderBy: 'date',
 		inherit: false
