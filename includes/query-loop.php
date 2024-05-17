@@ -14,7 +14,6 @@ namespace GatherPressQueryLoop;
  * and do not show "Tags" instead, because there were (for understandable reasons) no lables set.
  */
 \add_filter(
-	// 'register_' . Venue::TAXONOMY . '_taxonomy_args',
 	'register_' . '_gatherpress_venue' . '_taxonomy_args',
 	function ( $args ) {
 
@@ -32,7 +31,7 @@ namespace GatherPressQueryLoop;
  *
  * @param array $meta_query_data Post meta query data.
  * @return array
- */
+
 function parse_meta_query( $meta_query_data ) {
 	$meta_queries = array();
 	if ( isset( $meta_query_data ) ) {
@@ -54,7 +53,7 @@ function parse_meta_query( $meta_query_data ) {
 	}
 
 	return array_filter( $meta_queries );
-}
+} */
 
 /**
  * Returns an array with Post IDs that should be excluded from the Query.
@@ -95,7 +94,6 @@ function query_loop_block_query_vars( $default_query, $block ) {
 
 	// Type of event list: 'upcoming' or 'past'.
 	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
-	// $query_args['gatherpress_events_query'] = 'upcoming';
 	$query_args['gatherpress_events_query'] = $block_query['gatherpress_events_query'];
 
 
@@ -225,7 +223,6 @@ function query_loop_block_query_vars( $default_query, $block ) {
 				\add_filter(
 					'query_loop_block_query_vars',
 					__NAMESPACE__ . '\\query_loop_block_query_vars',
-					// function ( $default_query ) use ( $parsed_block ) {}
 					10,
 					2
 				);
@@ -293,22 +290,18 @@ function add_custom_query_params( $args, $request ) {
 
 	// Type of event list: 'upcoming' or 'past'.
 	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
-	// $custom_args['gatherpress_events_query'] = 'upcoming';
-	// $custom_args['gatherpress_events_query'] = 'past';
 	$custom_args['gatherpress_events_query'] = $request->get_param( 'gatherpress_events_query' );
 
-
-
 	// Exclusion Related.
-	// $exclude_current = $request->get_param( 'exclude_current' );
-	// if ( $exclude_current ) {
-	// $attributes = array(
-	// 'exclude_current' => $exclude_current,
-	// );
-	// 
-	// $custom_args['post__not_in'] = get_exclude_ids( $attributes );
-	// }
-	// 
+	$exclude_current = $request->get_param( 'exclude_current' );
+	if ( $exclude_current ) {
+		$attributes = array(
+			'exclude_current' => $exclude_current,
+		);
+		$custom_args['post__not_in'] = get_exclude_ids( $attributes );
+	}
+
+
 	// // Meta related.
 	// // $meta_query = $request->get_param( 'meta_query' );
 	// // if ( $meta_query ) {
@@ -359,14 +352,14 @@ function add_custom_query_params( $args, $request ) {
 	// $custom_args['date_query'] = array_filter( $date_queries );
 	// }
 
-	unset( $args['post__in'] );
-	unset( $args['post__not_in'] );
-	unset( $args['date_query'] );
+	// unset( $args['post__in'] );
+	// unset( $args['post__not_in'] );
+	// unset( $args['date_query'] );
 
 
-	\error_log( '$args: ' . \var_export( $args, true ) );
-	\error_log( '$request: ' . \var_export( $request->get_param( 'orderby' ), true ) );
-	\error_log( '$custom_args: ' . \var_export( $custom_args, true ) );
+	// \error_log( '$args: ' . \var_export( $args, true ) );
+	// \error_log( '$request: ' . \var_export( $request->get_param( 'orderby' ), true ) );
+	// \error_log( '$custom_args: ' . \var_export( $custom_args, true ) );
 
 	/** This filter is documented in includes/query-loop.php */
 	$filtered_query_args = \apply_filters(
