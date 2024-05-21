@@ -18,7 +18,8 @@ import { PostDateQueryControls } from '../components/post-date-query-controls';
 import { MultiplePostSelect } from '../components/multiple-post-select';
 import { PostOrderControls } from '../components/post-order-controls';
 import { PostExcludeControls } from '../components/post-exclude-controls';
-import { PostIncludeControls } from '../components/post-include-controls';
+import { AuthorContextControls } from '../components/context-author-controls';
+import { TermsContextControls } from '../components/context-terms-controls';
 
 /**
  * Determines if the active variation is this one
@@ -55,7 +56,8 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 								'contextual-query-loop'
 							) }
 						>
-							<MultiplePostSelect { ...props } />
+							<AuthorContextControls { ...props } />
+							{/* <MultiplePostSelect { ...props } /> */}
 							<PostCountControls { ...props } />
 							<PostOffsetControls { ...props } />
 							<PostOrderControls { ...props } />

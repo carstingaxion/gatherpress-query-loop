@@ -20,6 +20,7 @@ registerBlockVariation( 'core/query', {
 	isActive: [ 'namespace' ],
 	attributes: {
 		namespace: CQL,
+		querycontext: [],
 	},
 	scope: [ 'inserter', 'transform' ],
 } );

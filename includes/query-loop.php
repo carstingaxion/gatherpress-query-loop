@@ -184,6 +184,23 @@ function get_include_ids( $include_posts ) {
 							$query_args['date_query'] = array_filter( $date_queries );
 
 						}
+
+						// Contextual inheritance.
+						if ( isset( $block_query['querycontext'] ) && ! empty( $block_query['querycontext'] ) ) {
+							$queried_object = get_queried_object();
+							switch ( true ) {
+								case $queried_object instanceof \WP_Post:
+									if ( in_array( 'author', $block_query['querycontext'], true ) ) {
+										unset( $block_query['author'] );
+										$query_args['author'] = (int) $queried_object->post_author;
+									}
+									break;
+
+								default:
+									// code...
+									break;
+							}
+						}
 						/** This filter is documented in includes/query-loop.php */
 						$filtered_query_args = \apply_filters(
 							'cql_query_vars',
@@ -329,6 +346,29 @@ function add_custom_query_params( $args, $request ) {
 		$date_queries['inclusive'] = $date_is_inclusive;
 
 		$custom_args['date_query'] = array_filter( $date_queries );
+	}
+
+
+	// Contextual inheritance.
+	$querycontext = $request->get_param( 'querycontext' );
+	if ( $querycontext ) {
+		/*
+		 * Get context, where REST request is coming from.
+		 *
+		 * @see https://developer.wordpress.org/reference/classes/wp_rest_request/get_header/
+		 */
+		$referer      = $request->get_header( 'referer' );
+		$query_string = \wp_parse_url( $referer, PHP_URL_QUERY );
+		parse_str( $query_string, $query_params );
+
+		// We are on a typical /wp-admin/post.php?post=173&action=edit page.
+		if ( isset( $query_params['post'] ) ) {
+			$post = \get_post( (int) $query_params['post'] );
+
+			if ( in_array( 'author', $querycontext, true ) && $post instanceof \WP_Post ) {
+				$custom_args['author'] = (int) $post->post_author;
+			}
+		}
 	}
 
 	/** This filter is documented in includes/query-loop.php */
