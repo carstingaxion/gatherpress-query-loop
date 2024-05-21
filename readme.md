@@ -1,6 +1,24 @@
-# Advanced Query Loop
+# Contextual Query Loop
 
 ## Description
+
+Query loop block-variation to create custom queries based on the context.
+
+This block helps while templating in FSE, because it inherits some settings from the currently viewed template or surounding block, without the need to *hard code* the attributes of the query block.
+
+This should help query posts by
+
+- [x] the same author, as the context post.
+- [ ] the same term, as the current archive or context post.
+- [ ] ...
+
+---
+
+**Credits to @ryanwelcher** for everything below and 97% of the code within this project.
+
+---
+
+## (Original) Description
 
 This plugin introduces a Query Loop block variation that will empower users to be able to do much more complicated queries with the Query Loop block, such number of posts to display and post meta
 
