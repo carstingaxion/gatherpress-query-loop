@@ -68,7 +68,7 @@ function get_include_ids( $include_posts ) {
  */
 \add_filter(
 	'pre_render_block',
-	function( $pre_render, $parsed_block ) {
+	function ( $pre_render, $parsed_block ) {
 		if ( isset( $parsed_block['attrs']['namespace'] ) && 'advanced-query-loop' === $parsed_block['attrs']['namespace'] ) {
 
 			// Hijack the global query. It's a hack, but it works.
@@ -107,7 +107,7 @@ function get_include_ids( $include_posts ) {
 			} else {
 				\add_filter(
 					'query_loop_block_query_vars',
-					function( $default_query, $block ) {
+					function ( $default_query, $block ) {
 						// Retrieve the query from the passed block context.
 						$block_query = $block->context['query'];
 
@@ -127,7 +127,7 @@ function get_include_ids( $include_posts ) {
 
 						// Include Posts.
 						if ( isset( $block_query['include_posts'] ) && ! empty( $block_query['include_posts'] ) ) {
-							$include_ids = get_include_ids( $block_query['include_posts'] );
+							$include_ids            = get_include_ids( $block_query['include_posts'] );
 							$query_args['post__in'] = $include_ids;
 						}
 
@@ -197,7 +197,6 @@ function get_include_ids( $include_posts ) {
 							$default_query,
 							$filtered_query_args
 						);
-
 					},
 					10,
 					2
@@ -217,7 +216,7 @@ function get_include_ids( $include_posts ) {
 // Add a filter to each rest endpoint to add our custom query params.
 \add_action(
 	'init',
-	function() {
+	function () {
 		$registered_post_types = \get_post_types( array( 'public' => true ) );
 		foreach ( $registered_post_types as $registered_post_type ) {
 			\add_filter( 'rest_' . $registered_post_type . '_query', __NAMESPACE__ . '\add_custom_query_params', 10, 2 );
@@ -225,7 +224,6 @@ function get_include_ids( $include_posts ) {
 			// We need more sortBy options.
 			\add_filter( 'rest_' . $registered_post_type . '_collection_params', __NAMESPACE__ . '\add_more_sort_by', 10, 2 );
 		}
-
 	},
 	PHP_INT_MAX
 );
@@ -278,7 +276,7 @@ function add_custom_query_params( $args, $request ) {
 	// Inclusion Related.
 	$include_posts = $request->get_param( 'include_posts' );
 	if ( $include_posts ) {
-		$include_ids = get_include_ids( $include_posts );
+		$include_ids             = get_include_ids( $include_posts );
 		$custom_args['post__in'] = $include_ids;
 	}
 
