@@ -8,9 +8,9 @@ import { __ } from '@wordpress/i18n';
 /**
  *  Internal dependencies
  */
-import { AQL } from '.';
-import AQLControls from '../slots/aql-controls';
-import AQLControlsInheritedQuery from '../slots/aql-controls-inherited-query';
+import { CQL } from '.';
+import CQLControls from '../slots/cql-controls';
+import CQLControlsInheritedQuery from '../slots/cql-controls-inherited-query';
 import { PostCountControls } from '../components/post-count-controls';
 import { PostOffsetControls } from '../components/post-offset-controls';
 import { PostMetaQueryControls } from '../components/post-meta-query-controls';
@@ -26,11 +26,11 @@ import { PostIncludeControls } from '../components/post-include-controls';
  * @param {*} props
  * @return {boolean} Is this the correct variation?
  */
-const isAdvancedQueryLoop = ( props ) => {
+const isContextualQueryLoop = ( props ) => {
 	const {
 		attributes: { namespace },
 	} = props;
-	return namespace && namespace === AQL;
+	return namespace && namespace === CQL;
 };
 
 /**
@@ -39,9 +39,9 @@ const isAdvancedQueryLoop = ( props ) => {
  * @param {*} BlockEdit
  * @return {Element} BlockEdit instance
  */
-const withAdvancedQueryControls = ( BlockEdit ) => ( props ) => {
+const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 	// If the is the correct variation, add the custom controls.
-	if ( isAdvancedQueryLoop( props ) ) {
+	if ( isContextualQueryLoop( props ) ) {
 		// If the inherit prop is false, add all the controls.
 		const { attributes } = props;
 		if ( attributes.query.inherit === false ) {
@@ -51,8 +51,8 @@ const withAdvancedQueryControls = ( BlockEdit ) => ( props ) => {
 					<InspectorControls>
 						<PanelBody
 							title={ __(
-								'Advanced Query Settings',
-								'advanced-query-loop'
+								'Contextual Query Settings',
+								'contextual-query-loop'
 							) }
 						>
 							<MultiplePostSelect { ...props } />
@@ -63,7 +63,7 @@ const withAdvancedQueryControls = ( BlockEdit ) => ( props ) => {
 							<PostIncludeControls { ...props } />
 							<PostMetaQueryControls { ...props } />
 							<PostDateQueryControls { ...props } />
-							<AQLControls.Slot fillProps={ { ...props } } />
+							<CQLControls.Slot fillProps={ { ...props } } />
 						</PanelBody>
 					</InspectorControls>
 				</>
@@ -76,12 +76,12 @@ const withAdvancedQueryControls = ( BlockEdit ) => ( props ) => {
 				<InspectorControls>
 					<PanelBody
 						title={ __(
-							'Advanced Query Settings',
-							'advanced-query-loop'
+							'Contextual Query Settings',
+							'contextual-query-loop'
 						) }
 					>
 						<PostOrderControls { ...props } />
-						<AQLControlsInheritedQuery.Slot
+						<CQLControlsInheritedQuery.Slot
 							fillProps={ { ...props } }
 						/>
 					</PanelBody>
@@ -92,4 +92,5 @@ const withAdvancedQueryControls = ( BlockEdit ) => ( props ) => {
 	return <BlockEdit { ...props } />;
 };
 
-addFilter( 'editor.BlockEdit', 'core/query', withAdvancedQueryControls );
+addFilter( 'editor.BlockEdit', 'core/query', withContextualQueryControls );
+

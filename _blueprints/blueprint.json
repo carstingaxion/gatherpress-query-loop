@@ -19,7 +19,7 @@
 			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "url",
-				"url": "https://downloads.wordpress.org/plugin/advanced-query-loop.zip"
+				"url": "https://downloads.wordpress.org/plugin/contextual-query-loop.zip"
 			},
 			"options": {
 				"activate": true
@@ -34,7 +34,7 @@
 			"path": "/wordpress/wp-content/plugins/cpts/cpt-demo-plugin.php",
 			"data": {
 				"resource": "url",
-				"url": "https://raw.githubusercontent.com/ryanwelcher/advanced-query-loop/trunk/_blueprints/cpt-demo.php"
+				"url": "https://raw.githubusercontent.com/ryanwelcher/contextual-query-loop/trunk/_blueprints/cpt-demo.php"
 			}
 		},
 		{
@@ -45,7 +45,7 @@
 			"step": "importFile",
 			"file": {
 				"resource": "url",
-				"url": "https://raw.githubusercontent.com/ryanwelcher/advanced-query-loop/trunk/_blueprints/demo-content.xml"
+				"url": "https://raw.githubusercontent.com/ryanwelcher/contextual-query-loop/trunk/_blueprints/demo-content.xml"
 			}
 		}
 	]

@@ -15,7 +15,7 @@ export const PostCountControls = ( { attributes, setAttributes } ) => {
 
 	return (
 		<RangeControl
-			label={ __( 'Posts Per Page', 'advanced-query-loop' ) }
+			label={ __( 'Posts Per Page', 'contextual-query-loop' ) }
 			min={ 1 }
 			max={ 50 }
 			onChange={ ( newCount ) => {

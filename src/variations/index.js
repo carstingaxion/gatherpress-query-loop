@@ -7,21 +7,21 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import './controls';
-import AQLIcon from '../components/icons';
-import AQLControls from '../slots/aql-controls';
-import AQLControlsInheritedQuery from '../slots/aql-controls-inherited-query';
-const AQL = 'advanced-query-loop';
+import CQLIcon from '../components/icons';
+import CQLControls from '../slots/cql-controls';
+import CQLControlsInheritedQuery from '../slots/cql-controls-inherited-query';
+const CQL = 'contextual-query-loop';
 
 registerBlockVariation( 'core/query', {
-	name: AQL,
-	title: __( 'Advanced Query Loop', 'advanced-query-loop' ),
-	description: __( 'Create advanced queries', 'advanced-query-loop' ),
-	icon: AQLIcon,
+	name: CQL,
+	title: __( 'Contextual Query Loop', 'contextual-query-loop' ),
+	description: __( 'Create advanced queries', 'contextual-query-loop' ),
+	icon: CQLIcon,
 	isActive: [ 'namespace' ],
 	attributes: {
-		namespace: AQL,
+		namespace: CQL,
 	},
 	scope: [ 'inserter', 'transform' ],
 } );
 
-export { AQL, AQLControls, AQLControlsInheritedQuery };
+export { CQL, CQLControls, CQLControlsInheritedQuery };

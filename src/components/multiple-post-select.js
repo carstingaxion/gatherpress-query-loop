@@ -18,17 +18,17 @@ export const MultiplePostSelect = ( { attributes, setAttributes } ) => {
 	);
 
 	if ( ! postTypes ) {
-		return <div>{ __( 'Loading…', 'advanced-query-loop' ) }</div>;
+		return <div>{ __( 'Loading…', 'contextual-query-loop' ) }</div>;
 	}
 	return (
 		<BaseControl
 			help={ __(
 				'These post types will be queried in addition to the main post type.',
-				'advanced-query-loop'
+				'contextual-query-loop'
 			) }
 		>
 			<FormTokenField
-				label={ __( 'Additional Post Types', 'advanced-query-loop' ) }
+				label={ __( 'Additional Post Types', 'contextual-query-loop' ) }
 				value={ [
 					...multiplePosts.filter( ( type ) => type !== postType ),
 				] }

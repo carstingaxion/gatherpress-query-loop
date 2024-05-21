@@ -10,13 +10,13 @@
  * Author URI:        
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       advanced-query-loop
+ * Text Domain:       contextual-query-loop
  * Domain Path:       /languages
  *
- * @package           AdvancedQueryLoop
+ * @package           ContextualQueryLoop
  */
 
-namespace AdvancedQueryLoop;
+namespace ContextualQueryLoop;
 
 // Some helpful constants.
 define( 'CQL_BUILD_DIR_PATH', plugin_dir_path( __FILE__ ) . 'build/' );

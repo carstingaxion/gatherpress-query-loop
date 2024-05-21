@@ -89,20 +89,20 @@ export const PostIncludeControls = ( { attributes, setAttributes } ) => {
 	};
 
 	if ( ! posts ) {
-		return <div>{ __( 'Loading…', 'advanced-query-loop' ) }</div>;
+		return <div>{ __( 'Loading…', 'contextual-query-loop' ) }</div>;
 	}
 
 	return (
 		<>
-			<h2> { __( 'Include Posts', 'advanced-query-loop' ) }</h2>
+			<h2> { __( 'Include Posts', 'contextual-query-loop' ) }</h2>
 			<BaseControl
 				help={ __(
 					'Start typing to search for a post title or manually enter one.',
-					'advanced-query-loop'
+					'contextual-query-loop'
 				) }
 			>
 				<FormTokenField
-					label={ __( 'Posts', 'advanced-query-loop' ) }
+					label={ __( 'Posts', 'contextual-query-loop' ) }
 					value={ includePosts.map( ( item ) => item.title ) }
 					suggestions={ posts.map( ( post ) => post.title.rendered ) }
 					onInputChange={ ( searchPost ) =>

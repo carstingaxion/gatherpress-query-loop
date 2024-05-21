@@ -18,14 +18,14 @@ export const PostExcludeControls = ( { attributes, setAttributes } ) => {
 	}, [] );
 
 	if ( ! currentPost ) {
-		return <div>{ __( 'Loading…', 'advanced-query-loop' ) }</div>;
+		return <div>{ __( 'Loading…', 'contextual-query-loop' ) }</div>;
 	}
 
 	return (
 		<>
-			<h2> { __( 'Exclude Posts', 'advanced-query-loop' ) }</h2>
+			<h2> { __( 'Exclude Posts', 'contextual-query-loop' ) }</h2>
 			<ToggleControl
-				label={ __( 'Exclude Current Post', 'advanced-query-loop' ) }
+				label={ __( 'Exclude Current Post', 'contextual-query-loop' ) }
 				checked={ !! excludeCurrent }
 				onChange={ ( value ) => {
 					setAttributes( {

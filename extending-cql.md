@@ -1,23 +1,23 @@
-## Extending AQL
+## Extending CQL
 
-Since version 1.5, AQL is now completely extendable. Using the SlotFills and filter outlined below, you can add any custom control you may need! The code below can be seen in my [advanced-query-loop-extension plugin here](https://github.com/ryanwelcher/advanced-query-loop-extension)
+Since version 1.5, CQL is now completely extendable. Using the SlotFills and filter outlined below, you can add any custom control you may need! The code below can be seen in my [contextual-query-loop-extension plugin here](https://github.com/ryanwelcher/contextual-query-loop-extension)
 
 #### SlotFills
 
-There are two SlotFills available to extend the UI of AQL that are exposed based the value of the `Inherit query from template` setting of the block.
+There are two SlotFills available to extend the UI of CQL that are exposed based the value of the `Inherit query from template` setting of the block.
 
 The purpose of having two options is to be able to customize when a UI element is added. There may be cases that a particular control doesn't make sense to be shown when the query is being inherited.
-For example, a control that makes changes to the content types being displayed may not make sense when used in an archive template and so that control would only be added using the `<AQLControls` SlotFill so that it doesn't appear when `Inherit query from template` is enabled.
+For example, a control that makes changes to the content types being displayed may not make sense when used in an archive template and so that control would only be added using the `<CQLControls` SlotFill so that it doesn't appear when `Inherit query from template` is enabled.
 
--   AQLControls
--   AQLControlsInheritedQuery
+-   CQLControls
+-   CQLControlsInheritedQuery
 
-Both SlotFills are passed all `props` from the main block and are available on the `window.aql` object for use.
+Both SlotFills are passed all `props` from the main block and are available on the `window.cql` object for use.
 
 The example below adds a new control to only show content from the from currently logged in user regardless of the status of `Inherit query from template`.
 
 ```js
-const { AQLControls, AQLControlsInheritedQuery } = window.aql;
+const { CQLControls, CQLControlsInheritedQuery } = window.cql;
 import { registerPlugin } from '@wordpress/plugins';
 import { ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -42,16 +42,16 @@ const LoggedInUserControl = ( { attributes, setAttributes } ) => {
 	);
 };
 
-registerPlugin( 'aql-extension', {
+registerPlugin( 'cql-extension', {
 	render: () => {
 		return (
 			<>
-				<AQLControls>
+				<CQLControls>
 					{ ( props ) => <LoggedInUserControl { ...props } /> }
-				</AQLControls>
-				<AQLControlsInheritedQuery>
+				</CQLControls>
+				<CQLControlsInheritedQuery>
 					{ ( props ) => <LoggedInUserControl { ...props } /> }
-				</AQLControlsInheritedQuery>
+				</CQLControlsInheritedQuery>
 			</>
 		);
 	},
@@ -60,7 +60,7 @@ registerPlugin( 'aql-extension', {
 
 #### Filters
 
-Once the control is in place and saving, you will need to use that new query variable to modify the underlying `WP_Query` instance via the `aql_query_vars` filter.
+Once the control is in place and saving, you will need to use that new query variable to modify the underlying `WP_Query` instance via the `cql_query_vars` filter.
 
 The filter provides three parameters:
 
@@ -78,7 +78,7 @@ The example code below modifies the query based on the status of the control add
  * @param array   $block_query The query attribute retrieved from the block.
  * @param boolean $inherited   Whether the query is being inherited.
  */
-function aql_extension_show_current_author_only( $query_args, $block_query, $inherited ) {
+function cql_extension_show_current_author_only( $query_args, $block_query, $inherited ) {
 	if (
 		isset( $block_query['authorContent'] ) &&
 		true === filter_var( $block_query['authorContent'], FILTER_VALIDATE_BOOLEAN )
@@ -88,12 +88,12 @@ function aql_extension_show_current_author_only( $query_args, $block_query, $inh
 	return $query_args;
 }
 
-\add_filter( 'aql_query_vars', 'aql_extension_show_current_author_only', 10, 3 );
+\add_filter( 'cql_query_vars', 'cql_extension_show_current_author_only', 10, 3 );
 ```
 
 ### Tutorial
 
-Using he example code above, you can make a custom extension plugin for AQL that will filter the displayed posts by author.
+Using he example code above, you can make a custom extension plugin for CQL that will filter the displayed posts by author.
 
 #### Step 1
 
@@ -102,13 +102,13 @@ Start by using the `@wordpress/create-block` package to scaffold all of the file
 The the following in the command line tool of your choice inside the wp-content folder of a local WordPress installation.
 
 ```bash
-npx @wordpress/create-block custom-aql-extension
+npx @wordpress/create-block custom-cql-extension
 
 ```
 
 #### Step 2
 
-Once the scaffold has been completed, delete all of the files in `custom-aql-extension/src` we don't need them.
+Once the scaffold has been completed, delete all of the files in `custom-cql-extension/src` we don't need them.
 
 #### Step 3
 
@@ -122,7 +122,7 @@ const defaultConfig = require("@wordpress/scripts/config/webpack.config");
 module.exports = {
 	...defaultConfig,
 	entry: {
-		`aql-extension`: './src/index.js
+		`cql-extension`: './src/index.js
 	},
 };
 ```
@@ -132,7 +132,7 @@ module.exports = {
 Create an `index.js` file inside of the `./src` directory with the following contents:
 
 ```js
-const { AQLControls, AQLControlsInheritedQuery } = window.aql;
+const { CQLControls, CQLControlsInheritedQuery } = window.cql;
 import { registerPlugin } from '@wordpress/plugins';
 import { ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -157,16 +157,16 @@ const LoggedInUserControl = ( { attributes, setAttributes } ) => {
 	);
 };
 
-registerPlugin( 'aql-extension', {
+registerPlugin( 'cql-extension', {
 	render: () => {
 		return (
 			<>
-				<AQLControls>
+				<CQLControls>
 					{ ( props ) => <LoggedInUserControl { ...props } /> }
-				</AQLControls>
-				<AQLControlsInheritedQuery>
+				</CQLControls>
+				<CQLControlsInheritedQuery>
 					{ ( props ) => <LoggedInUserControl { ...props } /> }
-				</AQLControlsInheritedQuery>
+				</CQLControlsInheritedQuery>
 			</>
 		);
 	},
@@ -181,13 +181,13 @@ Next open the scaffolded `index.php` file in the root directory and remove the e
 \add_action(
 	'enqueue_block_editor_assets',
 	function () {
-		$extension_assets_file = plugin_dir_path( __FILE__ ) . 'build/aql-extension.asset.php';
+		$extension_assets_file = plugin_dir_path( __FILE__ ) . 'build/cql-extension.asset.php';
 
 		if ( file_exists( $extension_assets_file ) ) {
 			$assets = include $extension_assets_file;
 			\wp_enqueue_script(
-				'aql-extension',
-				plugin_dir_url( __FILE__ ). 'build/aql-extension.js',
+				'cql-extension',
+				plugin_dir_url( __FILE__ ). 'build/cql-extension.js',
 				$assets['dependencies'],
 				$assets['version'],
 				true
@@ -197,7 +197,7 @@ Next open the scaffolded `index.php` file in the root directory and remove the e
 );
 ```
 
-Next, add the following hooks to filter AQL
+Next, add the following hooks to filter CQL
 
 ```php
 /**
@@ -207,7 +207,7 @@ Next, add the following hooks to filter AQL
  * @param array   $block_query The query attribute retrieved from the block.
  * @param boolean $inherited   Whether the query is being inherited.
  */
-function aql_extension_show_current_author_only( $query_args, $block_query, $inherited ) {
+function cql_extension_show_current_author_only( $query_args, $block_query, $inherited ) {
 	if (
 		isset( $block_query['authorContent'] ) &&
 		true === filter_var( $block_query['authorContent'], FILTER_VALIDATE_BOOLEAN )
@@ -217,7 +217,7 @@ function aql_extension_show_current_author_only( $query_args, $block_query, $inh
 	return $query_args;
 }
 
-\add_filter( 'aql_query_vars', 'aql_extension_show_current_author_only', 10, 3 );
+\add_filter( 'cql_query_vars', 'cql_extension_show_current_author_only', 10, 3 );
 ```
 
 #### Step 6

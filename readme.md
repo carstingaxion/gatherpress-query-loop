@@ -24,7 +24,7 @@ This plugin introduces a Query Loop block variation that will empower users to b
 
 ### Support/Issues
 
-Please use the either the [support](https://wordpress.org/support/plugin/advanced-query-loop/) forum or the [official repository](https://github.com/ryanwelcher/advanced-query-loop) for any questions or to log issues.
+Please use the either the [support](https://wordpress.org/support/plugin/contextual-query-loop/) forum or the [official repository](https://github.com/ryanwelcher/contextual-query-loop) for any questions or to log issues.
 
 ### Available Controls
 
@@ -72,6 +72,6 @@ Sort in ascending or descending order by:
 
 **Please note that this is a slight duplication of the existing sorting controls. They both work interchangeably but it just looks a bit odd in the UI**
 
-## Extending AQL
+## Extending CQL
 
-Detailed instructions on how to extend AQL as well as an example are available [here](./extending-aql.md)
+Detailed instructions on how to extend CQL as well as an example are available [here](./extending-cql.md)

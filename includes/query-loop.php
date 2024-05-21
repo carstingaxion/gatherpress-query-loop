@@ -2,10 +2,10 @@
 /**
  * Handles the filters we need to add to the query.
  *
- * @package AdvancedQueryLoop
+ * @package ContextualQueryLoop
  */
 
-namespace AdvancedQueryLoop;
+namespace ContextualQueryLoop;
 
 /**
  * Adds the custom query attributes to the Query Loop block.
@@ -69,7 +69,7 @@ function get_include_ids( $include_posts ) {
 \add_filter(
 	'pre_render_block',
 	function ( $pre_render, $parsed_block ) {
-		if ( isset( $parsed_block['attrs']['namespace'] ) && 'advanced-query-loop' === $parsed_block['attrs']['namespace'] ) {
+		if ( isset( $parsed_block['attrs']['namespace'] ) && 'contextual-query-loop' === $parsed_block['attrs']['namespace'] ) {
 
 			// Hijack the global query. It's a hack, but it works.
 			if ( isset( $parsed_block['attrs']['query']['inherit'] ) && true === $parsed_block['attrs']['query']['inherit'] ) {
@@ -97,7 +97,7 @@ function get_include_ids( $include_posts ) {
 				 * @param array $filtered_query_args Final arguments list.
 				 */
 				$filtered_query_args = \apply_filters(
-					'aql_query_vars',
+					'cql_query_vars',
 					$query_args,
 					$parsed_block['attrs']['query'],
 					true,
@@ -132,7 +132,7 @@ function get_include_ids( $include_posts ) {
 						}
 
 						// Check for meta queries.
-						// Ensure any old meta is removed @see https://github.com/ryanwelcher/advanced-query-loop/issues/29
+						// Ensure any old meta is removed @see https://github.com/ryanwelcher/contextual-query-loop/issues/29
 						$query_args['meta_query'] = array();
 						if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
 							$query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
@@ -186,7 +186,7 @@ function get_include_ids( $include_posts ) {
 						}
 						/** This filter is documented in includes/query-loop.php */
 						$filtered_query_args = \apply_filters(
-							'aql_query_vars',
+							'cql_query_vars',
 							$query_args,
 							$block_query,
 							false
@@ -333,7 +333,7 @@ function add_custom_query_params( $args, $request ) {
 
 	/** This filter is documented in includes/query-loop.php */
 	$filtered_query_args = \apply_filters(
-		'aql_query_vars',
+		'cql_query_vars',
 		$custom_args,
 		$request->get_params(),
 		false,

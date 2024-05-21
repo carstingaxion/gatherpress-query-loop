@@ -15,54 +15,54 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 	return (
 		<>
 			<SelectControl
-				label={ __( 'Post Order By', 'advanced-query-loop' ) }
+				label={ __( 'Post Order By', 'contextual-query-loop' ) }
 				value={ orderBy }
 				help={
 					orderBy === 'meta_value' || orderBy === 'meta_value_num'
 						? __(
 								'Meta Value and Meta Value Num require that Meta Key is set in the Meta Query section.',
-								'advanced-query-loop'
+								'contextual-query-loop'
 						  )
 						: ''
 				}
 				options={ [
 					{
-						label: __( 'Author', 'advanced-query-loop' ),
+						label: __( 'Author', 'contextual-query-loop' ),
 						value: 'author',
 					},
 					{
-						label: __( 'Date', 'advanced-query-loop' ),
+						label: __( 'Date', 'contextual-query-loop' ),
 						value: 'date',
 					},
 					{
 						label: __(
 							'Last Modified Date',
-							'advanced-query-loop'
+							'contextual-query-loop'
 						),
 						value: 'modified',
 					},
 					{
-						label: __( 'Title', 'advanced-query-loop' ),
+						label: __( 'Title', 'contextual-query-loop' ),
 						value: 'title',
 					},
 					{
-						label: __( 'Meta Value', 'advanced-query-loop' ),
+						label: __( 'Meta Value', 'contextual-query-loop' ),
 						value: 'meta_value',
 					},
 					{
-						label: __( 'Meta Value Num', 'advanced-query-loop' ),
+						label: __( 'Meta Value Num', 'contextual-query-loop' ),
 						value: 'meta_value_num',
 					},
 					{
-						label: __( 'Random', 'advanced-query-loop' ),
+						label: __( 'Random', 'contextual-query-loop' ),
 						value: 'rand',
 					},
 					{
-						label: __( 'Menu Order', 'advanced-query-loop' ),
+						label: __( 'Menu Order', 'contextual-query-loop' ),
 						value: 'menu_order',
 					},
 					{
-						label: __( 'Post ID', 'advanced-query-loop' ),
+						label: __( 'Post ID', 'contextual-query-loop' ),
 						value: 'id',
 					},
 				] }
@@ -76,7 +76,7 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 				} }
 			/>
 			<ToggleControl
-				label={ __( 'Ascending Order', 'advanced-query-loop' ) }
+				label={ __( 'Ascending Order', 'contextual-query-loop' ) }
 				checked={ order === 'asc' }
 				onChange={ () => {
 					setAttributes( {
