@@ -13,11 +13,13 @@ import CQLControls from '../slots/cql-controls';
 import CQLControlsInheritedQuery from '../slots/cql-controls-inherited-query';
 import { PostCountControls } from '../components/post-count-controls';
 import { PostOffsetControls } from '../components/post-offset-controls';
-import { PostMetaQueryControls } from '../components/post-meta-query-controls';
-import { PostDateQueryControls } from '../components/post-date-query-controls';
-import { MultiplePostSelect } from '../components/multiple-post-select';
+// import { PostMetaQueryControls } from '../components/post-meta-query-controls';
+// import { PostDateQueryControls } from '../components/post-date-query-controls';
+// import { MultiplePostSelect } from '../components/multiple-post-select';
 import { PostOrderControls } from '../components/post-order-controls';
 import { PostExcludeControls } from '../components/post-exclude-controls';
+// import { PostIncludeControls } from '../components/post-include-controls';
+
 import { AuthorContextControls } from '../components/context-author-controls';
 import { TermsContextControls } from '../components/context-terms-controls';
 
@@ -31,6 +33,11 @@ const isContextualQueryLoop = ( props ) => {
 	const {
 		attributes: { namespace },
 	} = props;
+	// console.log( querycontext );
+	// console.log( props.attributes );
+	// return querycontext !== 'undefined';
+	// return attributes.query && attributes.query.querycontext && attributes.query.querycontext.length > 0;
+	// return attributes && attributes.query;
 	return namespace && namespace === CQL;
 };
 
@@ -45,10 +52,10 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 	if ( isContextualQueryLoop( props ) ) {
 		// If the inherit prop is false, add all the controls.
 		const { attributes } = props;
+		// if ( attributes.query.inherit === false || ! attributes.query.inherit ) {
 		if ( attributes.query.inherit === false ) {
 			return (
 				<>
-					<BlockEdit { ...props } />
 					<InspectorControls>
 						<PanelBody
 							title={ __(
@@ -62,12 +69,14 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 							<PostOffsetControls { ...props } />
 							<PostOrderControls { ...props } />
 							<PostExcludeControls { ...props } />
-							<PostIncludeControls { ...props } />
+							{/* <PostIncludeControls { ...props } />
 							<PostMetaQueryControls { ...props } />
-							<PostDateQueryControls { ...props } />
+							<PostDateQueryControls { ...props } /> */}
 							<CQLControls.Slot fillProps={ { ...props } } />
 						</PanelBody>
 					</InspectorControls>
+					<BlockEdit { ...props } />
+					{/* <BlockEdit { ...props } allowedControls={ ''} /> */}
 				</>
 			);
 		}
