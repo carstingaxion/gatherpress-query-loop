@@ -41,7 +41,8 @@ const CqlAttributes = {
 		querycontext: [],
 	},
 	scope: [ 'inserter', 'transform' ],
-    allowedControls: [ 'inherit', 'postType', 'order', 'sticky', 'taxQuery', 'author', 'search' ],
+    // allowedControls: [ 'inherit', 'postType', 'order', 'sticky', 'taxQuery', 'author', 'search' ],
+    allowedControls: [ 'postType', 'sticky', 'taxQuery', 'author', 'search' ],
 }
 
 registerBlockVariation( 'core/query', {
