@@ -8,7 +8,7 @@ function CQLIcon() {
 				transform="translate(.9 85)"
 			>
 				<tspan x="0" y="0" letterSpacing="0em">
-					A
+					C
 				</tspan>
 				<tspan x="75.6" y="0" letterSpacing="0em">
 					QL
