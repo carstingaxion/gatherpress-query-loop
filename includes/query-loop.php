@@ -436,3 +436,39 @@ function add_custom_query_params( $args, $request ) {
 		array_filter( $filtered_query_args )
 	);
 }
+
+
+
+
+/**
+ * DEBUG OUTPUT
+ *
+ * Filters the content of a single block.
+ *
+ * @since 5.0.0
+ * @since 5.9.0 The `$instance` parameter was added.
+ *
+ * @param string   $block_content The block content.
+ * @param array    $block         The full block, including name and attributes.
+ *                                These keys are explained and referenced in [WP_Block](https://developer.wordpress.org/reference/classes/wp_block/)
+ *                 $block is array with keys:
+ *
+ *                     blockName
+ *                     attrs – array of block attributes
+ *                     innerBlocks – array of inner blocks
+ *                     innerHTML – resultant HTML from inside block comment delimiters after removing inner blocks.
+ *                     innerContent – list of string fragments and null markers where inner blocks were found
+ *
+ * @param \WP_Block $instance      The block instance.
+ */
+add_filter(
+	'render_block_core/query',
+	function ( string $block_content, array $block, \WP_Block $instance ) {
+		$debug = '';
+		// $debug = '<pre>' . var_export( $block['attrs'], true ) . '</pre>';
+		$block_content = $debug . $block_content;
+		return $block_content;
+	},
+	16,
+	3
+);
