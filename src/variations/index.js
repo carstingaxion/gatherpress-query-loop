@@ -15,7 +15,7 @@ const CQL = 'contextual-query-loop';
 registerBlockVariation( 'core/query', {
 	name: CQL,
 	title: __( 'Contextual Query Loop', 'contextual-query-loop' ),
-	description: __( 'Create advanced queries', 'contextual-query-loop' ),
+	description: __( 'Query loop block-variation to create custom queries based on the post- or template-context.', 'contextual-query-loop' ),
 	icon: CQLIcon,
 	isActive: [ 'namespace' ],
 	attributes: {

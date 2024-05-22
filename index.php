@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Contextual Query Loop
- * Description:       Query loop block-variation to create custom queries based on the context.
+ * Description:       Query loop block-variation to create custom queries based on the post- or template-context.
  * Plugin URI:        https://github.com/figuren-theater/contextual-query-loop
  * Version:           2.2.3
  * Requires at least: 6.1

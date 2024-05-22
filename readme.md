@@ -2,7 +2,7 @@
 
 ## Description
 
-Query loop block-variation to create custom queries based on the context.
+Query loop block-variation to create custom queries based on the post- or template-context.
 
 This block helps while templating in FSE, because it inherits some settings from the currently viewed template or surounding block, without the need to *hard code* the attributes of the query block.
 
