@@ -3,6 +3,12 @@
  */
 import { SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+/**
+ * WordPress dependencies
+ */
+import { useSelect } from '@wordpress/data';
+// import { useMemo } from '@wordpress/element';
+import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * ContextControls component
@@ -32,6 +38,17 @@ export const AuthorContextControls = ( { attributes, setAttributes, context } ) 
 				querycontext: { ...newQueryContext }
 			},
 		} );
+	}
+	const postTypeSupportsAuthor = useSelect( ( select ) =>
+		postType
+			? !! select( coreStore ).getPostType( postType )?.supports.author
+			: false
+	);
+
+	// The queried post type has no support for the author.
+	// Bail out early.
+	if ( ! postTypeSupportsAuthor ) {
+		return;
 	}
 	
 	// console.log(querycontext);
