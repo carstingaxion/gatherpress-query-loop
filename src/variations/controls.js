@@ -21,7 +21,7 @@ import { PostExcludeControls } from '../components/post-exclude-controls';
 // import { PostIncludeControls } from '../components/post-include-controls';
 
 import { AuthorContextControls } from '../components/context-author-controls';
-import { TermsContextControls } from '../components/context-terms-controls';
+import { ContextTaxQueryControls } from '../components/context-tax-query-controls';
 
 /**
  * Determines if the active variation is this one
@@ -60,6 +60,7 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 								'contextual-query-loop'
 							) }
 						>
+							<ContextTaxQueryControls { ...props } />
 							<AuthorContextControls { ...props } />
 
 							{/* <MultiplePostSelect { ...props } /> */}

@@ -13,6 +13,42 @@ namespace ContextualQueryLoop;
  * @param array $meta_query_data Post meta query data.
  * @return array
  */
+function parse_tax_query( array $tax_query_data, \WP_Post $post ) {
+	$tax_queries = array();
+	if ( isset( $tax_query_data ) ) {
+		$tax_queries = array(
+			'relation' => isset( $tax_query_data['relation'] ) ? $tax_query_data['relation'] : '',
+		);
+
+		if ( isset( $tax_query_data['queries'] ) ) {
+			foreach ( $tax_query_data['queries'] as $query ) {
+				if ( empty( $query['tax_key'] ) ) {
+					continue;
+				}
+				$term_ids      = \wp_get_post_terms( $post->ID, $query['tax_key'], array( 'fields' => 'ids' ) );
+				$tax_queries[] = array_filter(
+					array(
+						'taxonomy' => $query['tax_key'] ?? '',
+						// 'value'    => $query['tax_value'],
+						'field'    => 'term_id',
+						'terms'    => $term_ids,
+						'operator' => $query['tax_compare'],
+					)
+				);
+			}
+		}
+	}
+
+	return array_filter( $tax_queries );
+}
+
+
+/**
+ * Adds the custom query attributes to the Query Loop block.
+ *
+ * @param array $meta_query_data Post meta query data.
+ * @return array
+ */
 function parse_meta_query( $meta_query_data ) {
 	$meta_queries = array();
 	if ( isset( $meta_query_data ) ) {
@@ -194,6 +230,10 @@ function get_include_ids( $include_posts ) {
 										unset( $block_query['author'] );
 										$query_args['author'] = (int) $queried_object->post_author;
 									}
+									if ( isset( $block_query['querycontext']['tax_query'] ) && ! empty( $block_query['querycontext']['tax_query'] ) ) {
+										unset( $block_query['tax_query'] );
+										$query_args['tax_query'] = parse_tax_query( $block_query['querycontext']['tax_query'], $queried_object ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+									}
 									break;
 
 								default:
@@ -371,6 +411,13 @@ function add_custom_query_params( $args, $request ) {
 					$custom_args['author'] = (int) $post->post_author;
 				}
 
+				// Tax related.
+				// https://developer.wordpress.org/reference/classes/wp_query/#taxonomy-parameters
+				if ( isset( $querycontext['tax_query'] ) ) {
+					// error_log( var_export( $querycontext['tax_query'], true ) );
+					$custom_args['tax_query'] = parse_tax_query( $querycontext['tax_query'], $post );
+					// error_log( var_export( $custom_args['tax_query'], true ) );
+				}
 			}
 		}
 	}
