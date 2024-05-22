@@ -11,8 +11,8 @@ import { __ } from '@wordpress/i18n';
 import { CQL } from '.';
 import CQLControls from '../slots/cql-controls';
 import CQLControlsInheritedQuery from '../slots/cql-controls-inherited-query';
-import { PostCountControls } from '../components/post-count-controls';
-import { PostOffsetControls } from '../components/post-offset-controls';
+// import { PostCountControls } from '../components/post-count-controls';
+// import { PostOffsetControls } from '../components/post-offset-controls';
 // import { PostMetaQueryControls } from '../components/post-meta-query-controls';
 // import { PostDateQueryControls } from '../components/post-date-query-controls';
 // import { MultiplePostSelect } from '../components/multiple-post-select';
@@ -33,11 +33,8 @@ const isContextualQueryLoop = ( props ) => {
 	const {
 		attributes: { namespace },
 	} = props;
-	// console.log( querycontext );
 	// console.log( props.attributes );
-	// return querycontext !== 'undefined';
 	// return attributes.query && attributes.query.querycontext && attributes.query.querycontext.length > 0;
-	// return attributes && attributes.query;
 	return namespace && namespace === CQL;
 };
 
@@ -64,9 +61,10 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 							) }
 						>
 							<AuthorContextControls { ...props } />
+
 							{/* <MultiplePostSelect { ...props } /> */}
-							<PostCountControls { ...props } />
-							<PostOffsetControls { ...props } />
+							{/* <PostCountControls { ...props } /> */}
+							{/* <PostOffsetControls { ...props } /> */}
 							<PostOrderControls { ...props } />
 							<PostExcludeControls { ...props } />
 							{/* <PostIncludeControls { ...props } />
@@ -76,7 +74,6 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 						</PanelBody>
 					</InspectorControls>
 					<BlockEdit { ...props } />
-					{/* <BlockEdit { ...props } allowedControls={ ''} /> */}
 				</>
 			);
 		}

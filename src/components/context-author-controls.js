@@ -8,55 +8,43 @@ import { __ } from '@wordpress/i18n';
  * ContextControls component
  *
  * @param {*} param0
- * @return {Element} PostCountControls
+ * @return {Element} AuthorContextControls
  */
 export const AuthorContextControls = ( { attributes, setAttributes, context } ) => {
 	const { query } = attributes;
-	const { query: { querycontext } = {} } = attributes;
-	// console.log( 'ContextControls', querycontext );
-	// console.log( 'ContextControls', context );
-
-	/**
-	 * @source https://www.30secondsofcode.org/js/s/toggle-array-element/
-	 * @see    https://dev.to/reobin/how-to-toggle-an-item-in-a-javascript-array-5dl5 In-depth explanation.
-	 * @param {*} arr 
-	 * @param {*} val 
-	 * @returns 
-	 */
-	const toggleElement = (arr, val) =>
-		arr.includes(val) ? arr.filter(el => el !== val) : [...arr, val];
-
+	const { query: { 
+		postType,
+		querycontext
+	} = {} } = attributes;
 
 	const onContextualChange = ( ) => {
-		// const { query } = attributes;
-		// query.indexOf('querycontext') === -1 && query.push('querycontext');
-		// let querycontext = ['author'];
-		// const newQuery = { ...query, querycontext }
-		// query.push('querycontext');
-		// console.log(query);
-		// console.log(newQuery);
-	
+		let newQueryContext = {
+			...attributes.query.querycontext,
+		}
+		if ( attributes.query.querycontext && ! attributes.query.querycontext.author) {
+			newQueryContext.author = 1;
+		} else {
+			delete newQueryContext.author;
+		}
 		setAttributes( {
 			query: {
-				// ...attributes.newQuery,
 				...attributes.query,
-				querycontext: toggleElement( querycontext, 'author'),
+				querycontext: { ...newQueryContext }
 			},
 		} );
 	}
 	
-// console.log(querycontext);
+	// console.log(querycontext);
 	// if ( ! querycontext ) {
 	// 	return <div>{ __( 'Loading…undefined', 'contextual-query-loop' ) }</div>;
 	// }
 	return (
 		<>
-			<div>
-				Here We are.
-			</div>
+			<h2> { __( 'Contextual Author', 'contextual-query-loop' ) }</h2>
 			<ToggleControl
 				label={ __( 'Contextual Author', 'contextual-query-loop' ) }
-				checked={ ( querycontext && querycontext.includes('author') ) }
+				help="This is some help text."
+				checked={ ( querycontext && querycontext.author ) }
 				onChange={ onContextualChange }
 			/>
 		</>

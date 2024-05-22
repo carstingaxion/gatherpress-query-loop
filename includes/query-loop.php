@@ -190,7 +190,7 @@ function get_include_ids( $include_posts ) {
 							$queried_object = get_queried_object();
 							switch ( true ) {
 								case $queried_object instanceof \WP_Post:
-									if ( in_array( 'author', $block_query['querycontext'], true ) ) {
+									if ( isset( $block_query['querycontext']['author'] ) ) {
 										unset( $block_query['author'] );
 										$query_args['author'] = (int) $queried_object->post_author;
 									}
@@ -365,8 +365,12 @@ function add_custom_query_params( $args, $request ) {
 		if ( isset( $query_params['post'] ) ) {
 			$post = \get_post( (int) $query_params['post'] );
 
-			if ( in_array( 'author', $querycontext, true ) && $post instanceof \WP_Post ) {
-				$custom_args['author'] = (int) $post->post_author;
+			if ( $post instanceof \WP_Post ) {
+
+				if ( isset( $querycontext['author'] ) ) {
+					$custom_args['author'] = (int) $post->post_author;
+				}
+
 			}
 		}
 	}
