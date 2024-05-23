@@ -11,7 +11,7 @@ This block helps while templating in FSE, because it inherits some settings from
 This should help query posts by
 
 - [x] the same author, as the context post.
-- [ ] the same term, as the current archive or context post.
+- [x] the same term(s), as the current archive or context post.
 - [ ] ...
 
 ---
