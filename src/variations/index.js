@@ -22,7 +22,7 @@ const CqlAttributes = {
 		if ( blockAttributes.namespace && CQL === blockAttributes.namespace ) {
 
 			if ( blockAttributes.query.querycontext && blockAttributes.query.querycontext.author ) {
-				console.log('we should disable the default-author controll at this point, while "contextual-author" is selected.');
+				console.log('We should (be able to) disable the default-author controll at this point, while "contextual-author" is selected.');
 				// unregisterBlockVariation( 'core/query', CQL );
 
 				// registerBlockVariation( 'core/query', {
