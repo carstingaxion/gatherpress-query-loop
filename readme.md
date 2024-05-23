@@ -18,6 +18,7 @@ This block helps while templating in FSE, because it inherits some settings from
 This should help query posts by
 
 - [x] the same author, as the context post.
+   - [ ] :bulb: exclude the current context-author
 - [x] the same term(s), as the current archive or context post.
 - [ ] the [same day before](https://indieweb.social/@janboddez/112485691901272067) ... 1 week, 1 month, n year :bulb: Idea from [@janboddez](https://github.com/janboddez)
 
