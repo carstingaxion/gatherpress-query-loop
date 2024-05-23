@@ -45,14 +45,14 @@ export const PostOrderControls = ( { attributes, setAttributes } ) => {
 						label: __( 'Title', 'contextual-query-loop' ),
 						value: 'title',
 					},
-					{
-						label: __( 'Meta Value', 'contextual-query-loop' ),
-						value: 'meta_value',
-					},
-					{
-						label: __( 'Meta Value Num', 'contextual-query-loop' ),
-						value: 'meta_value_num',
-					},
+					// {
+					// 	label: __( 'Meta Value', 'contextual-query-loop' ),
+					// 	value: 'meta_value',
+					// },
+					// {
+					// 	label: __( 'Meta Value Num', 'contextual-query-loop' ),
+					// 	value: 'meta_value_num',
+					// },
 					{
 						label: __( 'Random', 'contextual-query-loop' ),
 						value: 'rand',

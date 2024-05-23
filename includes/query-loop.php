@@ -298,8 +298,8 @@ function get_include_ids( $include_posts ) {
  */
 function add_more_sort_by( $query_params, $post_type ) {
 	$query_params['orderby']['enum'][] = 'menu_order';
-	$query_params['orderby']['enum'][] = 'meta_value';
-	$query_params['orderby']['enum'][] = 'meta_value_num';
+	// $query_params['orderby']['enum'][] = 'meta_value';
+	// $query_params['orderby']['enum'][] = 'meta_value_num';
 	$query_params['orderby']['enum'][] = 'rand';
 	return $query_params;
 }
