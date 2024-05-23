@@ -48,7 +48,7 @@ function parse_tax_query( array $tax_query_data, \WP_Post $post ) {
  *
  * @param array $meta_query_data Post meta query data.
  * @return array
- */
+
 function parse_meta_query( $meta_query_data ) {
 	$meta_queries = array();
 	if ( isset( $meta_query_data ) ) {
@@ -70,7 +70,7 @@ function parse_meta_query( $meta_query_data ) {
 	}
 
 	return array_filter( $meta_queries );
-}
+} */
 
 /**
  * Returns an array with Post IDs that should be excluded from the Query.
@@ -167,12 +167,12 @@ function get_include_ids( $include_posts ) {
 							$query_args['post__in'] = $include_ids;
 						}
 
-						// Check for meta queries.
-						// Ensure any old meta is removed @see https://github.com/ryanwelcher/contextual-query-loop/issues/29
-						$query_args['meta_query'] = array();
-						if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
-							$query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-						}
+						// // Check for meta queries.
+						// // Ensure any old meta is removed @see https://github.com/ryanwelcher/contextual-query-loop/issues/29
+						// $query_args['meta_query'] = array();
+						// if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
+						// 	$query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						// }
 
 						// Date queries.
 						$date_query        = $block_query['date_query'] ?? null;
@@ -337,11 +337,12 @@ function add_custom_query_params( $args, $request ) {
 		$custom_args['post__in'] = $include_ids;
 	}
 
-	// Meta related.
-	$meta_query = $request->get_param( 'meta_query' );
-	if ( $meta_query ) {
-		$custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-	}
+	// // Meta related.
+	// $meta_query = $request->get_param( 'meta_query' );
+	// if ( $meta_query ) {
+	// 	$custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+	// }
+
 
 	// Date related.
 	$date_query        = $request->get_param( 'date_query' );
