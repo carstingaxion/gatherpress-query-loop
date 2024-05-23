@@ -4,6 +4,8 @@
 
 Query loop block-variation to create custom queries based on the post- or template-context.
 
+https://github.com/carstingaxion/additional-advanced-query-loops/assets/198883/0f077ac4-06ff-44e2-81c9-a92b02b3cff1
+
 This block helps while templating in FSE, because it inherits some settings from the currently viewed template or surounding block, without the need to *hard code* the attributes of the query block.
 
 This should help query posts by
