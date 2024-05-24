@@ -22,6 +22,7 @@ import { PostExcludeControls } from '../components/post-exclude-controls';
 
 import { AuthorContextControls } from '../components/context-author-controls';
 import { ContextTaxQueryControls } from '../components/context-tax-query-controls';
+import { ContextDateQueryControls } from '../components/context-date-query-controls';
 
 /**
  * Determines if the active variation is this one
@@ -60,6 +61,7 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 								'contextual-query-loop'
 							) }
 						>
+							<ContextDateQueryControls { ...props } />
 							<ContextTaxQueryControls { ...props } />
 							<AuthorContextControls { ...props } />
 

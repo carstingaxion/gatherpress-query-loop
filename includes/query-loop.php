@@ -44,6 +44,136 @@ function parse_tax_query( array $tax_query_data, \WP_Post $post ): array {
 	return array_filter( $tax_queries );
 }
 
+/**
+ * Broaden the date query.
+ *
+ * Relevant if the contextualised date is not a (full) date, but only the month or year.
+ * This is used for 'exact', 'before' or 'after' date relationship.
+ *
+ * @param  array  $date_queries
+ * @param  string $date_primary
+ *
+ * @return array
+ */
+function broaden_date_query( array $date_queries, string $date_primary ): array {
+	switch ( $date_primary ) {
+		case 'post_year':
+		case 'modified_year':
+			unset( $date_queries['month'] );
+			unset( $date_queries['day'] );
+			break;
+		case 'post_month':
+		case 'modified_month':
+			unset( $date_queries['day'] );
+			break;
+		default:
+			break;
+	}
+	return $date_queries;
+}
+
+/**
+ * 
+ *
+ * @see https://developer.wordpress.org/reference/classes/wp_query/#date-parameters
+ *
+ * @param  array    $date_query
+ * @param  \WP_Post $queried_object
+ *
+ * @return array
+ */
+function parse_date_query( array $date_query, \WP_Post $queried_object ): array {
+
+	$date_relationship = $date_query['relation'] ?? null;
+	$modifier_primary  = $date_query['modifier_primary'] ?? '';
+
+	if ( ! isset( $date_query['date_primary'] ) ) {
+		return array();
+	}
+
+	switch ( $date_query['date_primary'] ) {
+		case 'post_year':
+		case 'post_month':
+		case 'post_date':
+			$start_context_date = $queried_object->post_date_gmt;
+			break;
+		case 'modified_year':
+		case 'modified_month':
+		case 'modified_date':
+			$start_context_date = $queried_object->post_modified_gmt;
+			break;
+		case 'today':
+		default:
+			$start_context_date = 'today';
+			break;
+	}
+
+	// start context date is the combi of start-date and start-modifier.
+	$start_context_datetime = strtotime( $start_context_date . ' ' . $modifier_primary );
+	$date_primary           = date_i18n( 'Y-m-d\TH:i:s', $start_context_datetime );
+
+	if ( $date_query && $date_relationship && $date_primary ) {
+		$date_is_inclusive = $date_query['inclusive'] ?? false;
+		$date_secondary    = $date_query['date_secondary'] ?? null;
+
+		/**
+		 * Date format:ISO 8601
+		 *
+		 * @see https://make.wordpress.org/core/2019/09/23/date-time-improvements-wp-5-3/#comment-37281
+		 *
+		 * @example 2022-12-27T11:14:21
+		 * @example Y-m-d\TH:i:s
+		 */
+		$primary_year  = substr( $date_primary, 0, 4 );
+		$primary_month = substr( $date_primary, 5, 2 );
+		$primary_day   = substr( $date_primary, 8, 2 );
+
+		if ( 'between' === $date_relationship && $date_secondary ) {
+			$secondary_year  = substr( $date_secondary, 0, 4 );
+			$secondary_month = substr( $date_secondary, 5, 2 );
+			$secondary_day   = substr( $date_secondary, 8, 2 );
+
+			$date_queries = array(
+				'after'  => array(
+					'year'  => $primary_year,
+					'month' => $primary_month,
+					'day'   => $primary_day,
+				),
+				'before' => array(
+					'year'  => $secondary_year,
+					'month' => $secondary_month,
+					'day'   => $secondary_day,
+				),
+			);
+
+		} elseif ( 'exact' === $date_relationship ) {
+			$date_queries = array(
+				'year'  => $primary_year,
+				'month' => $primary_month,
+				'day'   => $primary_day,
+
+			);
+			$date_queries = broaden_date_query( $date_queries, $date_query['date_primary'] );
+		} else {
+			// This matches for 'before' or 'after' date relationship.
+			$date_queries = array(
+				$date_relationship => array(
+					'year'  => $primary_year,
+					'month' => $primary_month,
+					'day'   => $primary_day,
+				),
+			);
+			$date_queries[ $date_relationship ] = broaden_date_query( $date_queries[ $date_relationship ], $date_query['date_primary'] );
+		}
+
+		$date_queries['inclusive'] = $date_is_inclusive;
+
+		// Return the date queries (to the custom query).
+		return $date_queries;
+	}
+	return array(); // stupid fallback ...
+}
+
 
 /**
  * Adds the custom query attributes to the Query Loop block.
@@ -176,52 +306,52 @@ function get_include_ids( $include_posts ) {
 						// $query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 						// }
 
-						// Date queries.
-						$date_query        = $block_query['date_query'] ?? null;
-						$date_relationship = $date_query['relation'] ?? null;
-						$date_primary      = $date_query['date_primary'] ?? null;
-						if ( $date_query && $date_relationship && $date_primary ) {
-							$date_is_inclusive = $date_query['inclusive'] ?? false;
-							$date_secondary    = $date_query['date_secondary'] ?? null;
+						// // Date queries.
+						// $date_query        = $block_query['date_query'] ?? null;
+						// $date_relationship = $date_query['relation'] ?? null;
+						// $date_primary      = $date_query['date_primary'] ?? null;
+						// if ( $date_query && $date_relationship && $date_primary ) {
+						// $date_is_inclusive = $date_query['inclusive'] ?? false;
+						// $date_secondary    = $date_query['date_secondary'] ?? null;
 
-							// Date format: 2022-12-27T11:14:21.
-							$primary_year  = substr( $date_primary, 0, 4 );
-							$primary_month = substr( $date_primary, 5, 2 );
-							$primary_day   = substr( $date_primary, 8, 2 );
+						// Date format: 2022-12-27T11:14:21.
+						// $primary_year  = substr( $date_primary, 0, 4 );
+						// $primary_month = substr( $date_primary, 5, 2 );
+						// $primary_day   = substr( $date_primary, 8, 2 );
 
-							if ( 'between' === $date_relationship && $date_secondary ) {
-								$secondary_year  = substr( $date_secondary, 0, 4 );
-								$secondary_month = substr( $date_secondary, 5, 2 );
-								$secondary_day   = substr( $date_secondary, 8, 2 );
+						// if ( 'between' === $date_relationship && $date_secondary ) {
+						// $secondary_year  = substr( $date_secondary, 0, 4 );
+						// $secondary_month = substr( $date_secondary, 5, 2 );
+						// $secondary_day   = substr( $date_secondary, 8, 2 );
 
-								$date_queries = array(
-									'after'  => array(
-										'year'  => $primary_year,
-										'month' => $primary_month,
-										'day'   => $primary_day,
-									),
-									'before' => array(
-										'year'  => $secondary_year,
-										'month' => $secondary_month,
-										'day'   => $secondary_day,
-									),
-								);
-							} else {
-								$date_queries = array(
-									$date_relationship => array(
-										'year'  => $primary_year,
-										'month' => $primary_month,
-										'day'   => $primary_day,
-									),
-								);
-							}
+						// $date_queries = array(
+						// 'after'  => array(
+						// 'year'  => $primary_year,
+						// 'month' => $primary_month,
+						// 'day'   => $primary_day,
+						// ),
+						// 'before' => array(
+						// 'year'  => $secondary_year,
+						// 'month' => $secondary_month,
+						// 'day'   => $secondary_day,
+						// ),
+						// );
+						// } else {
+						// $date_queries = array(
+						// $date_relationship => array(
+						// 'year'  => $primary_year,
+						// 'month' => $primary_month,
+						// 'day'   => $primary_day,
+						// ),
+						// );
+						// }
 
-							$date_queries['inclusive'] = $date_is_inclusive;
+						// $date_queries['inclusive'] = $date_is_inclusive;
 
-							// Add the date queries to the custom query.
-							$query_args['date_query'] = array_filter( $date_queries );
+						// Add the date queries to the custom query.
+						// $query_args['date_query'] = array_filter( $date_queries );
 
-						}
+						// }
 
 						// Contextual inheritance.
 						if ( isset( $block_query['querycontext'] ) && ! empty( $block_query['querycontext'] ) ) {
@@ -236,6 +366,16 @@ function get_include_ids( $include_posts ) {
 										unset( $block_query['tax_query'] );
 										$query_args['tax_query'] = parse_tax_query( $block_query['querycontext']['tax_query'], $queried_object ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 									}
+									if ( isset( $block_query['querycontext']['date_query'] ) ) {
+										// Date queries.
+										$date_query   = $block_query['querycontext']['date_query'] ?? null;
+										$date_queries = parse_date_query( $date_query, $queried_object );
+										if ( ! empty( $date_queries ) ) {
+											// Add the date queries to the custom query.
+											$query_args['date_query'] = array_filter( $date_queries );
+										}
+									}
+
 									break;
 
 								default:
@@ -345,52 +485,50 @@ function add_custom_query_params( $args, $request ) {
 	// $custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 	// }
 
+	// // Date related.
+	// $date_query        = $request->get_param( 'date_query' );
+	// $date_relationship = $date_query['relation'] ?? null;
+	// $date_primary      = $date_query['date_primary'] ?? null;
 
-	// Date related.
-	$date_query        = $request->get_param( 'date_query' );
-	$date_relationship = $date_query['relation'] ?? null;
-	$date_primary      = $date_query['date_primary'] ?? null;
+	// if ( $date_query && $date_relationship && $date_primary ) {
+	// $date_is_inclusive = 'true' === $date_query['inclusive'] ?? false;
+	// $date_secondary    = $date_query['date_secondary'] ?? null;
 
-	if ( $date_query && $date_relationship && $date_primary ) {
-		$date_is_inclusive = 'true' === $date_query['inclusive'] ?? false;
-		$date_secondary    = $date_query['date_secondary'] ?? null;
+	// Date format: 2022-12-27T11:14:21.
+	// $primary_year  = substr( $date_primary, 0, 4 );
+	// $primary_month = substr( $date_primary, 5, 2 );
+	// $primary_day   = substr( $date_primary, 8, 2 );
 
-		// Date format: 2022-12-27T11:14:21.
-		$primary_year  = substr( $date_primary, 0, 4 );
-		$primary_month = substr( $date_primary, 5, 2 );
-		$primary_day   = substr( $date_primary, 8, 2 );
+	// if ( 'between' === $date_relationship && $date_secondary ) {
+	// $secondary_year  = substr( $date_secondary, 0, 4 );
+	// $secondary_month = substr( $date_secondary, 5, 2 );
+	// $secondary_day   = substr( $date_secondary, 8, 2 );
 
-		if ( 'between' === $date_relationship && $date_secondary ) {
-			$secondary_year  = substr( $date_secondary, 0, 4 );
-			$secondary_month = substr( $date_secondary, 5, 2 );
-			$secondary_day   = substr( $date_secondary, 8, 2 );
+	// $date_queries = array(
+	// 'after'  => array(
+	// 'year'  => $primary_year,
+	// 'month' => $primary_month,
+	// 'day'   => $primary_day,
+	// ),
+	// 'before' => array(
+	// 'year'  => $secondary_year,
+	// 'month' => $secondary_month,
+	// 'day'   => $secondary_day,
+	// ),
+	// );
+	// } else {
+	// $date_queries = array(
+	// $date_relationship => array(
+	// 'year'  => $primary_year,
+	// 'month' => $primary_month,
+	// 'day'   => $primary_day,
+	// ),
+	// );
+	// }
+	// $date_queries['inclusive'] = $date_is_inclusive;
 
-			$date_queries = array(
-				'after'  => array(
-					'year'  => $primary_year,
-					'month' => $primary_month,
-					'day'   => $primary_day,
-				),
-				'before' => array(
-					'year'  => $secondary_year,
-					'month' => $secondary_month,
-					'day'   => $secondary_day,
-				),
-			);
-		} else {
-			$date_queries = array(
-				$date_relationship => array(
-					'year'  => $primary_year,
-					'month' => $primary_month,
-					'day'   => $primary_day,
-				),
-			);
-		}
-		$date_queries['inclusive'] = $date_is_inclusive;
-
-		$custom_args['date_query'] = array_filter( $date_queries );
-	}
-
+	// $custom_args['date_query'] = array_filter( $date_queries );
+	// }
 
 	// Contextual inheritance.
 	$querycontext = $request->get_param( 'querycontext' );
@@ -409,6 +547,19 @@ function add_custom_query_params( $args, $request ) {
 			$post = \get_post( (int) $query_params['post'] );
 
 			if ( $post instanceof \WP_Post ) {
+
+				if ( isset( $querycontext['date_query'] ) ) {
+
+					// Date queries.
+					$date_query   = $querycontext['date_query'];
+					$date_queries = parse_date_query( $date_query, $post );
+					if ( ! empty( $date_queries ) ) {
+						// Add the date queries to the custom query.
+						$custom_args['date_query'] = array_filter( $date_queries );
+					}
+					error_log( 'BEFORE:   ' . var_export( $querycontext['date_query'], true ) );
+					error_log( 'AFTER:   ' . var_export( $custom_args['date_query'], true ) );
+				}
 
 				if ( isset( $querycontext['author'] ) ) {
 					$custom_args['author'] = (int) $post->post_author;
