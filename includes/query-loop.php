@@ -557,8 +557,8 @@ function add_custom_query_params( $args, $request ) {
 						// Add the date queries to the custom query.
 						$custom_args['date_query'] = array_filter( $date_queries );
 					}
-					error_log( 'BEFORE:   ' . var_export( $querycontext['date_query'], true ) );
-					error_log( 'AFTER:   ' . var_export( $custom_args['date_query'], true ) );
+					// error_log( 'BEFORE:   ' . var_export( $querycontext['date_query'], true ) );
+					// error_log( 'AFTER:   ' . var_export( $custom_args['date_query'], true ) );
 				}
 
 				if ( isset( $querycontext['author'] ) ) {
@@ -616,7 +616,7 @@ add_filter(
 	'render_block_core/query',
 	function ( string $block_content, array $block, \WP_Block $instance ) {
 		$debug         = '';
-		$debug         = '<pre>' . var_export( $block['attrs'], true ) . '</pre>';
+		// $debug         = '<pre>' . var_export( $block['attrs'], true ) . '</pre>';
 		$block_content = $debug . $block_content;
 		return $block_content;
 	},
