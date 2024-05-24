@@ -10,8 +10,8 @@ namespace ContextualQueryLoop;
 /**
  * Adds the custom query attributes to the Query Loop block.
  *
- * @param array $tax_query_data Post tax query data.
- * @param array $post           Post object.
+ * @param array    $tax_query_data Post tax query data.
+ * @param \WP_Post $post           Post object.
  *
  * @return array
  */
