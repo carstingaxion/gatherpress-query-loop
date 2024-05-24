@@ -102,37 +102,3 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 };
 
 addFilter( 'editor.BlockEdit', 'core/query', withContextualQueryControls );
-
-
-
-
-
-
-// addFilter(
-//     'blocks.registerBlockType',
-//     'figuren-theater/extend-query-block',
-//     extendQueryBlock
-// );
-
-function extendQueryBlock(settings, name) {
-    if (name !== 'core/query') {
-        return settings;
-    }
-	// console.log(name);
-	// console.info(settings);
-	// settings.usesContext.indexOf('postId') === -1 && settings.usesContext.push('queryId');
-	settings.usesContext.indexOf('postId') === -1 && settings.usesContext.push('postId');
-	settings.usesContext.indexOf('postType') === -1 && settings.usesContext.push('postType');
-	const newSettings = {
-        ...settings,
-        supports: {
-            ...settings.supports,
-			// className: false, // Removes "Additional CSS classes" panel for blocks that support it
-			// customClassName: false // **Updated** For blocks that don't have className
-        },
-        // usesContext: settings.usesContext.push('postId'),
-	
-    }
-	// console.log(newSettings);
-	return newSettings;
-}
