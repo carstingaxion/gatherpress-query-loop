@@ -10,10 +10,12 @@ namespace ContextualQueryLoop;
 /**
  * Adds the custom query attributes to the Query Loop block.
  *
- * @param array $meta_query_data Post meta query data.
+ * @param array $tax_query_data Post tax query data.
+ * @param array $post           Post object.
+ *
  * @return array
  */
-function parse_tax_query( array $tax_query_data, \WP_Post $post ) {
+function parse_tax_query( array $tax_query_data, \WP_Post $post ): array {
 	$tax_queries = array();
 	if ( isset( $tax_query_data ) ) {
 		$tax_queries = array(
@@ -171,7 +173,7 @@ function get_include_ids( $include_posts ) {
 						// // Ensure any old meta is removed @see https://github.com/ryanwelcher/contextual-query-loop/issues/29
 						// $query_args['meta_query'] = array();
 						// if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
-						// 	$query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						// $query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 						// }
 
 						// Date queries.
@@ -340,7 +342,7 @@ function add_custom_query_params( $args, $request ) {
 	// // Meta related.
 	// $meta_query = $request->get_param( 'meta_query' );
 	// if ( $meta_query ) {
-	// 	$custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+	// $custom_args['meta_query'] = parse_meta_query( $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 	// }
 
 
@@ -438,9 +440,6 @@ function add_custom_query_params( $args, $request ) {
 	);
 }
 
-
-
-
 /**
  * DEBUG OUTPUT
  *
@@ -465,8 +464,8 @@ function add_custom_query_params( $args, $request ) {
 add_filter(
 	'render_block_core/query',
 	function ( string $block_content, array $block, \WP_Block $instance ) {
-		$debug = '';
-		// $debug = '<pre>' . var_export( $block['attrs'], true ) . '</pre>';
+		$debug         = '';
+		$debug         = '<pre>' . var_export( $block['attrs'], true ) . '</pre>';
 		$block_content = $debug . $block_content;
 		return $block_content;
 	},

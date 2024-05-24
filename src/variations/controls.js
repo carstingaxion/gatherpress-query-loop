@@ -56,7 +56,7 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 					<InspectorControls>
 						<PanelBody
 							title={ __(
-								'Contextual Query Settings',
+								'Contextual Settings',
 								'contextual-query-loop'
 							) }
 						>
