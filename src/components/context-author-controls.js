@@ -24,19 +24,25 @@ export const AuthorContextControls = ( { attributes, setAttributes, context } ) 
 	} = {} } = attributes;
 
 	const onContextualChange = ( ) => {
-		let newQueryContext = {
-			...attributes.query.querycontext,
-		}
-		if ( attributes.query.querycontext && ! attributes.query.querycontext.author) {
-			newQueryContext.author = 1;
-		} else {
-			delete newQueryContext.author;
+		if ( attributes.query.querycontext && attributes.query.querycontext.author ) {
+			delete attributes.query.querycontext.author;
+
+			setAttributes( {
+				query: {
+					...attributes.query,
+					querycontext: { ...attributes.query.querycontext }
+				}
+			} );
+			return;
 		}
 		setAttributes( {
 			query: {
 				...attributes.query,
-				querycontext: { ...newQueryContext }
-			},
+				querycontext: {
+					...attributes.query.querycontext,
+					author: 1,
+				}
+			}
 		} );
 	}
 	const postTypeSupportsAuthor = useSelect( ( select ) =>
