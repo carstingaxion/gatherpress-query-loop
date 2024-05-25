@@ -287,11 +287,11 @@ function get_include_ids( $include_posts ) {
 							$query_args['post_type'] = array_merge( array( $default_query['post_type'] ), $block_query['multiple_posts'] );
 						}
 
-						// Exclude Posts.
-						$exclude_ids = get_exclude_ids( $block_query );
-						if ( ! empty( $exclude_ids ) ) {
-							$query_args['post__not_in'] = $exclude_ids;
-						}
+						// // Exclude Posts.
+						// $exclude_ids = get_exclude_ids( $block_query );
+						// if ( ! empty( $exclude_ids ) ) {
+						// 	$query_args['post__not_in'] = $exclude_ids;
+						// }
 
 						// Include Posts.
 						if ( isset( $block_query['include_posts'] ) && ! empty( $block_query['include_posts'] ) ) {
@@ -375,7 +375,9 @@ function get_include_ids( $include_posts ) {
 											$query_args['date_query'] = array_filter( $date_queries );
 										}
 									}
-
+									if ( isset( $block_query['querycontext']['exclude_current'] ) ) {
+										$query_args['post__not_in'] = array( $queried_object->ID );
+									}
 									break;
 
 								default:
@@ -462,15 +464,15 @@ function add_custom_query_params( $args, $request ) {
 		$custom_args['post_type'] = array_merge( array( $args['post_type'] ), $multiple_post_types );
 	}
 
-	// Exclusion Related.
-	$exclude_current = $request->get_param( 'exclude_current' );
-	if ( $exclude_current ) {
-		$attributes = array(
-			'exclude_current' => $exclude_current,
-		);
+	// // Exclusion Related.
+	// $exclude_current = $request->get_param( 'exclude_current' );
+	// if ( $exclude_current ) {
+	// 	$attributes = array(
+	// 		'exclude_current' => $exclude_current,
+	// 	);
 
-		$custom_args['post__not_in'] = get_exclude_ids( $attributes );
-	}
+	// 	$custom_args['post__not_in'] = get_exclude_ids( $attributes );
+	// }
 
 	// Inclusion Related.
 	$include_posts = $request->get_param( 'include_posts' );
@@ -547,6 +549,10 @@ function add_custom_query_params( $args, $request ) {
 			$post = \get_post( (int) $query_params['post'] );
 
 			if ( $post instanceof \WP_Post ) {
+
+				if ( isset( $querycontext['exclude_current'] ) ) {
+					$custom_args['post__not_in'] = array( $post->ID );
+				}
 
 				if ( isset( $querycontext['date_query'] ) ) {
 

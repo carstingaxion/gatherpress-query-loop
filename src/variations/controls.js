@@ -17,12 +17,13 @@ import CQLControlsInheritedQuery from '../slots/cql-controls-inherited-query';
 // import { PostDateQueryControls } from '../components/post-date-query-controls';
 // import { MultiplePostSelect } from '../components/multiple-post-select';
 import { PostOrderControls } from '../components/post-order-controls';
-import { PostExcludeControls } from '../components/post-exclude-controls';
+// import { PostExcludeControls } from '../components/post-exclude-controls';
 // import { PostIncludeControls } from '../components/post-include-controls';
 
 import { ContextAuthorControls } from '../components/context-author-controls';
 import { ContextTaxQueryControls } from '../components/context-tax-query-controls';
 import { ContextDateQueryControls } from '../components/context-date-query-controls';
+import { ContextExcludeControls } from '../components/context-exclude-controls';
 
 /**
  * Determines if the active variation is this one
@@ -61,6 +62,7 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 								'contextual-query-loop'
 							) }
 						>
+							<ContextExcludeControls { ...props } />
 							<ContextDateQueryControls { ...props } />
 							<ContextTaxQueryControls { ...props } />
 							<ContextAuthorControls { ...props } />
@@ -69,7 +71,7 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 							{/* <PostCountControls { ...props } /> */}
 							{/* <PostOffsetControls { ...props } /> */}
 							<PostOrderControls { ...props } />
-							<PostExcludeControls { ...props } />
+							{/* <PostExcludeControls { ...props } /> */}
 							{/* <PostIncludeControls { ...props } /> */}
 							{/* <PostMetaQueryControls { ...props } /> */}
 							{/* <PostDateQueryControls { ...props } /> */}
