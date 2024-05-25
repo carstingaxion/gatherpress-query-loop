@@ -20,7 +20,7 @@ import { PostOrderControls } from '../components/post-order-controls';
 import { PostExcludeControls } from '../components/post-exclude-controls';
 // import { PostIncludeControls } from '../components/post-include-controls';
 
-import { AuthorContextControls } from '../components/context-author-controls';
+import { ContextAuthorControls } from '../components/context-author-controls';
 import { ContextTaxQueryControls } from '../components/context-tax-query-controls';
 import { ContextDateQueryControls } from '../components/context-date-query-controls';
 
@@ -63,16 +63,16 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 						>
 							<ContextDateQueryControls { ...props } />
 							<ContextTaxQueryControls { ...props } />
-							<AuthorContextControls { ...props } />
+							<ContextAuthorControls { ...props } />
 
 							{/* <MultiplePostSelect { ...props } /> */}
 							{/* <PostCountControls { ...props } /> */}
 							{/* <PostOffsetControls { ...props } /> */}
 							<PostOrderControls { ...props } />
 							<PostExcludeControls { ...props } />
-							{/* <PostIncludeControls { ...props } />
-							<PostMetaQueryControls { ...props } />
-							<PostDateQueryControls { ...props } /> */}
+							{/* <PostIncludeControls { ...props } /> */}
+							{/* <PostMetaQueryControls { ...props } /> */}
+							{/* <PostDateQueryControls { ...props } /> */}
 							<CQLControls.Slot fillProps={ { ...props } } />
 						</PanelBody>
 					</InspectorControls>
@@ -87,7 +87,7 @@ const withContextualQueryControls = ( BlockEdit ) => ( props ) => {
 				<InspectorControls>
 					<PanelBody
 						title={ __(
-							'Contextual Query Settings',
+							'Contextual Settings',
 							'contextual-query-loop'
 						) }
 					>

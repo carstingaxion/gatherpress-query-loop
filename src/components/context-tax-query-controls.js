@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
  */
 import { Button, SelectControl, PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 
 /**

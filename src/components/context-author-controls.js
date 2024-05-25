@@ -14,9 +14,9 @@ import { store as coreStore } from '@wordpress/core-data';
  * ContextControls component
  *
  * @param {*} param0
- * @return {Element} AuthorContextControls
+ * @return {Element} ContextAuthorControls
  */
-export const AuthorContextControls = ( { attributes, setAttributes, context } ) => {
+export const ContextAuthorControls = ( { attributes, setAttributes, context } ) => {
 	const { query } = attributes;
 	const { query: { 
 		postType,
