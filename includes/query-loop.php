@@ -290,7 +290,7 @@ function get_include_ids( $include_posts ) {
 						// // Exclude Posts.
 						// $exclude_ids = get_exclude_ids( $block_query );
 						// if ( ! empty( $exclude_ids ) ) {
-						// 	$query_args['post__not_in'] = $exclude_ids;
+						// $query_args['post__not_in'] = $exclude_ids;
 						// }
 
 						// Include Posts.
@@ -387,6 +387,7 @@ function get_include_ids( $include_posts ) {
 										unset( $block_query['tax_query'] );
 										$query_args['tax_query'] = parse_tax_query( $block_query['querycontext']['tax_query'], $queried_object ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 									}
+
 									if ( isset( $block_query['querycontext']['date_query'] ) ) {
 										// Date queries.
 										$date_query   = $block_query['querycontext']['date_query'] ?? null;
@@ -396,13 +397,14 @@ function get_include_ids( $include_posts ) {
 											$query_args['date_query'] = array_filter( $date_queries );
 										}
 									}
+
 									if ( isset( $block_query['querycontext']['exclude_current'] ) ) {
 										$query_args['post__not_in'] = array( $queried_object->ID );
 									}
+
 									break;
 
 								default:
-									// code...
 									break;
 							}
 						}
@@ -488,11 +490,11 @@ function add_custom_query_params( $args, $request ) {
 	// // Exclusion Related.
 	// $exclude_current = $request->get_param( 'exclude_current' );
 	// if ( $exclude_current ) {
-	// 	$attributes = array(
-	// 		'exclude_current' => $exclude_current,
-	// 	);
+	// $attributes = array(
+	// 'exclude_current' => $exclude_current,
+	// );
 
-	// 	$custom_args['post__not_in'] = get_exclude_ids( $attributes );
+	// $custom_args['post__not_in'] = get_exclude_ids( $attributes );
 	// }
 
 	// Inclusion Related.
@@ -656,9 +658,7 @@ function add_custom_query_params( $args, $request ) {
 add_filter(
 	'render_block_core/query',
 	function ( string $block_content, array $block, \WP_Block $instance ) {
-		$debug         = '';
-		// $debug         = '<pre>' . var_export( $block['attrs'], true ) . '</pre>';
-		$block_content = $debug . $block_content;
+		// $block_content = '<pre>' . var_export( $block['attrs'], true ) . '</pre>' . $block_content;
 		return $block_content;
 	},
 	16,
