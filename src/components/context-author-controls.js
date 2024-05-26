@@ -23,8 +23,8 @@ export const ContextAuthorControls = ( { attributes, setAttributes, context } ) 
 		querycontext
 	} = {} } = attributes;
 
-	const onContextualChange = ( ) => {
-		if ( attributes.query.querycontext && attributes.query.querycontext.author ) {
+	const onContextualAuthorChange = ( value ) => {
+		if ( attributes.query.querycontext && attributes.query.querycontext.author && 1 === value ) {
 			delete attributes.query.querycontext.author;
 
 			setAttributes( {
@@ -40,7 +40,30 @@ export const ContextAuthorControls = ( { attributes, setAttributes, context } ) 
 				...attributes.query,
 				querycontext: {
 					...attributes.query.querycontext,
-					author: 1,
+					author: value,
+				}
+			}
+		} );
+	}
+	const onContextualUserChange = ( ) => {
+		if ( attributes.query.querycontext && attributes.query.querycontext.user ) {
+			delete attributes.query.querycontext.user;
+
+			setAttributes( {
+				query: {
+					...attributes.query,
+					querycontext: { ...attributes.query.querycontext }
+				}
+			} );
+			return;
+		}
+		delete attributes.query.querycontext.author;
+		setAttributes( {
+			query: {
+				...attributes.query,
+				querycontext: {
+					...attributes.query.querycontext,
+					user: 1,
 				}
 			}
 		} );
@@ -66,9 +89,30 @@ export const ContextAuthorControls = ( { attributes, setAttributes, context } ) 
 			<h2> { __( 'Contextual Author', 'contextual-query-loop' ) }</h2>
 			<ToggleControl
 				label={ __( 'Contextual Author', 'contextual-query-loop' ) }
-				help="This is some help text."
+				help="Include posts by the same author as the context post."
 				checked={ ( querycontext && querycontext.author ) }
-				onChange={ onContextualChange }
+				onChange={ () => onContextualAuthorChange( 1 ) }
+				disabled={ ( querycontext && querycontext.user ) }
+			/>
+			{/* 
+				Exclude Posts Belonging to an Author
+
+				Display all posts except those from an author(singular) by prefixing its id with a ‘-‘ (minus) sign:
+
+				@see https://developer.wordpress.org/reference/classes/wp_query/#author-parameters
+			*/}
+			<ToggleControl
+				label={ __( 'Exclude contextual Author', 'contextual-query-loop' ) }
+				help="Include posts by different authors as author of the context post."
+				checked={ ( querycontext && querycontext.author && -1 === querycontext.author ) }
+				onChange={ () => onContextualAuthorChange( -1 ) }
+				disabled={ ( querycontext && querycontext.user ) }
+			/>
+			<ToggleControl
+				label={ __( 'Contextual User', 'contextual-query-loop' ) }
+				help="Include posts by the currently logged-in user."
+				checked={ ( querycontext && querycontext.user ) }
+				onChange={ onContextualUserChange }
 			/>
 		</>
 	);

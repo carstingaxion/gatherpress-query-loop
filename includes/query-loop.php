@@ -358,10 +358,31 @@ function get_include_ids( $include_posts ) {
 							$queried_object = get_queried_object();
 							switch ( true ) {
 								case $queried_object instanceof \WP_Post:
+									// Querying posts by the same author as the context post.
 									if ( isset( $block_query['querycontext']['author'] ) ) {
 										unset( $block_query['author'] );
 										$query_args['author'] = (int) $queried_object->post_author;
+
+										// Display all posts except those from an author(singular) by prefixing its id with a ‘-‘ (minus) sign:
+										if ( -1 === $block_query['querycontext']['author'] ) {
+											$query_args['author'] = $query_args['author'] * -1;
+										}
 									}
+									/**
+									 * Querying posts by the currently logged-in user.
+									 *
+									 * @see https://developer.wordpress.org/reference/classes/wp_query/#author-parameters
+									 */
+									if ( isset( $block_query['querycontext']['user'] ) ) {
+										unset( $block_query['author'] );
+										$query_args['author'] = 99999999; // Fallback to non-existent user-id to make sure nothing is queried.
+										$current_user_id      = \get_current_user_id();
+										if ( $current_user_id ) {
+											$query_args['author'] = $current_user_id;
+										}
+									}
+									// error_log( 'WP_Query:   ' . var_export( $query_args, true ) );
+
 									if ( isset( $block_query['querycontext']['tax_query'] ) && ! empty( $block_query['querycontext']['tax_query'] ) ) {
 										unset( $block_query['tax_query'] );
 										$query_args['tax_query'] = parse_tax_query( $block_query['querycontext']['tax_query'], $queried_object ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
@@ -567,8 +588,22 @@ function add_custom_query_params( $args, $request ) {
 					// error_log( 'AFTER:   ' . var_export( $custom_args['date_query'], true ) );
 				}
 
+				// Querying posts by the same author as the context post.
 				if ( isset( $querycontext['author'] ) ) {
 					$custom_args['author'] = (int) $post->post_author;
+					// Display all posts except those from an author(singular) by prefixing its id with a ‘-‘ (minus) sign.
+					if ( -1 === $querycontext['author'] ) {
+						$custom_args['author'] = $custom_args['author'] * -1;
+					}
+				}
+
+				// Querying posts by the currently logged-in user.
+				if ( isset( $querycontext['user'] ) ) {
+					$custom_args['author'] = 99999999; // Fallback to non-existent user-id to make sure nothing is queried.
+					$current_user_id       = \get_current_user_id();
+					if ( $current_user_id ) {
+						$custom_args['author'] = $current_user_id;
+					}
 				}
 
 				// Tax related.
