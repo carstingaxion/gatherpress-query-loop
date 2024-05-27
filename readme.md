@@ -15,12 +15,14 @@ https://github.com/carstingaxion/additional-advanced-query-loops/assets/198883/0
 
 This block helps while templating in FSE, because it inherits some settings from the currently viewed template or surounding block, without the need to *hard code* the attributes of the query block.
 
-This should help query posts by
+This should help query posts by:
 
 - [x] the same author, as the context post.
-   - [ ] :bulb: exclude the current context-author
+   - [x] :bulb: exclude the current context-author
 - [x] the same term(s), as the current archive or context post.
 - [ ] the [same day before](https://indieweb.social/@janboddez/112485691901272067) ... 1 week, 1 month, n year :bulb: Idea from [@janboddez](https://github.com/janboddez)
+- [ ] the same post parent.
+- [ ] a shadow-taxonomy.
 
 ---
 
