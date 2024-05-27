@@ -102,6 +102,9 @@ function parse_date_query( array $date_query, \WP_Post $queried_object ): array 
 		case 'modified_date':
 			$start_context_date = $queried_object->post_modified_gmt;
 			break;
+		case 'selected_date':
+			$start_context_date = $date_query['date_primary_selected'] ?? 'today';
+			break;
 		case 'today':
 		default:
 			$start_context_date = 'today';
@@ -156,7 +159,7 @@ function parse_date_query( array $date_query, \WP_Post $queried_object ): array 
 			$date_queries = broaden_date_query( $date_queries, $date_query['date_primary'] );
 		} else {
 			// This matches for 'before' or 'after' date relationship.
-			$date_queries = array(
+			$date_queries                       = array(
 				$date_relationship => array(
 					'year'  => $primary_year,
 					'month' => $primary_month,

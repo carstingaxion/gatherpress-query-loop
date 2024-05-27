@@ -7,7 +7,10 @@ import {
 	CheckboxControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { RadioControl } from '@wordpress/components';
+import {
+	RadioControl,
+	__experimentalUnitControl as UnitControl
+} from '@wordpress/components';
 
 export const ContextDateQueryControls = ( { attributes, setAttributes } ) => {
 	const {
@@ -16,6 +19,7 @@ export const ContextDateQueryControls = ( { attributes, setAttributes } ) => {
 				date_query: {
 					relation: relationFromQuery = '',
 					date_primary: datePrimary = '',
+					date_primary_selected: selectedPrimary = null,
 					modifier_primary: modifierPrimary = '',
 					date_secondary: dateSecondary = new Date(),
 					inclusive: isInclusive = false,
@@ -88,6 +92,7 @@ export const ContextDateQueryControls = ( { attributes, setAttributes } ) => {
 							{ label: 'last modified date', value: 'modified_date' },
 							{ label: 'last modified month', value: 'modified_month' },
 							{ label: 'last modified year', value: 'modified_year' },
+							{ label: 'select a Date', value: 'selected_date' },
 						] }
 						onChange={ ( newDate ) => {
 							setAttributes( {
@@ -104,6 +109,28 @@ export const ContextDateQueryControls = ( { attributes, setAttributes } ) => {
 							} );
 						} }
 					/>
+					{ datePrimary === 'selected_date' && (
+						<div>
+							<DatePicker
+								currentDate={ selectedPrimary }
+								startOfWeek={1}
+								onChange={ ( newDate ) => {
+									setAttributes( {
+										query: {
+											...attributes.query,
+											querycontext: {
+												...attributes.query.querycontext,
+												date_query: {
+													...attributes.query.querycontext.date_query,
+													date_primary_selected: newDate,
+												}
+											}
+										}
+									} );
+								} }
+							/>
+						</div>
+					) }
 					{/* 
 					<RadioControl
 						label={ __( 'Start date modifier', 'contextual-query-loop' ) }
