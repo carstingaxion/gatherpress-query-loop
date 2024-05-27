@@ -104,7 +104,7 @@ export const ContextDateQueryControls = ( { attributes, setAttributes } ) => {
 							} );
 						} }
 					/>
-
+					{/* 
 					<RadioControl
 						label={ __( 'Start date modifier', 'contextual-query-loop' ) }
 						//   help=""
@@ -130,8 +130,60 @@ export const ContextDateQueryControls = ( { attributes, setAttributes } ) => {
 								}
 							} );
 						} }
-					/>
+					/> */}
 
+					{/* 
+						https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/unit-control
+					*/}
+					<UnitControl
+					isResetValueOnUnitChange
+					label={ __( 'Date modifier', 'contextual-query-loop' ) }
+					labelPosition="side" // The position of the label (top, side, bottom, or edge).
+					help="Modify the date to be earlier (-) or later (+) to the contextualised date selected above."
+					onChange={ ( newModifier ) => {
+						setAttributes( {
+							query: {
+								...attributes.query,
+								querycontext: {
+									...attributes.query.querycontext,
+									date_query: {
+										...attributes.query.querycontext.date_query,
+										modifier_primary: newModifier,
+									}
+								}
+							}
+						} );
+					} }
+					//   onDrag={function noRefCheck(){}}
+					//   onDragEnd={function noRefCheck(){}}
+					//   onDragStart={function noRefCheck(){}}
+					//   onUnitChange={function noRefCheck(){}}
+					//   onValidate={function noRefCheck(){}}
+					//   size="small" // Adjusts the size of the input. Sizes include: default, small
+					units={[
+						{
+						default: -1,
+						label: 'Day',
+						value: 'day'
+						},
+						{
+						default: -1,
+						label: 'Week',
+						value: 'week'
+						},
+						{
+						default: -1,
+						label: 'Month',
+						value: 'month'
+						},
+						{
+						default: -1,
+						label: 'Year',
+						value: 'year'
+						}
+					]}
+					value={ modifierPrimary }
+					/>
 					{/* 
 					<DatePicker
 						currentDate={ datePrimary }
