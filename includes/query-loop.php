@@ -91,11 +91,9 @@ function query_loop_block_query_vars( $default_query, $block ) {
 	// }
 	$query_args['post_type'] = [ 'gatherpress_event' ];
 
-
 	// Type of event list: 'upcoming' or 'past'.
 	// /wp-content/plugins/gatherpress/includes/core/classes/class-event-query.php
 	$query_args['gatherpress_events_query'] = $block_query['gatherpress_events_query'];
-
 
 	// Exclude Posts.
 	$exclude_ids = get_exclude_ids( $block_query );
@@ -177,8 +175,8 @@ function query_loop_block_query_vars( $default_query, $block ) {
 
 	// // \error_log( 'queries: ' . \var_export( [ $default_query, $filtered_query_args ], true ) );
 	// \error_log( 'queries: ' . \var_export( array_merge(
-	// 	$default_query,
-	// 	$filtered_query_args
+	// $default_query,
+	// $filtered_query_args
 	// ), true ) );
 
 
@@ -306,7 +304,7 @@ function add_custom_query_params( $args, $request ) {
 	// Exclusion Related.
 	$exclude_current = $request->get_param( 'exclude_current' );
 	if ( $exclude_current ) {
-		$attributes = array(
+		$attributes                  = array(
 			'exclude_current' => $exclude_current,
 		);
 		$custom_args['post__not_in'] = get_exclude_ids( $attributes );

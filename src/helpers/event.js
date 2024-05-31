@@ -20,6 +20,5 @@ import { select } from '@wordpress/data';
  */
 export function isEventPostType( postType=null ) {
 	const postTypeToCheck = postType || select('core/editor').getCurrentPostType()
-// console.log(postTypeToCheck);
 	return 'gatherpress_event' === postTypeToCheck;
 }

@@ -16,7 +16,7 @@ export const EventOrderControls = ( { attributes, setAttributes } ) => {
 	return (
 		<>
 			<SelectControl
-				label={ __( 'Post Order By', 'gatherpress-query-loop' ) }
+				label={ __( 'Order Events By', 'gatherpress-query-loop' ) }
 				value={ orderBy }
 				help={
 					orderBy === 'meta_value' || orderBy === 'meta_value_num'

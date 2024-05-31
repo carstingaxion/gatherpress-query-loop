@@ -59,7 +59,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 				<InspectorControls>
 					<PanelBody
 						title={ __(
-							'GatherPress Query Settings',
+							'Event Query Settings',
 							'gatherpress-query-loop'
 						) }
 					>
