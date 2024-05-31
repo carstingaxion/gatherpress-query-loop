@@ -9,6 +9,27 @@ namespace GatherPressQueryLoop;
 
 // use GatherPress\Core\Venue;
 
+
+/**
+ * Alter different parts of the query
+ * 
+ * @param array $pieces
+ * 
+ * @return array $pieces
+ */
+function intercept_query_clauses( $pieces ) {
+	echo '<style>#post-clauses-dump { display: block; background-color: #777; color: #fff; white-space: pre-line; }</style>';
+	// >>>> Inspect & Debug the Query 
+	// NEVER EVER show this to anyone other than an admin user - unless you're in your local installation
+	if ( ! is_user_logged_in() && $pieces['join'] === ' LEFT JOIN wp_gatherpress_events ON wp_posts.ID=wp_gatherpress_events.post_id' ) {
+		$dump = var_export( $pieces, true );
+		echo "<pre id='post-clauses-dump'>{$dump}</pre>";
+	}
+
+	return $pieces;
+}
+// add_filter( 'posts_clauses', __NAMESPACE__ . '\\intercept_query_clauses', 20, 1 );
+
 /**
  * Show "Venues" as "Venues" inside the taxonomy-filter of the query block,
  * and do not show "Tags" instead, because there were (for understandable reasons) no lables set.
