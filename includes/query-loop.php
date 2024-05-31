@@ -151,20 +151,15 @@ function query_loop_block_query_vars( $default_query, $block ) {
 
 		// Add the date queries to the custom query.
 		$query_args['date_query'] = array_filter( $date_queries );
-
 	}
 
+	// Order By
 	$query_args['orderby'] = [ $block_query['orderBy'] ];
-	// $query_args['orderby'] = 'title';
 
-	// Event Order
+	// Order
 	// can be NULL, when ASC
 	$query_args['order'] = \strtoupper( $block_query['order'] ?? 'ASC' );
 
-
-	// \error_log( '$block_query: ' . \var_export( [ $block_query, $query_args ], true ) );
-	
-	
 	/** This filter is documented in includes/query-loop.php */
 	$filtered_query_args = \apply_filters(
 		'gpql_query_vars',
@@ -173,12 +168,12 @@ function query_loop_block_query_vars( $default_query, $block ) {
 		false
 	);
 
-	// // \error_log( 'queries: ' . \var_export( [ $default_query, $filtered_query_args ], true ) );
+	// \error_log( '$block_query: ' . \var_export( [ $block_query, $query_args ], true ) );
+	// \error_log( 'queries: ' . \var_export( [ $default_query, $filtered_query_args ], true ) );
 	// \error_log( 'queries: ' . \var_export( array_merge(
 	// $default_query,
 	// $filtered_query_args
 	// ), true ) );
-
 
 	// Return the merged query.
 	return array_merge(
@@ -365,9 +360,9 @@ function add_custom_query_params( $args, $request ) {
 	// unset( $args['post__not_in'] );
 	// unset( $args['date_query'] );
 
-
+	$custom_args['orderby'] = $request->get_param( 'orderby' );
 	// \error_log( '$args: ' . \var_export( $args, true ) );
-	// \error_log( '$request: ' . \var_export( $request->get_param( 'orderby' ), true ) );
+	// \error_log( '$orderby: ' . \var_export( $request->get_param( 'orderby' ), true ) );
 	// \error_log( '$custom_args: ' . \var_export( $custom_args, true ) );
 
 	/** This filter is documented in includes/query-loop.php */
