@@ -66,6 +66,9 @@ function broaden_date_query( array $date_queries, string $date_primary ): array 
 		case 'modified_month':
 			unset( $date_queries['day'] );
 			break;
+		case 'post_day':
+			unset( $date_queries['year'] );
+			break;
 		default:
 			break;
 	}
@@ -94,6 +97,7 @@ function parse_date_query( array $date_query, \WP_Post $queried_object ): array 
 	switch ( $date_query['date_primary'] ) {
 		case 'post_year':
 		case 'post_month':
+		case 'post_day':
 		case 'post_date':
 			$start_context_date = $queried_object->post_date_gmt;
 			break;

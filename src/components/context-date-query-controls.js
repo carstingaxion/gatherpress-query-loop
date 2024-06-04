@@ -86,6 +86,7 @@ export const ContextDateQueryControls = ( { attributes, setAttributes } ) => {
 						selected={ datePrimary }
 						options={ [
 							{ label: 'today', value: 'today' },
+							{ label: 'published day', value: 'post_day' },
 							{ label: 'published date', value: 'post_date' },
 							{ label: 'published month', value: 'post_month' },
 							{ label: 'published year', value: 'post_year' },
