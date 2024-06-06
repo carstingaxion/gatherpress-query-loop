@@ -50,13 +50,33 @@ function register_patterns(): void {
 			'description'   => _x( 'Shows the Title, excerpt as well as events date and time.', 'Block pattern description', 'gatherpress-query-loop' ),
 			'blockTypes'    => [ 'core/query/gatherpress-query-loop' ],
 			'viewportWidth' => 500,
-			'content'       => '<!-- wp:query {"queryId":0,"query":{"postType":"gatherpress_event","gatherpress_events_query":"upcoming","perPage":10},"namespace":"gatherpress-query-loop"} -->
+			'content'       => '<!-- wp:query {"query":{"perPage":5,"pages":0,"offset":0,"postType":"gatherpress_event","gatherpress_events_query":"upcoming","order":"asc","orderBy":"date","inherit":false},"namespace":"gatherpress-query-loop"} -->
             <div class="wp-block-query"><!-- wp:post-template -->
-            <!-- wp:gatherpress/event-date /-->
-            
             <!-- wp:post-title /-->
             
-            <!-- wp:post-excerpt /-->
+            <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40","margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+            <div style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"layout":{"selfStretch":"fit","flexSize":null}},"layout":{"type":"constrained","justifyContent":"center"}} -->
+            <div><!-- wp:gatherpress/event-date /-->
+            
+            <!-- wp:post-excerpt {"excerptLength":20} /--></div>
+            <!-- /wp:group -->
+            
+            <!-- wp:group {"layout":{"type":"constrained"}} -->
+            <div><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
+            <div class="wp-block-buttons"><!-- wp:button {"tagName":"button","className":"gp-add-to-calendar"} -->
+            <div class="wp-block-button gp-add-to-calendar"><button type="button" class="wp-block-button__link wp-element-button" title="Allows you to add an event to your preferred calendar.">📅 Add to Calendar (v2)</button></div>
+            <!-- /wp:button --></div>
+            <!-- /wp:buttons -->
+            
+            <!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"className":"gp-venue-v3","layout":{"type":"flex","orientation":"nonsense","justifyContent":"right"}} -->
+            <div class="gp-venue-v3"><!-- wp:post-title {"textAlign":"right","level":3,"style":{"typography":{"textTransform":"uppercase"}},"fontSize":"medium"} /-->
+            
+            <!-- wp:paragraph {"align":"right","placeholder":"No website added, yet.","metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"venue_information_website"}}}},"style":{"typography":{"fontSize":"0.7rem"}},"className":"gp-venue-website"} -->
+            <p class="has-text-align-right gp-venue-website" style="font-size:0.7rem"></p>
+            <!-- /wp:paragraph --></div>
+            <!-- /wp:group --></div>
+            <!-- /wp:group --></div>
+            <!-- /wp:group -->
             <!-- /wp:post-template -->
             
             <!-- wp:query-pagination -->
@@ -68,8 +88,8 @@ function register_patterns(): void {
             <!-- /wp:query-pagination -->
             
             <!-- wp:query-no-results -->
-            <!-- wp:paragraph {"placeholder":"Füge einen Text oder Blöcke hinzu, die angezeigt werden, wenn die Abfrage keine Ergebnisse ausgibt."} -->
-            <p>Es sind keine Veranstaltungen geplant.</p>
+            <!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
+            <p></p>
             <!-- /wp:paragraph -->
             <!-- /wp:query-no-results --></div>
             <!-- /wp:query -->',
