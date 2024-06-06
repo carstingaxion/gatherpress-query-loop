@@ -6,7 +6,6 @@
  * Version:           2.1.0
  * Requires at least: 6.1
  * Requires PHP:      7.2
- * Requires Plugins:  gatherpress
  * Author:            Ryan Welcher
  * Author URI:        https://www.ryanwelcher.com/
  * License:           GPL v2 or later
