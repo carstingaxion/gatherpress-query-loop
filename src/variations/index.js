@@ -10,6 +10,26 @@ import './controls';
 import GPQLControls from '../slots/gpql-controls';
 import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
 
+import { GPV_CLASS_NAME } from '../helpers/namespace';
+
+const GPV_BLOCK = {
+	name: 'core/group',
+	attributes: {
+		className: GPV_CLASS_NAME,
+		// is neccessary to make isActive work !!
+		// @see https://github.com/WordPress/gutenberg/issues/41303#issuecomment-1526193087
+		layout: { type: 'flex', orientation: 'nonsense' }, // works
+	},
+	innerBlocks: [
+		[
+			'core/pattern',
+			{
+				slug: 'gatherpress/venue-details',
+			},
+		],
+	],
+}
+
 const GPQL = 'gatherpress-query-loop';
 
 const GPQL_DEFAULT_ATTRIBUTES = {
@@ -95,11 +115,14 @@ registerBlockVariation('core/query', {
 						name: 'core/post-title',
 					},
 					{
-						name: 'gatherpress/venue',
-						attributes: {
-							mapShow: false
-						},
+						...GPV_BLOCK,
 					},
+					// {
+					// 	name: 'gatherpress/venue',
+					// 	attributes: {
+					// 		mapShow: false
+					// 	},
+					// },
 				],
 			},
 		],
@@ -153,8 +176,9 @@ registerBlockVariation('core/query', {
 			'core/post-template',
 			{},
 			[
-				['gatherpress/event-date'],
-				['core/post-title'],
+				{
+					...GPV_BLOCK,
+				},
 			],
 		],
 		['core/query-pagination'],
@@ -180,10 +204,9 @@ registerBlockVariation('core/query', {
 			'core/post-template',
 			{},
 			[
-				['gatherpress/event-date'],
-				['gatherpress/venue', {
-					mapShow: false
-				}],
+				{
+					...GPV_BLOCK,
+				},
 			],
 		],
 		['core/query-pagination'],
