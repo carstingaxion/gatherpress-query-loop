@@ -46,6 +46,21 @@ const GPQL_DEFAULT_ATTRIBUTES = {
 	}
 };
 
+const GPQL_DEFAULT_CONFIGURATION = {
+	category: 'gatherpress',
+	keywords: [
+		__('Events', 'gatherpress'),
+		__('Dates', 'gatherpress'),
+	],
+	// icon: GPQLIcon,
+	icon: 'nametag',
+	isActive: ['namespace', 'scope'],
+	attributes: {
+		...GPQL_DEFAULT_ATTRIBUTES
+	},
+	allowedControls: ['inherit', 'taxQuery'],
+	scope: ['block'],
+}
 /**
  * Docs about the Query block.
  *
@@ -64,17 +79,10 @@ const GPQL_DEFAULT_ATTRIBUTES = {
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-variations/
  */
 registerBlockVariation('core/query', {
+	...GPQL_DEFAULT_CONFIGURATION,
 	name: GPQL,
 	title: __('GatherPress Query Loop', 'gatherpress-query-loop'),
-	description: __('Create gatherpress queries', 'gatherpress-query-loop'),
-	category: 'gatherpress',
-	// icon: GPQLIcon,
-	icon: 'nametag',
-	isActive: ['namespace', 'scope'],
-	attributes: {
-		...GPQL_DEFAULT_ATTRIBUTES
-	},
-	allowedControls: ['inherit', 'taxQuery'],
+	description: __('Create event queries', 'gatherpress-query-loop'),
 	scope: ['inserter', 'transform'],
 	/*
 	 * Having innerBlocks in THIS (visible) variation, essentially 
@@ -134,16 +142,10 @@ registerBlockVariation('core/query', {
  * One of the 'Start blank' patterns for the gatherpress query loop variation.
  */
 registerBlockVariation('core/query', {
+	...GPQL_DEFAULT_CONFIGURATION,
 	name: 'gatherpress-query-loop-map-date',
 	title: __('Map & Event-Date', 'gatherpress-query-loop'),
 	description: __('Create gatherpress queries with Map & Date', 'gatherpress-query-loop'),
-	icon: 'nametag',
-	isActive: ['namespace', 'scope'],
-	attributes: {
-		...GPQL_DEFAULT_ATTRIBUTES
-	},
-	allowedControls: ['inherit', 'taxQuery'],
-	scope: ['block'],
 	innerBlocks: [
 		[
 			'core/post-template',
@@ -161,21 +163,21 @@ registerBlockVariation('core/query', {
 /*
   */
 registerBlockVariation('core/query', {
+	...GPQL_DEFAULT_CONFIGURATION,
 	name: 'gatherpress-query-loop-date-title',
-	title: __('Event-Date & Title', 'gatherpress-query-loop'),
+	title: __('Event-Date, Title & Venue details', 'gatherpress-query-loop'),
 	description: __('Create gatherpress queries with Event-Date & Title', 'gatherpress-query-loop'),
-	icon: 'nametag',
-	isActive: ['namespace', 'scope'],
-	attributes: {
-		...GPQL_DEFAULT_ATTRIBUTES
-	},
-	allowedControls: ['inherit', 'taxQuery'],
-	scope: ['block'],
 	innerBlocks: [
 		[
 			'core/post-template',
 			{},
 			[
+				{
+					name: 'gatherpress/event-date',
+				},
+				{
+					name: 'core/post-title',
+				},
 				{
 					...GPV_BLOCK,
 				},
@@ -189,21 +191,18 @@ registerBlockVariation('core/query', {
 /*
   */
 registerBlockVariation('core/query', {
+	...GPQL_DEFAULT_CONFIGURATION,
 	name: 'gatherpress-query-loop-date-address',
-	title: __('Event-Date & Address', 'gatherpress-query-loop'),
-	description: __('Create gatherpress queries with Event-Date & Address', 'gatherpress-query-loop'),
-	icon: 'nametag',
-	isActive: ['namespace', 'scope'],
-	attributes: {
-		...GPQL_DEFAULT_ATTRIBUTES
-	},
-	allowedControls: ['inherit', 'taxQuery'],
-	scope: ['block'],
+	title: __('Event-Date & Venue Details', 'gatherpress-query-loop'),
+	description: __('Create gatherpress queries with Event-Date & Venue Details', 'gatherpress-query-loop'),
 	innerBlocks: [
 		[
 			'core/post-template',
 			{},
 			[
+				{
+					name:'gatherpress/event-date'
+				},
 				{
 					...GPV_BLOCK,
 				},
