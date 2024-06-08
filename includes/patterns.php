@@ -13,6 +13,64 @@ namespace GatherPressQueryLoop;
 
 function register_patterns(): void {
 	\register_block_pattern(
+		'gatherpress-query-loop/online-event-and-venue-details',
+		[
+			'title'         => __( 'Online-Event & Venue details', 'gatherpress-query-loop' ),
+			'description'   => _x( 'Shows Online-Event & Venue details, the Title, as well as events date and time.', 'Block pattern description', 'gatherpress-query-loop' ),
+			'blockTypes'    => [ 'core/query/gatherpress-query-loop' ],
+			'viewportWidth' => 500,
+			'content'       => '<!-- wp:query {"query":{"perPage":"3","pages":0,"offset":0,"postType":"gatherpress_event","gatherpress_events_query":"past","order":"asc","orderBy":"date","inherit":false},"namespace":"gatherpress-query-loop","layout":{"type":"default"}} -->
+            <div class="wp-block-query"><!-- wp:post-template -->
+            <!-- wp:post-title /-->
+            
+            <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40","margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|60"}}},"layout":{"type":"grid","columnCount":"2","minimumColumnWidth":null}} -->
+            <div style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--60)"><!-- wp:group {"style":{"layout":{"selfStretch":"fit","flexSize":null,"columnSpan":1,"rowSpan":1}},"layout":{"type":"flex","orientation":"vertical","verticalAlignment":"top"}} -->
+            <div><!-- wp:buttons -->
+            <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"base-2","metadata":{"bindings":{"url":{"source":"gatherpress/onlineevent-or-venue","args":{"key":"url"}},"text":{"source":"gatherpress/onlineevent-or-venue","args":{"key":"text"}}}},"className":"gp-onlineevent-or-venue-button is-style-outline"} -->
+            <div class="wp-block-button gp-onlineevent-or-venue-button is-style-outline"><a class="wp-block-button__link has-base-2-background-color has-background wp-element-button" title="Visit Online-Event">🌐 Online-Event</a></div>
+            <!-- /wp:button --></div>
+            <!-- /wp:buttons -->
+            
+            <!-- wp:gatherpress/event-date /-->
+            
+            <!-- wp:post-excerpt {"excerptLength":20} /--></div>
+            <!-- /wp:group -->
+            
+            <!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"right","verticalAlignment":"bottom"}} -->
+            <div><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"className":"gp-venue-v3","layout":{"type":"flex","orientation":"nonsense","justifyContent":"right"}} -->
+            <div class="gp-venue-v3"><!-- wp:post-title {"textAlign":"right","level":3,"style":{"typography":{"textTransform":"uppercase"}},"fontSize":"medium"} /-->
+            
+            <!-- wp:paragraph {"align":"right","placeholder":"No website added, yet.","metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"venue_information_website"}}}},"style":{"typography":{"fontSize":"0.7rem"}},"className":"gp-venue-website"} -->
+            <p class="has-text-align-right gp-venue-website" style="font-size:0.7rem"></p>
+            <!-- /wp:paragraph --></div>
+            <!-- /wp:group -->
+            
+            <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"}} -->
+            <div class="wp-block-buttons"><!-- wp:button {"tagName":"button","backgroundColor":"base-2","className":"gp-add-to-calendar is-style-outline"} -->
+            <div class="wp-block-button gp-add-to-calendar is-style-outline"><button type="button" class="wp-block-button__link has-base-2-background-color has-background wp-element-button" title="Allows you to add an event to your preferred calendar.">📅 Add to Calendar</button></div>
+            <!-- /wp:button --></div>
+            <!-- /wp:buttons --></div>
+            <!-- /wp:group --></div>
+            <!-- /wp:group -->
+            <!-- /wp:post-template -->
+            
+            <!-- wp:query-pagination {"paginationArrow":"arrow"} -->
+            <!-- wp:query-pagination-previous /-->
+            
+            <!-- wp:query-pagination-numbers /-->
+            
+            <!-- wp:query-pagination-next /-->
+            <!-- /wp:query-pagination -->
+            
+            <!-- wp:query-no-results -->
+            <!-- wp:paragraph {"placeholder":"Add text or blocks that will display when a query returns no results."} -->
+            <p></p>
+            <!-- /wp:paragraph -->
+            <!-- /wp:query-no-results --></div>
+            <!-- /wp:query -->',
+		]
+	);
+	\register_block_pattern(
 		'gatherpress-query-loop/title-date',
 		[
 			'title'         => __( 'Title & event date', 'gatherpress-query-loop' ),
