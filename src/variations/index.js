@@ -12,6 +12,8 @@ import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
 
 import { GPV_CLASS_NAME } from '../helpers/namespace';
 
+import GPQLIcon from '../components/icon';
+
 const GPV_BLOCK = {
 	name: 'core/group',
 	attributes: {
@@ -53,7 +55,8 @@ const GPQL_DEFAULT_CONFIGURATION = {
 		__('Dates', 'gatherpress'),
 	],
 	// icon: GPQLIcon,
-	icon: 'nametag',
+	// icon: 'nametag',
+	icon: GPQLIcon( 'list-view' ),
 	isActive: ['namespace', 'scope'],
 	attributes: {
 		...GPQL_DEFAULT_ATTRIBUTES
