@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name:       GatherPress Query Loop
- * Description:       Query loop block variations to create custom queries.
- * Plugin URI:        https://github.com/ryanwelcher/gatherpress-query-loop/
+ * Description:       Query loop block variation to create event queries.
+ * Plugin URI:        https://github.com/carstingaxion/additional-advanced-query-loops/tree/gatherpress-query-loop
  * Version:           2.1.0
  * Requires at least: 6.1
  * Requires PHP:      7.2
- * Author:            Ryan Welcher
- * Author URI:        https://www.ryanwelcher.com/
+ * Author:            Carsten Bach, Ryan Welcher
+ * Author URI:        
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       gatherpress-query-loop
+ * Text Domain:       gatherpress
  * Domain Path:       /languages
  *
  * @package           GatherPressQueryLoop

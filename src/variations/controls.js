@@ -60,7 +60,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 					<PanelBody
 						title={ __(
 							'Event Query Settings',
-							'gatherpress-query-loop'
+							'gatherpress'
 						) }
 					>
 
@@ -88,7 +88,7 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 				<PanelBody
 					title={ __(
 						'GatherPress Query Settings',
-						'gatherpress-query-loop'
+						'gatherpress'
 					) }
 				>
 					<EventOrderControls { ...props } />

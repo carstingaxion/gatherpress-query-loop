@@ -15,7 +15,7 @@ export const EventCountControls = ( { attributes, setAttributes } ) => {
 
 	return (
 		<RangeControl
-			label={ __( 'Events Per Page', 'gatherpress-query-loop' ) }
+			label={ __( 'Events Per Page', 'gatherpress' ) }
 			min={ 1 }
 			max={ 50 }
 			onChange={ ( newCount ) => {

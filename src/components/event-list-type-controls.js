@@ -18,17 +18,17 @@ export const EventListTypeControls = ( { attributes, setAttributes } ) => {
 	}, [] );
 
 	if ( ! currentPost ) {
-		return <div>{ __( 'Loading…', 'gatherpress-query-loop' ) }</div>;
+		return <div>{ __( 'Loading…', 'gatherpress' ) }</div>;
 	}
 
 	return (
 		<>
-			{/* <h2> { __( 'Type of event list', 'gatherpress-query-loop' ) }</h2> */}
+			{/* <h2> { __( 'Type of event list', 'gatherpress' ) }</h2> */}
 			<ToggleControl
-				label={ __( "Upcoming or past events.", 'gatherpress-query-loop' ) }
+				label={ __( 'Upcoming or past events.', 'gatherpress' ) }
 				help={ sprintf(
 					/* translators: %s: 'upcoming' or 'past' */
-					_x( "Currently shows %s events.", "'upcoming' or 'past'", 'gatherpress-query-loop' ),
+					_x( "Currently shows %s events.", "'upcoming' or 'past'", 'gatherpress' ),
 					eventListType
 				) }
 				checked={ 'past' === eventListType }

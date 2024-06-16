@@ -123,7 +123,7 @@ function query_loop_block_query_vars( $default_query, $block ) {
 	}
 
 	// Check for meta queries.
-	// Ensure any old meta is removed @see https://github.com/ryanwelcher/gatherpress-query-loop/issues/29
+	// Ensure any old meta is removed @see https://github.com/ryanwelcher/advanced-query-loop/issues/29
 	// $query_args['meta_query'] = array();
 	// if ( isset( $block_query['meta_query'] ) && ! empty( $block_query['meta_query'] ) ) {
 	// $query_args['meta_query'] = parse_meta_query( $block_query['meta_query'] ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query

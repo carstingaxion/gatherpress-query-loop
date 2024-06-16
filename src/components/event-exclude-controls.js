@@ -18,13 +18,13 @@ export const EventExcludeControls = ( { attributes, setAttributes } ) => {
 	}, [] );
 
 	if ( ! currentPost ) {
-		return <div>{ __( 'Loading…', 'gatherpress-query-loop' ) }</div>;
+		return <div>{ __( 'Loading…', 'gatherpress' ) }</div>;
 	}
 
 	return (
 		<>
 			<ToggleControl
-				label={ __( 'Exclude Current Event', 'gatherpress-query-loop' ) }
+				label={ __( 'Exclude Current Event', 'gatherpress' ) }
 				checked={ !! excludeCurrent }
 				onChange={ ( value ) => {
 					setAttributes( {

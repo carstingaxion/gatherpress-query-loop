@@ -13,13 +13,13 @@ namespace GatherPressQueryLoop;
 
 function register_patterns(): void {
 	\register_block_pattern(
-		'gatherpress-query-loop/online-event-and-venue-details',
+		'gatherpress/online-event-and-venue-details',
 		[
-			'title'         => __( 'Online-Event & Venue details', 'gatherpress-query-loop' ),
-			'description'   => _x( 'Shows Online-Event & Venue details, the Title, as well as events date and time.', 'Block pattern description', 'gatherpress-query-loop' ),
+			'title'         => __( 'Online-Event & Venue details', 'gatherpress' ),
+			'description'   => _x( 'Shows Online-Event & Venue details, the Title, as well as events date and time.', 'Block pattern description', 'gatherpress' ),
 			'blockTypes'    => [ 'core/query/gatherpress-query-loop' ],
 			'viewportWidth' => 500,
-			'content'       => '<!-- wp:query {"query":{"perPage":"3","pages":0,"offset":0,"postType":"gatherpress_event","gatherpress_events_query":"past","order":"asc","orderBy":"date","inherit":false},"namespace":"gatherpress-query-loop","layout":{"type":"default"}} -->
+			'content'       => '<!-- wp:query {"query":{"perPage":"3","pages":0,"offset":0,"postType":"gatherpress_event","gatherpress_events_query":"past","order":"asc","orderBy":"datetime","inherit":false},"namespace":"gatherpress-query-loop","layout":{"type":"default"}} -->
             <div class="wp-block-query"><!-- wp:post-template -->
             <!-- wp:post-title /-->
             
@@ -71,10 +71,10 @@ function register_patterns(): void {
 		]
 	);
 	\register_block_pattern(
-		'gatherpress-query-loop/title-date',
+		'gatherpress/title-date',
 		[
-			'title'         => __( 'Title & event date', 'gatherpress-query-loop' ),
-			'description'   => _x( 'Shows the Title, as well as events date and time.', 'Block pattern description', 'gatherpress-query-loop' ),
+			'title'         => __( 'Title & event date', 'gatherpress' ),
+			'description'   => _x( 'Shows the Title, as well as events date and time.', 'Block pattern description', 'gatherpress' ),
 			'blockTypes'    => [ 'core/query/gatherpress-query-loop' ],
 			'viewportWidth' => 500,
 			'content'       => '<!-- wp:query {"queryId":0,"query":{"postType":"gatherpress_event","gatherpress_events_query":"upcoming","perPage":10},"namespace":"gatherpress-query-loop"} -->
@@ -102,13 +102,13 @@ function register_patterns(): void {
 		]
 	);
 	\register_block_pattern(
-		'gatherpress-query-loop/title-date-excerpt',
+		'gatherpress/title-date-excerpt',
 		[
-			'title'         => __( 'Title, excerpt & event date', 'gatherpress-query-loop' ),
-			'description'   => _x( 'Shows the Title, excerpt as well as events date and time.', 'Block pattern description', 'gatherpress-query-loop' ),
+			'title'         => __( 'Title, excerpt & event date', 'gatherpress' ),
+			'description'   => _x( 'Shows the Title, excerpt as well as events date and time.', 'Block pattern description', 'gatherpress' ),
 			'blockTypes'    => [ 'core/query/gatherpress-query-loop' ],
 			'viewportWidth' => 500,
-			'content'       => '<!-- wp:query {"query":{"perPage":5,"pages":0,"offset":0,"postType":"gatherpress_event","gatherpress_events_query":"upcoming","order":"asc","orderBy":"date","inherit":false},"namespace":"gatherpress-query-loop"} -->
+			'content'       => '<!-- wp:query {"query":{"perPage":5,"pages":0,"offset":0,"postType":"gatherpress_event","gatherpress_events_query":"upcoming","order":"asc","orderBy":"datetime","inherit":false},"namespace":"gatherpress-query-loop"} -->
             <div class="wp-block-query"><!-- wp:post-template -->
             <!-- wp:post-title /-->
             
@@ -154,10 +154,10 @@ function register_patterns(): void {
 		]
 	);
 	\register_block_pattern(
-		'gatherpress-query-loop/title-date-excerpt-with-cover',
+		'gatherpress/title-date-excerpt-with-cover',
 		[
-			'title'      => __( 'Title, excerpt & event date next to a cover', 'gatherpress-query-loop' ),
-			// 'description' => _x( 'Shows the Title, excerpt as well as events date and time.', 'Block pattern description', 'gatherpress-query-loop' ),
+			'title'      => __( 'Title, excerpt & event date next to a cover', 'gatherpress' ),
+			// 'description' => _x( 'Shows the Title, excerpt as well as events date and time.', 'Block pattern description', 'gatherpress' ),
 			'blockTypes' => [ 'core/query/gatherpress-query-loop' ],
 			'content'    => '<!-- wp:query {"queryId":3,"query":{"perPage":3,"pages":0,"offset":0,"postType":"gatherpress_event","gatherpress_events_query":"upcoming","order":"asc","orderBy":"title","inherit":false,"exclude_current":0},"namespace":"gatherpress-query-loop"} -->
             <div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"default","columnCount":"3"}} -->
@@ -195,10 +195,10 @@ function register_patterns(): void {
 		]
 	);
 	\register_block_pattern(
-		'gatherpress-query-loop/title-date-with-cover',
+		'gatherpress/title-date-with-cover',
 		[
-			'title'         => __( 'Event date & Title on image-cover', 'gatherpress-query-loop' ),
-			// 'description' => _x( 'Shows the Title, excerpt as well as events date and time.', 'Block pattern description', 'gatherpress-query-loop' ),
+			'title'         => __( 'Event date & Title on image-cover', 'gatherpress' ),
+			// 'description' => _x( 'Shows the Title, excerpt as well as events date and time.', 'Block pattern description', 'gatherpress' ),
 			'blockTypes'    => [ 'core/query/gatherpress-query-loop' ],
 			'viewportWidth' => 800,
 			'content'       => '<!-- wp:query {"queryId":0,"query":{"postType":"gatherpress_event","gatherpress_events_query":"upcoming","perPage":1,"inherit":false,"offset":0},"namespace":"gatherpress-query-loop","enhancedPagination":true,"metadata":{},"align":"wide"} -->

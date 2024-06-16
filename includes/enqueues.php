@@ -26,7 +26,7 @@ namespace GatherPressQueryLoop;
 				true
 			);
 			// Allow for translation.
-			wp_set_script_translations( 'gatherpress-query-loop', 'gatherpress-query-loop' );
+			wp_set_script_translations( 'gatherpress-query-loop', 'gatherpress' );
 		}
 	}
 );

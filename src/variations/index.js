@@ -84,8 +84,8 @@ const GPQL_DEFAULT_CONFIGURATION = {
 registerBlockVariation('core/query', {
 	...GPQL_DEFAULT_CONFIGURATION,
 	name: GPQL,
-	title: __('GatherPress Query Loop', 'gatherpress-query-loop'),
-	description: __('Create event queries', 'gatherpress-query-loop'),
+	title: __('Event Query', 'gatherpress'),
+	description: __('Create event queries', 'gatherpress'),
 	scope: ['inserter', 'transform'],
 	/*
 	 * Having innerBlocks in THIS (visible) variation, essentially 

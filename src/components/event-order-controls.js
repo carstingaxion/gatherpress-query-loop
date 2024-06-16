@@ -12,60 +12,60 @@ import { __ } from '@wordpress/i18n';
  */
 export const EventOrderControls = ( { attributes, setAttributes } ) => {
 	const { query: { order, orderBy } = {} } = attributes;
-	const label = order === 'asc' ? __( 'Ascending Order', 'gatherpress-query-loop' ) : __( 'Descending Order', 'gatherpress-query-loop' );
+	const label = order === 'asc' ? __( 'Ascending Order', 'gatherpress' ) : __( 'Descending Order', 'gatherpress' );
 	return (
 		<>
 			<SelectControl
-				label={ __( 'Order Events By', 'gatherpress-query-loop' ) }
+				label={ __( 'Order Events By', 'gatherpress' ) }
 				value={ orderBy }
 				help={
 					orderBy === 'meta_value' || orderBy === 'meta_value_num'
 						? __(
 								'Meta Value and Meta Value Num require that Meta Key is set in the Meta Query section.',
-								'gatherpress-query-loop'
+								'gatherpress'
 						  )
 						: ''
 				}
 				options={ [
 					// The 'gatherpress_event' post_type does not support 'author'.
 					// {
-					// 	label: __( 'Author', 'gatherpress-query-loop' ),
+					// 	label: __( 'Author', 'gatherpress' ),
 					// 	value: 'author',
 					// },
 					{
-						label: __( 'Event Date', 'gatherpress-query-loop' ),
+						label: __( 'Event Date', 'gatherpress' ),
 						value: 'datetime', // This is GatherPress specific, a normal post would use 'date'.
 					},
 					{
 						label: __(
 							'Last Modified Date',
-							'gatherpress-query-loop'
+							'gatherpress'
 						),
 						value: 'modified',
 					},
 					{
-						label: __( 'Title', 'gatherpress-query-loop' ),
+						label: __( 'Title', 'gatherpress' ),
 						value: 'title',
 					},
 					// {
-					// 	label: __( 'Meta Value', 'gatherpress-query-loop' ),
+					// 	label: __( 'Meta Value', 'gatherpress' ),
 					// 	value: 'meta_value',
 					// },
 					// {
-					// 	label: __( 'Meta Value Num', 'gatherpress-query-loop' ),
+					// 	label: __( 'Meta Value Num', 'gatherpress' ),
 					// 	value: 'meta_value_num',
 					// },
 					{
-						label: __( 'Random', 'gatherpress-query-loop' ),
+						label: __( 'Random', 'gatherpress' ),
 						value: 'rand',
 					},
 					// The 'gatherpress_event' post_type does not support 'page_attributes'.
 					// {
-					// 	label: __( 'Menu Order', 'gatherpress-query-loop' ),
+					// 	label: __( 'Menu Order', 'gatherpress' ),
 					// 	value: 'menu_order',
 					// },
 					{
-						label: __( 'Post ID', 'gatherpress-query-loop' ),
+						label: __( 'Post ID', 'gatherpress' ),
 						value: 'id',
 					},
 				] }

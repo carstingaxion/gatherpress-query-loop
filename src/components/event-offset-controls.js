@@ -9,7 +9,7 @@ export const EventOffsetControls = ( { attributes, setAttributes } ) => {
 	const { query: { offset = 0 } = {} } = attributes;
 	return (
 		<RangeControl
-			label={ __( 'Event Offset', 'gatherpress-query-loop' ) }
+			label={ __( 'Event Offset', 'gatherpress' ) }
 			min={ 0 }
 			max={ 50 }
 			value={ offset }
