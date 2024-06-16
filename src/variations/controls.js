@@ -16,6 +16,7 @@ import { EventExcludeControls } from '../components/event-exclude-controls';
 import { EventListTypeControls } from '../components/event-list-type-controls';
 import { EventOffsetControls } from '../components/event-offset-controls';
 import { EventOrderControls } from '../components/event-order-controls';
+import { EventIncludeUnfinishedControls } from '../components/event-include-unfinished-controls';
 
 // import { PostDateQueryControls } from '../components/post-date-query-controls';
 
@@ -66,6 +67,8 @@ const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
 
 						{/* Toggle between 'upcoming' & 'past' events. */}
 						<EventListTypeControls { ...props } />
+						<EventIncludeUnfinishedControls { ...props } />
+						
 						{ isEventContext && (
 							<EventExcludeControls { ...props } />
 						)}						

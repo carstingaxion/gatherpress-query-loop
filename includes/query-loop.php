@@ -122,6 +122,10 @@ function query_loop_block_query_vars( $default_query, $block ) {
 		$query_args['post__not_in'] = $exclude_ids;
 	}
 
+	if ( isset( $block_query['include_unfinished'] ) ) {
+		$query_args['include_unfinished'] = $block_query['include_unfinished'];
+	}
+
 	// Check for meta queries.
 	// Ensure any old meta is removed @see https://github.com/ryanwelcher/advanced-query-loop/issues/29
 	// $query_args['meta_query'] = array();
@@ -325,6 +329,15 @@ function add_custom_query_params( $args, $request ) {
 			'exclude_current' => $exclude_current,
 		);
 		$custom_args['post__not_in'] = get_exclude_ids( $attributes );
+	}
+
+	// Exclusion Related.
+	$include_unfinished = $request->get_param( 'include_unfinished' );
+	if ( $include_unfinished ) {
+		// $attributes                  = array(
+		// 	'include_unfinished' => $include_unfinished,
+		// );
+		$custom_args['include_unfinished'] = $include_unfinished;
 	}
 
 
