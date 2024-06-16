@@ -31,7 +31,8 @@ const NO_RESULTS_TEMPLATE = [
 		'core/paragraph',
 		{
 			placeholder: __(
-				'Add text or blocks that will display when a query returns no events.'
+				'Add text or blocks that will display when a query returns no events.',
+				'gatherpress'
 			),
 		},
 	],
@@ -39,7 +40,14 @@ const NO_RESULTS_TEMPLATE = [
 
 export const NO_RESULTS_BLOCK = [
 	'core/query-no-results',
-	{},
+	{
+		metadata:{
+			name:__(
+				'No events',
+				'gatherpress'
+			)
+		}
+	},
 	NO_RESULTS_TEMPLATE
 ];
 

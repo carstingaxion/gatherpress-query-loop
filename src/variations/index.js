@@ -129,7 +129,14 @@ registerBlockVariation('core/query', {
 	innerBlocks: [
 		[
 			'core/post-template',
-			{},
+			{
+				metadata:{
+					name:__(
+						'Events Template',
+						'gatherpress'
+					)
+				}
+			},
 			[
 				['gatherpress/venue'],
 				['gatherpress/event-date'],
@@ -151,7 +158,14 @@ registerBlockVariation('core/query', {
 	innerBlocks: [
 		[
 			'core/post-template',
-			{},
+			{
+				metadata:{
+					name:__(
+						'Events Template',
+						'gatherpress'
+					)
+				}
+			},
 			[
 				{
 					name: 'gatherpress/event-date',
@@ -180,7 +194,14 @@ registerBlockVariation('core/query', {
 	innerBlocks: [
 		[
 			'core/post-template',
-			{},
+			{
+				metadata:{
+					name:__(
+						'Events Template',
+						'gatherpress'
+					)
+				}
+			},
 			[
 				{
 					name:'gatherpress/event-date'
