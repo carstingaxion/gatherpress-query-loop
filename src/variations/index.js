@@ -6,31 +6,16 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+// Load block-variations for pagination-blocks.
+import './pagination';
 import './controls';
 import GPQLControls from '../slots/gpql-controls';
 import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
 
-import { GPV_CLASS_NAME } from '../helpers/namespace';
+import { GPV_BLOCK, NO_RESULTS_BLOCK, QUERY_PAGINATION_BLOCK } from './templates';
 
 import GPQLIcon from '../components/icon';
 
-const GPV_BLOCK = {
-	name: 'core/group',
-	attributes: {
-		className: GPV_CLASS_NAME,
-		// is neccessary to make isActive work !!
-		// @see https://github.com/WordPress/gutenberg/issues/41303#issuecomment-1526193087
-		layout: { type: 'flex', orientation: 'nonsense' }, // works
-	},
-	innerBlocks: [
-		[
-			'core/pattern',
-			{
-				slug: 'gatherpress/venue-details',
-			},
-		],
-	],
-}
 
 const GPQL = 'gatherpress-query-loop';
 
@@ -43,7 +28,7 @@ const GPQL_DEFAULT_ATTRIBUTES = {
 		postType: 'gatherpress_event',
 		gatherpress_events_query: 'upcoming',
 		order: 'asc',
-		orderBy: 'date',
+		orderBy: 'datetime',
 		inherit: false
 	}
 };
@@ -54,8 +39,6 @@ const GPQL_DEFAULT_CONFIGURATION = {
 		__('Events', 'gatherpress'),
 		__('Dates', 'gatherpress'),
 	],
-	// icon: GPQLIcon,
-	// icon: 'nametag',
 	icon: GPQLIcon( 'list-view' ),
 	isActive: ['namespace', 'scope'],
 	attributes: {
@@ -127,13 +110,7 @@ registerBlockVariation('core/query', {
 					},
 					{
 						...GPV_BLOCK,
-					},
-					// {
-					// 	name: 'gatherpress/venue',
-					// 	attributes: {
-					// 		mapShow: false
-					// 	},
-					// },
+					}
 				],
 			},
 		],
@@ -147,8 +124,8 @@ registerBlockVariation('core/query', {
 registerBlockVariation('core/query', {
 	...GPQL_DEFAULT_CONFIGURATION,
 	name: 'gatherpress-query-loop-map-date',
-	title: __('Map & Event-Date', 'gatherpress-query-loop'),
-	description: __('Create gatherpress queries with Map & Date', 'gatherpress-query-loop'),
+	title: __('Map & Event-Date', 'gatherpress'),
+	description: __('Create gatherpress queries with Map & Date', 'gatherpress'),
 	innerBlocks: [
 		[
 			'core/post-template',
@@ -158,18 +135,19 @@ registerBlockVariation('core/query', {
 				['gatherpress/event-date'],
 			],
 		],
-		['core/query-pagination'],
-		['core/query-no-results'],
+		QUERY_PAGINATION_BLOCK,
+		NO_RESULTS_BLOCK
 	],
 });
 
-/*
-  */
+/**
+ * One of the 'Start blank' patterns for the gatherpress query loop variation.
+ */
 registerBlockVariation('core/query', {
 	...GPQL_DEFAULT_CONFIGURATION,
 	name: 'gatherpress-query-loop-date-title',
-	title: __('Event-Date, Title & Venue details', 'gatherpress-query-loop'),
-	description: __('Create gatherpress queries with Event-Date & Title', 'gatherpress-query-loop'),
+	title: __('Event-Date, Title & Venue details', 'gatherpress'),
+	description: __('Create gatherpress queries with Event-Date & Title', 'gatherpress'),
 	innerBlocks: [
 		[
 			'core/post-template',
@@ -186,18 +164,19 @@ registerBlockVariation('core/query', {
 				},
 			],
 		],
-		['core/query-pagination'],
-		['core/query-no-results'],
+		QUERY_PAGINATION_BLOCK,
+		NO_RESULTS_BLOCK
 	],
 });
 
-/*
-  */
+/**
+ * One of the 'Start blank' patterns for the gatherpress query loop variation.
+ */
 registerBlockVariation('core/query', {
 	...GPQL_DEFAULT_CONFIGURATION,
 	name: 'gatherpress-query-loop-date-address',
-	title: __('Event-Date & Venue Details', 'gatherpress-query-loop'),
-	description: __('Create gatherpress queries with Event-Date & Venue Details', 'gatherpress-query-loop'),
+	title: __('Event-Date & Venue Details', 'gatherpress'),
+	description: __('Create gatherpress queries with Event-Date & Venue Details', 'gatherpress'),
 	innerBlocks: [
 		[
 			'core/post-template',
@@ -211,9 +190,12 @@ registerBlockVariation('core/query', {
 				},
 			],
 		],
-		['core/query-pagination'],
-		['core/query-no-results'],
+		QUERY_PAGINATION_BLOCK,
+		NO_RESULTS_BLOCK
 	],
 });
+
+
+
 
 export { GPQL, GPQLControls, GPQLControlsInheritedQuery };
