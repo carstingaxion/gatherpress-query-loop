@@ -33,7 +33,7 @@ export const EventOrderControls = ( { attributes, setAttributes } ) => {
 					// 	value: 'author',
 					// },
 					{
-						label: __( 'Date', 'gatherpress-query-loop' ),
+						label: __( 'Event Date', 'gatherpress-query-loop' ),
 						value: 'datetime', // This is GatherPress specific, a normal post would use 'date'.
 					},
 					{
