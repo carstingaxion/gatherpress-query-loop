@@ -31,12 +31,12 @@ export const EventListTypeControls = ( { attributes, setAttributes } ) => {
 					_x( "Currently shows %s events.", "'upcoming' or 'past'", 'gatherpress' ),
 					eventListType
 				) }
-				checked={ 'past' === eventListType }
+				checked={ 'upcoming' === eventListType }
 				onChange={ ( value ) => {
 					setAttributes( {
 						query: {
 							...attributes.query,
-							gatherpress_events_query: value ? 'past' : 'upcoming',
+							gatherpress_events_query: value ? 'upcoming' : 'past',
 						},
 					} );
 				} }
