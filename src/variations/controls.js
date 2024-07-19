@@ -35,6 +35,15 @@ const isGatherPressQueryLoop = ( props ) => {
 		attributes: { namespace },
 	} = props;
 	return namespace && namespace === GPQL;
+/* 
+	// Idea based on @patriciabt|s feedback in slack.
+	if (props.name !== 'core/query') {
+		return false;
+	}
+	const {
+		query: { postType },
+	} = props.attributes;
+	return postType && postType === 'gatherpress_event'; */
 };
 
 

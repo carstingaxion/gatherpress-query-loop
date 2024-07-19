@@ -42,6 +42,7 @@ const GPQL_DEFAULT_CONFIGURATION = {
 	],
 	icon: GPQLIcon( 'list-view' ),
 	isActive: ['namespace', 'scope'],
+	// isActive: ['query.postType'], // Idea based on @patriciabt|s feedback in slack.
 	attributes: {
 		...GPQL_DEFAULT_ATTRIBUTES
 	},
