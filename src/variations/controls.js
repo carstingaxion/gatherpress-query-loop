@@ -5,6 +5,9 @@ import { addFilter } from '@wordpress/hooks';
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+
+
+import { useEffect } from '@wordpress/element';
 /**
  *  Internal dependencies
  */
@@ -35,17 +38,43 @@ const isGatherPressQueryLoop = ( props ) => {
 		attributes: { namespace },
 	} = props;
 	return namespace && namespace === GPQL;
-/* 
-	// Idea based on @patriciabt|s feedback in slack.
-	if (props.name !== 'core/query') {
-		return false;
-	}
-	const {
-		query: { postType },
-	} = props.attributes;
-	return postType && postType === 'gatherpress_event'; */
 };
 
+/**
+ * UX helper for when using a regular query block
+ * and "Event" gets selected as post type,
+ * the UI changes to everything necessary for events.
+ *
+ * By adding the relevant attributes,
+ * the block is transformed into the "Event Query" block variation.
+ *
+ * @param {*} props 
+ * @returns 
+ */
+const QueryPosttypeObserver = ( props ) => {
+	const { postType } = props.attributes.query;
+	useEffect(() => {
+		if ('gatherpress_event' === postType ) {
+			const newAttributes = {
+				...props.attributes,
+				namespace: GPQL,
+				query: {
+					...props.attributes.query,
+					gatherpress_events_query: 'upcoming',
+					include_unfinished: 1,
+					order: 'asc',
+					orderBy: 'datetime',
+					inherit: false
+				}
+			};
+			props.setAttributes(newAttributes);
+		}
+		// Dependency array, every time the postType is changed,
+		//  the useEffect callback will be called.
+	}, [ postType ]);
+	return;
+	
+}
 
 
 /**
@@ -55,10 +84,20 @@ const isGatherPressQueryLoop = ( props ) => {
  * @return {Element} BlockEdit instance
  */
 const withGatherPressQueryControls = ( BlockEdit ) => ( props ) => {
-	// If the is the correct variation, add the custom controls.
-	if ( ! isGatherPressQueryLoop( props ) ) {
+	// If this is something totally different, return early.
+	if ( ! isGatherPressQueryLoop( props ) && 'core/query' !== props.name ) {
 		return <BlockEdit { ...props } />;
 	}
+	// Regular core/query blocks should become this addition.
+	if ( ! isGatherPressQueryLoop( props ) ) {
+		return (
+			<>
+				<QueryPosttypeObserver { ...props } />
+				<BlockEdit { ...props } />;
+			</>
+		);
+	}
+	// If the is the correct variation, add the custom controls.
 	const isEventContext = isEventPostType();
 	// If the inherit prop is false, add all the controls.
 	const { attributes } = props;
