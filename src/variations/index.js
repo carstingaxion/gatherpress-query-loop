@@ -9,6 +9,7 @@ import { __ } from '@wordpress/i18n';
 // Load block-variations for pagination-blocks.
 import './pagination';
 import './controls';
+
 import GPQLControls from '../slots/gpql-controls';
 import GPQLControlsInheritedQuery from '../slots/gpql-controls-inherited-query';
 
@@ -41,8 +42,9 @@ const GPQL_DEFAULT_CONFIGURATION = {
 		__('Dates', 'gatherpress'),
 	],
 	icon: GPQLIcon( 'list-view' ),
-	isActive: ['namespace', 'scope'],
+	// isActive: ['namespace', 'scope'],
 	// isActive: ['query.postType'], // Idea based on @patriciabt|s feedback in slack.
+	isActive: ['namespace', 'query.postType'],
 	attributes: {
 		...GPQL_DEFAULT_ATTRIBUTES
 	},
